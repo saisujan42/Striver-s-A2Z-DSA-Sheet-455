@@ -1,0 +1,86 @@
+// Approach 1 : Using STL Function 
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) 
+    {
+        return *min_element(nums.begin(), nums.end());    
+    }
+};
+
+
+// Approach 2 : Linear Search TC : O(N) SC : O(1)
+
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int Minimum = INT_MAX;
+        for(int i = 0; i < n; i++)
+            Minimum = min(Minimum, nums[i]);
+        return Minimum;  
+    }
+};
+
+
+
+// Approach 3 : Binary Search TC : O(LogN) SC : O(1)
+
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int Low = 0, High = n - 1, Mid;
+        int Answer = INT_MAX;
+        while(Low <= High)
+        {
+            Mid = (Low + High) / 2;
+            if(nums[Low] <= nums[Mid])
+            {
+                Answer = min(Answer, nums[Low]);
+                Low = Mid + 1;
+            }
+            else
+            {
+                Answer = min(Answer, nums[Mid]);
+                High = Mid - 1;
+            }
+        }
+        return Answer;
+    }
+};
+
+
+// Approach 4 : Binary Search (Modified Approach 3) TC : O(LogN) SC : O(1)
+
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int Low = 0, High = n - 1, Mid;
+        int Answer = INT_MAX;
+        while(Low <= High)
+        {
+            Mid = (Low + High) / 2;
+            if(nums[Low] <= nums[High])
+                return min(Answer, nums[Low]);  // Optimised Step
+            if(nums[Low] <= nums[Mid])
+            {
+                Answer = min(Answer, nums[Low]);
+                Low = Mid + 1;
+            }
+            else
+            {
+                Answer = min(Answer, nums[Mid]);
+                High = Mid - 1;
+            }
+        }
+        return Answer;
+    }
+};
