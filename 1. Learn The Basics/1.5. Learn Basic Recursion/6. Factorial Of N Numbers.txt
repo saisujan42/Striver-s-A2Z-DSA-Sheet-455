@@ -1,0 +1,37 @@
+1. Using Recursion 
+
+class Solution {
+  public:
+    void FindFactorials(vector<long long> &Answer, long long i, long long Fact, long long n)
+    {
+        if(i * Fact > n)
+            return;
+        Answer.push_back(i * Fact);
+        FindFactorials(Answer, i + 1, i * Fact, n);
+    }
+    vector<long long> factorialNumbers(long long n) 
+    {
+        vector<long long> Answer;
+        long long Fact = 1, i = 1;
+        FindFactorials(Answer, i, Fact, n);
+        return Answer;
+    }
+};
+
+
+2. Using Iteration
+
+class Solution {
+  public:
+    vector<long long> factorialNumbers(long long n) 
+    {
+        vector<long long> Answer;
+        long long Factorial = 1;
+        for(long long  i = 2; Factorial <= n; i++)
+        {
+            Answer.push_back(Factorial);
+            Factorial *= i;
+        }
+        return Answer;
+    }
+};

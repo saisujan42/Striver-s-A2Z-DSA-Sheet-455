@@ -1,0 +1,78 @@
+1. Reversing & Copying To New String and Compare
+TC : O(N) SC : O(N)
+
+class Solution {
+public:
+    bool isPalindrome(string s) 
+    {
+        int n = s.size();
+        string str;
+        for(int i = 0; i < n; i++)
+        {
+            if(s[i] == ' ')
+                continue;
+            if(isupper(s[i]))
+                s[i] = tolower(s[i]);
+            if(isalnum(s[i]))
+                str += s[i];
+        }    
+        string rev = str;
+        reverse(rev.begin(), rev.end());
+        if(str == rev)
+            return true;
+        return false;
+    }
+};
+
+
+2. Comparing Using 2 Pointers
+TC : O(N/2) SC : O(1)
+
+class Solution {
+public:
+    bool isPalindrome(string s) 
+    {
+        int n = s.size();
+        int Start = 0, End = n - 1;
+        transform(s.begin(), s.end(), s.begin(), ::tolower);
+        while(Start <= End)
+        {
+            if(!isalnum(s[Start]))
+                Start++;
+            else if(!isalnum(s[End]))
+                End--;
+            else if(s[Start] != s[End])
+                return false;
+            else
+                Start++, End--;
+        }
+        return true;
+    }
+};
+
+
+3. Using Recursion
+TC : O(N/2) SC : O(1)
+
+class Solution {
+public:
+    bool Palindrome(int i, string &s)
+    {
+        int n = s.size();
+        if(i >= n/2)
+            return true;
+        if(s[i] != s[n - i - 1])
+            return false;
+        return Palindrome(i + 1, s);
+    }
+    bool isPalindrome(string s) 
+    {
+        int n = s.size();
+        string Str;
+        transform(s.begin(), s.end(), s.begin(), ::tolower);
+        for(int i = 0; i < n; i++)
+            if(isalnum(s[i]))
+                Str += s[i];
+        return Palindrome(0, Str);    
+    }
+};
