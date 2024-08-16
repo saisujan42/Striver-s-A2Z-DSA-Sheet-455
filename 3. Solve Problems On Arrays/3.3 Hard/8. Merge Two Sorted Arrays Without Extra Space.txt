@@ -1,0 +1,81 @@
+1. Append 2 Arrays & Sort 
+TC : O((N+M)Log(N+M) + N + M) SC : O(N + M)
+
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+    {
+        for(int i=m, j=0; i<m+n; i++, j++)
+            nums1[i] = nums2[j];
+        sort(nums1.begin(), nums1.end());
+    }
+};
+
+
+
+2. 2 Pointer Approach
+TC : O(Min(N, M)) + O(NLogN) + O(MLogM) SC : O(1)
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+    {
+        int Ptr1 = m - 1, Ptr2 = n - 1, Ptr = m + n - 1;
+        while(Ptr1 >= 0 && Ptr2 >= 0)
+        {
+            if(nums1[Ptr1] >= nums2[Ptr2])
+            {
+                nums1[Ptr] = nums1[Ptr1];
+                Ptr1--, Ptr--;
+            }
+            else if(nums1[Ptr1] < nums2[Ptr2])
+            {
+                nums1[Ptr] = nums2[Ptr2];
+                Ptr2--, Ptr--;
+            }
+        }
+        while(Ptr1 >= 0)
+        {
+            nums1[Ptr] = nums1[Ptr1];
+            Ptr1--, Ptr--;
+        }
+        while(Ptr2 >= 0)
+        {
+            nums1[Ptr] = nums2[Ptr2];
+            Ptr2--, Ptr--;
+        }
+    }
+};
+
+
+3. Using Gap Method & Swapping
+TC : O(N+M * Log(N+M)) SC : O(1)
+
+class Solution {
+public:
+    void CopyArray(vector<int> &nums1, int m, vector<int> &nums2, int n)
+    {
+        for(int i = m; i < m + n; i++)
+            nums1[i] = nums2[i - m];
+    }
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+    {
+        CopyArray(nums1, m, nums2, n);
+        int Length = n + m;
+        int Gap = (Length / 2) + (Length % 2); //This Acts As Ceil() Function
+        while(Gap > 0)
+        {
+            int Left = 0, Right = Gap;
+            while(Right < Length)
+            {
+                if(nums1[Left] > nums1[Right])
+                    swap(nums1[Left], nums1[Right]);
+                Left++, Right++;
+            }
+            if(Gap == 1)
+                break;
+            Gap = (Gap / 2) + (Gap % 2);
+        }
+    }
+};

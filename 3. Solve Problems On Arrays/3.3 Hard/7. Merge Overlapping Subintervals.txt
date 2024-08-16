@@ -1,0 +1,54 @@
+1. Brute Force Approach (Sorting & 2 For Loops)
+TC : O(NLogN + 2N) SC : O(1) (Not Consindering Answer)
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> Answer;
+        for(int i = 0; i < n; i++)
+        {
+            int Start = intervals[i][0];
+            int End = intervals[i][1];
+            if(!Answer.empty() && End <= Answer.back()[1])
+                continue;
+            for(int j = i + 1; j < n; j++)
+            {
+                if(intervals[j][0] <= End)
+                    End = max(End, intervals[j][1]);
+                else
+                    break;
+            }
+            Answer.push_back({Start, End});
+        }    
+        return Answer;
+    }
+};
+
+
+2. Sorting & Iteration 
+TC : O(NLogN + N) SC : O(1) (Not Considering Answer)
+
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> Answer;
+        Answer.push_back(intervals[0]);
+        for(int i = 1; i < n; i++)
+        {
+            int Start = intervals[i][0];
+            int End = intervals[i][1];
+            if(Start <= Answer.back()[1])
+                Answer.back()[1] = max(End, Answer.back()[1]);
+            else
+                Answer.push_back({Start, End});
+        }    
+        return Answer;
+    }
+};

@@ -1,0 +1,79 @@
+1. Using Set
+TC : O(2 * (N1 + N2)) SC : O(2 * (N1 + N2))
+
+class Solution{
+    public:
+    vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        set<int> Set;
+        vector<int> Answer;
+        for(int i = 0; i < n; i++)
+            Set.insert(arr1[i]);
+        for(int i = 0; i < m; i++)
+            Set.insert(arr2[i]);
+        for(auto ch : Set)
+            Answer.push_back(ch);
+        return Answer;
+    }
+};
+
+
+2. Using Map
+TC : O(2 * (N1 + N2)) SC : O(2 * (N1 + N2))
+
+class Solution{
+    public:
+    vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        map<int, int> Map;
+        for(int i = 0; i < n; i++)
+            Map[arr1[i]]++;
+        for(int j = 0; j < m; j++)
+            Map[arr2[j]]++;
+        vector<int> Answer;
+        for(auto ch : Map)
+            Answer.push_back(ch.first);
+        return Answer;
+    }
+};
+
+
+3. Two Pointer Technique
+TC : O(N1 + N2) SC : O(N1 + N2)
+
+class Solution{
+    public:
+    vector<int> findUnion(int arr1[], int arr2[], int n, int m)
+    {
+        int i = 0, j = 0;
+        vector<int> Answer;
+        while(i < n && j < m)
+        {
+            if(arr1[i] < arr2[j])
+            {
+                if(Answer.empty() || Answer.back() != arr1[i])
+                    Answer.push_back(arr1[i]);
+                i++;
+            }
+            else
+            {
+                if(Answer.empty() || Answer.back() != arr2[j])
+                    Answer.push_back(arr2[j]);
+                j++;
+            }
+        }
+        while(i < n)
+        {
+            if(Answer.empty() || Answer.back() != arr1[i])
+                    Answer.push_back(arr1[i]);
+            i++;
+        }
+        while(j < m)
+        {
+            if(Answer.empty() || Answer.back() != arr2[j])
+                    Answer.push_back(arr2[j]);
+            j++;
+        }
+        return Answer;
+    }
+};

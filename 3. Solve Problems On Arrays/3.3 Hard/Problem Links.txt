@@ -1,0 +1,35 @@
+1. Pascal's Triangle - Pascal's Triangle
+https://leetcode.com/problems/pascals-triangle/description/
+
+2. Majority Element (n/3 Times) - Majority Element II
+https://leetcode.com/problems/majority-element-ii/description/
+
+3. 3-Sum Problem - 3Sum
+https://leetcode.com/problems/3sum/description/
+
+4. 4-Sum Problem - 4Sum
+https://leetcode.com/problems/4sum/description/
+
+5. Largest Subarray With 0 Sum - Largest subarray with 0 sum
+https://www.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1?category%5B%5D=Hash&company%5B%5D=Amazon&page=1&query=category%5B%5DHashcompany%5B%5DAmazonpage1company%5B%5DAmazoncategory%5B%5DHash&utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=largest-subarray-with-0-sum
+
+6. Count Number Of Subarrays With Given Xor K - Subarray with given XOR
+https://www.interviewbit.com/problems/subarray-with-given-xor/
+
+7. Merge Overlapping Subintervals - Merge Intervals
+https://leetcode.com/problems/merge-intervals/description/
+
+8. Merge Two Sorted Arrays Without Extra Space - Merge Sorted Array
+https://leetcode.com/problems/merge-sorted-array/
+
+9. Find The Repeating And Missing Number - Missing And Repeating
+https://www.geeksforgeeks.org/problems/find-missing-and-repeating2512/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-missing-and-repeating
+
+10. Count Inversions - Count Inversions
+https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=inversion-of-array
+
+11. Reverse Pairs - Reverse Pairs
+https://leetcode.com/problems/reverse-pairs/
+
+12. Maximum Product Subarray - Maximum Product Subarray
+https://leetcode.com/problems/maximum-product-subarray/description/

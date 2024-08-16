@@ -1,0 +1,48 @@
+1. Largest Element In An Array - Largest Element in Array
+https://www.geeksforgeeks.org/problems/largest-element-in-array4009/0?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=largest-element-in-array
+
+2. Second Largest Element In An Array Without Sorting - Second Largest
+https://www.geeksforgeeks.org/problems/second-largest3735/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=second-largest
+
+3. Check If The Array Is Sorted - Check Sorted Array
+https://www.naukri.com/code360/problems/ninja-and-the-sorted-check_6581957?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse&count=25&page=1&search=&sort_entity=order&sort_order=ASC
+
+3A. Check If The Array Is Sorted - Check If Array Is Sorted And Rotated
+https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/description/
+
+4. Remove Duplicates From Sorted Array
+https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+
+5. Left Rotate An Array By One Place - Left Rotate an Array by One
+https://www.naukri.com/code360/problems/left-rotate-an-array-by-one_5026278?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse&count=25&search=&sort_entity=order&sort_order=ASC&leftPanelTabValue=PROBLEM&page=1
+
+6. Left Rotate An Array By D Places - Rotate Array
+https://leetcode.com/problems/rotate-array/
+
+7. Move Zeroes To End - Move Zeroes
+https://leetcode.com/problems/move-zeroes/
+
+8. Linear Search - Search Sorted Array
+https://www.geeksforgeeks.org/problems/who-will-win-1587115621/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=who-will-win
+
+9. Find The Union - Union Of Two Sorted Arrays
+https://www.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=union-of-two-sorted-arrays
+
+10. Find The Missing Number In An Array - Missing Number
+https://leetcode.com/problems/missing-number/description/
+
+11. Maximum Consecutive Ones - Max Consecutive Ones
+https://leetcode.com/problems/max-consecutive-ones/description/
+
+12. Find The Number That Appears Once, And Other Numbers Twice - Single Number
+https://leetcode.com/problems/single-number/description/
+
+13. Longest Subarray With Given Sum K (Positives) - Longest Sub-Array with Sum K
+https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=longest-sub-array-with-sum-k
+
+14. Longest Subarray With Given Sum K (Positives + Negatives) - Longest Sub-Array with Sum K
+https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=longest-sub-array-with-sum-k
+
+
+
+
