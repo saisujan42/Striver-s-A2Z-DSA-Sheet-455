@@ -1,0 +1,65 @@
+1. Brute Force Approach
+TC : O(MaxValue + K) SC : O(K)
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) 
+    {
+        int n = arr.size();
+        vector<int> MissingNos;
+        for(int i = 1; i < arr[0]; i++)
+            MissingNos.push_back(i);
+        for(int i = 0; i < n-1; i++)
+        {
+            for(int j = arr[i] + 1; j < arr[i + 1]; j++)
+                MissingNos.push_back(j);
+	    if(MissingNos.size() == k)
+		return MissingNos[k - 1];
+        }
+        for(int i = arr[n - 1] + 1, j = 0; j < k; i++, j++)
+            MissingNos.push_back(i);
+        return MissingNos[k - 1];
+    }
+};
+
+
+2. Linear Search
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) 
+    {
+        int n = arr.size();
+        for(int i = 0; i < n; i++)
+        {
+            if(arr[i] <= k)
+                k++;
+            else return k;
+        }
+        return k;
+    }
+};
+
+
+3. Binary Search
+TC : O(LogN) SC : O(1)
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) 
+    {
+        int n = arr.size();
+        int Low = 0, High = n - 1;
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            int Missing = arr[Mid] - (Mid + 1);
+            if(Missing < k)
+                Low = Mid + 1;
+            else
+                High = Mid - 1;
+        }
+        return Low + k;
+    }
+};

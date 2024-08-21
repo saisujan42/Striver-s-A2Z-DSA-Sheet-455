@@ -1,0 +1,69 @@
+1. Brute Force Approach (Linear Search)
+TC : O(N * (Sum - Max + 1)) SC : O(1)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int CountStudents(int Pages, vector<int> &arr)
+{
+    int n = arr.size();
+    int Students = 1, PageCount = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(PageCount + arr[i] <= Pages)
+            PageCount += arr[i];
+        else
+            PageCount = arr[i], Students++;
+    }
+    return Students;
+}
+int findPages(vector<int>& arr, int n, int m) 
+{
+    if(m > n)
+        return -1;
+    int Max = *max_element(arr.begin(), arr.end());
+    int Sum = accumulate(arr.begin(), arr.end(), 0);
+    for(int i = Max ; i <= Sum; i++)
+    {
+        if(CountStudents(i, arr) == m)
+            return i;
+    }
+    return Max;
+}
+
+
+2. Binary Search
+TC : O(N * Log(Sum - Max + 1)) SC : O(1)
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int CountStudents(int Pages, vector<int> &arr)
+{
+    int n = arr.size();
+    int Students = 1, PageCount = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(PageCount + arr[i] <= Pages)
+            PageCount += arr[i];
+        else
+            PageCount = arr[i], Students++;
+    }
+    return Students;
+}
+int findPages(vector<int>& arr, int n, int m) 
+{
+    if(m > n)
+        return -1;
+    int Low = *max_element(arr.begin(), arr.end());
+    int High = accumulate(arr.begin(), arr.end(), 0);
+    while(Low <= High)
+    {
+        int Mid = (Low + High) / 2;
+        if(CountStudents(Mid, arr) > m)
+            Low = Mid + 1;
+        else
+            High = Mid - 1;
+    }
+    return Low;
+}

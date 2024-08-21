@@ -1,0 +1,100 @@
+1. Brute Force Approach (Linear Search)
+TC : O(N + N * K) SC : O(1)              ->    TLE
+
+class Solution {
+  public:
+    double findSmallestMaxDist(vector<int> &stations, int k) 
+    {
+        int n = stations.size();
+        vector<int> HowMany(n - 1, 0);
+        for(int g = 1; g <= k; g++)
+        {
+            double MaxValue = -1, MaxIndex = -1;
+            for(int i = 0; i < n-1; i++)
+            {
+                double Difference = stations[i + 1] - stations[i];
+                double SectionLength = Difference / ((double)HowMany[i] + 1);
+                if(SectionLength > MaxValue)
+                {
+                    MaxValue = SectionLength;
+                    MaxIndex = i;
+                }
+            }
+            HowMany[MaxIndex]++;
+        }
+        double Answer = -1;
+        for(int i = 0; i < n-1; i++)
+        {
+            double Difference = stations[i + 1] - stations[i];
+            double SectionLength = Difference / ((double)HowMany[i] + 1);
+            Answer = max(Answer, SectionLength);
+        }
+        return Answer;
+    }
+};
+
+
+2. Using Priority Queue 
+TC : O(NLogN + KLogK) SC : O(N - 1)
+
+class Solution {
+  public:
+    double findSmallestMaxDist(vector<int> &stations, int k) 
+    {
+        int n = stations.size();
+        vector<int> HowMany(n - 1, 0);
+        priority_queue<pair<double, int>> PQ;
+        for(int i = 0; i < n - 1; i++)
+            PQ.push({stations[i + 1] - stations[i], i});
+        for(int g = 1; g <= k; g++)
+        {
+            int Index = PQ.top().second;
+            PQ.pop();
+            HowMany[Index]++;
+            double Difference = stations[Index + 1] - stations[Index];
+            double SectionLength = Difference / ((double)HowMany[Index] + 1);
+            PQ.push({SectionLength, Index});
+        }
+        return PQ.top().first;
+    }
+};
+
+
+3. Binary Search 
+TC : O(N * Length) SC : O(1)  
+Length = Length of Answer Space(Low - High range)
+
+class Solution {
+  public:
+    int CountGasStations(double Distance, vector<int> &stations)
+    {
+        int n = stations.size();
+        int Count = 0;
+        for(int i = 1; i < n; i++)
+        {
+            int Stations = (stations[i] - stations[i - 1]) / Distance;
+            if((stations[i] - stations[i - 1]) / Distance == Stations * Distance)
+                Stations--;
+            Count += Stations;
+        }
+        return Count;
+    }
+    double findSmallestMaxDist(vector<int> &stations, int k) 
+    {
+        int n = stations.size();
+        double Low = 0, High = 1;
+        for(int i = 0; i < n-1; i++)
+            High = max(High, (double)(stations[i + 1] - stations[i]));
+        double Difference = 1e-6;
+        while(High - Low > Difference)
+        {
+            double Mid = (Low + High) / 2.0;
+            int Count = CountGasStations(Mid, stations);
+            if(Count > k)
+                Low = Mid;
+            else
+                High = Mid;
+        }
+        return High;
+    }
+};

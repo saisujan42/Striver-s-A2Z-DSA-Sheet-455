@@ -1,0 +1,71 @@
+1. Brute Force Approach (Linear Search)
+TC : O(N * (Sum - Max + 1)) SC : O(1)
+
+class Solution {
+public:
+    int CountSubarrays(int Sum, vector<int> &nums)
+    {
+        int n = nums.size();
+        int Subarrays = 1, CurrentSum = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(CurrentSum + nums[i] <= Sum)
+                CurrentSum += nums[i];
+            else
+                CurrentSum = nums[i], Subarrays++;
+        }
+        return Subarrays;
+    }
+    int splitArray(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        if(k > n)
+            return -1;
+        int Max = *max_element(nums.begin(), nums.end());
+        int Sum = accumulate(nums.begin(), nums.end(), 0);
+        for(int i = Max; i <= Sum; i++)
+        {
+            if(CountSubarrays(i, nums) == k)
+                return i;
+        }    
+        return Max;
+    }
+};
+
+
+2. Binary Search 
+TC : O(N * Log(Sum - Max + 1)) SC : O(1)
+
+class Solution {
+public:
+    int CountSubarrays(int Sum, vector<int> &nums)
+    {
+        int n = nums.size();
+        int Subarrays = 1, CurrentSum = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(CurrentSum + nums[i] <= Sum)
+                CurrentSum += nums[i];
+            else
+                CurrentSum = nums[i], Subarrays++;
+        }
+        return Subarrays;
+    }
+    int splitArray(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        if(k > n)
+            return -1;
+        int Low = *max_element(nums.begin(), nums.end());
+        int High = accumulate(nums.begin(), nums.end(), 0);
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            if(CountSubarrays(Mid, nums) > k)
+                Low = Mid + 1;
+            else
+                High = Mid - 1;
+        }
+        return Low;
+    }
+};

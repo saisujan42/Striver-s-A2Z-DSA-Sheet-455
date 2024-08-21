@@ -1,0 +1,95 @@
+1. Brute Force Approach (Linear Search)
+TC : O(4 * N * M) SC : O(1)
+
+class Solution {
+public:
+    bool Check(int i, int j, vector<vector<int>> &mat)
+    {
+        int n = mat.size();
+        int m = mat[0].size();
+        if(i != 0 && mat[i - 1][j] >= mat[i][j])
+            return false;
+        if(j != 0 && mat[i][j - 1] >= mat[i][j])
+            return false;
+        if(i != n - 1 && mat[i + 1][j] >= mat[i][j])
+            return false;
+        if(j != m - 1 && mat[i][j + 1] >= mat[i][j])
+            return false;
+        return true;
+    }
+    vector<int> findPeakGrid(vector<vector<int>>& mat) 
+    {
+        int n = mat.size();
+        int m = mat[0].size();
+        for(int i = 0; i < n; i++) 
+            for(int j = 0; j < m; j++)
+                if(Check(i, j, mat))
+                    return {i, j};
+        return {-1, -1};   
+    }
+};
+
+
+2. Finding Maximum Element in Matrix
+TC : O(N * M) SC : O(1)
+
+class Solution {
+public:
+    vector<int> findPeakGrid(vector<vector<int>>& mat) 
+    {
+        int n = mat.size();
+        int m = mat[0].size();
+        int MaxVal = INT_MIN;
+        vector<int> Index = {-1, -1};
+        for(int i = 0; i < n; i++) 
+        {
+            for(int j = 0; j < m; j++)
+            {
+                if(mat[i][j] > MaxVal)
+                    MaxVal = mat[i][j], Index = {i, j};
+            }
+        }
+        return Index;
+    }
+};
+
+
+3. Binary Search
+TC : O(N * LogM) SC : O(1)
+
+class Solution {
+public:
+    int FindMaxRowIndex(int j, vector<vector<int>> &mat)
+    {
+        int n = mat.size();
+        int MaxVal = INT_MIN, Index = -1;
+        for(int i = 0; i < n; i++)
+        {
+            if(mat[i][j] > MaxVal)
+                MaxVal = mat[i][j], Index = i;
+        }
+        return Index;
+    }
+    vector<int> findPeakGrid(vector<vector<int>>& mat) 
+    {
+        int n = mat.size();
+        int m = mat[0].size();
+        int Low = 0, High = m - 1;
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            int Row = FindMaxRowIndex(Mid, mat);
+            
+            int Left = Mid - 1 >= 0 ? mat[Row][Mid - 1] : -1;
+            int Right = Mid + 1 < m ? mat[Row][Mid + 1] : -1;
+
+            if(mat[Row][Mid] > Left && mat[Row][Mid] > Right)
+                return {Row, Mid};
+            if(mat[Row][Mid] < Left)
+                High = Mid - 1;
+            else
+                Low = Mid + 1;
+        }
+        return {-1, -1};
+    }
+};
