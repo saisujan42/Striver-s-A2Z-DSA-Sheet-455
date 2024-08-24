@@ -1,0 +1,164 @@
+1. Storing Values in Vector and Checking if Palindrome by Reversing
+TC : O(N + N/2) SC : O(2N)
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        vector<int> A, B;
+        while(head != NULL)
+        {
+            A.push_back(head -> val);
+            head = head -> next;
+        }    
+        B = A;
+        reverse(B.begin(), B.end());
+        return A == B;
+    }
+};
+
+
+2. Using Stack 
+TC : O(2N) SC : O(N)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) 
+    {
+        stack<int> Stack;
+        ListNode *temp = head;
+        while(temp != NULL)
+        {
+            Stack.push(temp -> val);
+            temp = temp -> next;
+        }
+        temp = head;
+        while(temp != NULL)
+        {
+            if(Stack.top() != temp -> val)
+                return false;
+            Stack.pop();
+            temp = temp -> next;
+        }
+        return true;
+    }
+};
+
+
+
+3. Reverse 2nd Half Using Iteration & Compare 2 Halves Using Pointers
+TC : O(N/2 + N/2 + N/2) SC : O(1)
+TC : O(3N/2) SC : O(1)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *Reverse(ListNode *head)
+    {
+        ListNode *Prev = NULL, *Temp = head, *Front = NULL;
+        while(Temp != NULL)
+        {
+            Front = Temp -> next;
+            Temp -> next = Prev;
+            Prev = Temp;
+            Temp = Front;
+        } 
+        return Prev;
+    }
+    bool isPalindrome(ListNode* head) 
+    {
+        ListNode *Slow = head, *Fast = head;
+        while(Fast -> next != NULL && Fast -> next -> next != NULL)
+        {
+            Slow = Slow -> next;
+            Fast = Fast -> next -> next;
+        }    
+        ListNode *First = head;
+        ListNode *Second = Reverse(Slow -> next);
+        while(Second != NULL)
+        {
+            if(First -> val != Second -> val)
+                return false;
+            First = First -> next;
+            Second = Second -> next;
+        }
+        return true;
+    }
+};
+
+
+
+4. Reverse 2nd Half Using Recursion & Compare 2 Halves Using Pointers 
+TC : O(3N/2) SC : O(N/2) (Recursive Stack Space)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverseLL(ListNode *head)
+    {
+        if(head == NULL || head -> next == NULL)
+            return head;
+        ListNode *newHead = reverseLL(head -> next);
+        ListNode *front = head -> next;
+        front -> next = head;
+        head -> next = NULL;
+        return newHead;
+    }
+    bool isPalindrome(ListNode* head) 
+    {
+        if(head == NULL || head -> next == NULL)
+            return true;
+        ListNode *slow = head, *fast = head;
+        while(fast -> next != NULL && fast -> next -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        ListNode *first = head, *second = reverseLL(slow -> next);
+        while(second != NULL)
+        {
+            if(first -> val != second -> val)
+                return false;
+            first = first -> next;
+            second = second -> next;
+        }
+        return true;
+    }
+};

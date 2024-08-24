@@ -1,0 +1,45 @@
+1. Middle Of A Linked List [Tortoise Hare Method] - Middle Of The Linked List
+https://leetcode.com/problems/middle-of-the-linked-list/description/
+
+2. Reverse A Linked List [Iterative] - Reverse Linked List
+https://leetcode.com/problems/reverse-linked-list/description/
+
+3. Reverse A LL [Recursive] - Reverse Linked List
+https://leetcode.com/problems/reverse-linked-list/description/
+
+4. Detect A Loop In LL - Linked List Cycle
+https://leetcode.com/problems/linked-list-cycle/description/
+
+5. Find The Starting Point In LL - Linked List Cycle II
+https://leetcode.com/problems/linked-list-cycle-ii/description/
+
+6. Length Of Loop In LL - Find Length Of Loop
+https://www.geeksforgeeks.org/problems/find-length-of-loop/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-length-of-loop
+
+7. Check If LL Is Palindrome Or Not - Palindrome Linked List
+https://leetcode.com/problems/palindrome-linked-list/description/
+
+8. Segregate Odd And Even Nodes In LL - Odd Even Linked List
+https://leetcode.com/problems/odd-even-linked-list/description/
+
+9. Remove Nth Node From The Back Of The LL - Remove Nth Node From End Of List
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
+
+10. Delete The Middle Node Of LL - Delete The Middle Node Of A Linked List
+https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/description/
+
+11. Sort LL - Sort List
+https://leetcode.com/problems/sort-list/description/
+
+12. Sort A LL Of 0's 1's And 2's By Changing Links - Sort A Linked List Of 0s, 1s And 2s
+https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=given-a-linked-list-of-0s-1s-and-2s-sort-it
+
+13. Find The Intersection Point Of Y LL - Intersection Of Two Linked Lists
+https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+
+14. Add 1 To A Number Represented By LL - Add 1 To A Linked List Number
+https://www.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=add-1-to-a-number-represented-as-linked-list
+
+15. Add 2 Numbers In LL - Add Two Numbers
+https://leetcode.com/problems/add-two-numbers/description/
+

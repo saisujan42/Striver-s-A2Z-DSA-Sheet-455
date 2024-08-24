@@ -1,0 +1,74 @@
+1. Using Stack
+TC : O(2N) SC : O(N)
+
+/*
+class DLLNode {
+  public:
+    int data;
+    DLLNode *next;
+    DLLNode *prev;
+
+    DLLNode(int val) {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+*/
+class Solution {
+  public:
+    // Function to reverse a doubly linked list
+    DLLNode* reverseDLL(DLLNode* head) 
+    {
+        stack<int> Stack;
+        DLLNode *temp = head;
+        while(temp != NULL)
+        {
+            Stack.push(temp -> data);
+            temp = temp -> next;
+        }
+        temp = head;
+        while(temp != NULL)
+        {
+            temp -> data = Stack.top();
+            Stack.pop();
+            temp = temp -> next;
+        }
+        return head;
+    }
+};
+
+
+2. Reversing the Links
+TC : O(N) SC : O(1)
+
+/*
+class DLLNode {
+  public:
+    int data;
+    DLLNode *next;
+    DLLNode *prev;
+
+    DLLNode(int val) {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+*/
+class Solution {
+  public:
+    // Function to reverse a doubly linked list
+    DLLNode* reverseDLL(DLLNode* head) 
+    {
+        DLLNode *Last;
+        while(head != NULL)
+        {
+            Last = head -> prev;
+            head -> prev = head -> next;
+            head -> next = Last;
+            head = head -> prev;
+        }
+        return Last -> prev;
+    }
+};

@@ -1,0 +1,70 @@
+1. Using Map
+TC : O(N) SC :O(N)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) 
+    {
+        unordered_map<ListNode*, bool> Map;
+        while(head != NULL)
+        {
+            if(Map.find(head) == Map.end())
+                Map[head] = true;
+            else
+                return head;
+            head = head -> next;
+        }   
+        return NULL;
+    }
+};
+
+
+
+2. Tortoise & Hare Method
+TC : O(N) SC : O(1)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *FindStart(ListNode* slow, ListNode* fast)
+    {
+        while(slow != fast)
+        {
+            slow = slow -> next;
+            fast = fast -> next;
+        }
+        return slow;
+    }
+    ListNode *detectCycle(ListNode *head) 
+    {
+        if(head == NULL || head -> next == NULL)
+            return NULL;
+        ListNode *slow = head, *fast = head;
+        while(fast != NULL && fast -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+            if(slow == fast)
+            {
+                slow = head;
+                return FindStart(slow, fast);
+            }
+        }
+        return NULL;
+    }
+};
