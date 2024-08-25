@@ -1,0 +1,12 @@
+1. Reverse LL In Group Of Given Size K - Reverse Nodes In K-Group
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+
+2. Rotate A LL - Rotate List
+https://leetcode.com/problems/rotate-list/description/
+
+3. Flattening Of LL - Flattening A Linked List
+https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=flattening-a-linked-list
+
+4. Clone A Linked List With Random And Next Pointer - Copy List With Random Pointer
+https://leetcode.com/problems/copy-list-with-random-pointer/description/
+
