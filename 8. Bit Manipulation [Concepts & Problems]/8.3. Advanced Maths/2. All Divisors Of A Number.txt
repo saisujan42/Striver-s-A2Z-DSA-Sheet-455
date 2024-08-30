@@ -1,0 +1,40 @@
+1. Traverse From 1 To N 
+TC : O(N) SC : O(1)
+
+class Solution {
+  public:
+    void print_divisors(int N) 
+    {
+        for(int i = 1; i <= N; i++)
+            if(N % i == 0)
+                cout << i << " ";
+    }
+};
+
+
+2. Traverse From 1 To Sqrt(N)
+
+Print In Any Order
+TC : O(Sqrt(N)) SC : O(1)
+
+Print In Sorted Order                  
+TC : O(Sqrt(N) + (No.Of Divisors / 2)) SC : O(No.Of Divisors/2)
+
+class Solution {
+  public:
+    void print_divisors(int N) 
+    {
+        vector<int> Divisors;
+        for(int i = 1; i * i <= N; i++)
+        {
+            if(N % i == 0)
+            {
+                cout << i << " ";
+                if(N / i != i)
+                    Divisors.push_back(N / i);
+            }
+        }
+        for(int i = Divisors.size() - 1; i >= 0; i--)
+            cout << Divisors[i] << " ";
+    }
+};

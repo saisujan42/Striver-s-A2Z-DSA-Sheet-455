@@ -1,0 +1,15 @@
+1. Print Prime Factors Of A Number - Prime Factors
+https://www.geeksforgeeks.org/problems/prime-factors5052/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=Prime-Factors
+
+2. All Divisors Of A Number - All Divisors Of A Number
+https://www.geeksforgeeks.org/problems/all-divisors-of-a-number/1?utm_source=youtube&amp%3Butm_medium=collab_striver_ytdescription&amp%3Butm_campaign=all-divisors-of-a-number
+
+3. Sieve Of Eratosthenes - Count Primes
+https://leetcode.com/problems/count-primes/description/
+
+4. Find Prime Factorisation Of A Number Using Sieve - Prime Factorization Using Sieve
+https://www.geeksforgeeks.org/problems/prime-factorization-using-sieve/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=prime-factorization-using-sieve
+
+5. Power(n, x) - Pow(x, n)
+https://leetcode.com/problems/powx-n/description/
+

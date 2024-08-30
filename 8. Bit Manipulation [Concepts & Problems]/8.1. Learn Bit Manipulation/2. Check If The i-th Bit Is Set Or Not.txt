@@ -1,0 +1,14 @@
+1. Brute Force Approach
+Convert To Binary String & Traverse To Check If ith Bit is Set
+
+
+2. Bit Manipulation
+TC : O(1) SC : O(1)
+
+class Solution {
+  public:
+    bool checkKthBit(int n, int k) 
+    {
+        return ((n >> k) & 1);
+    }
+};

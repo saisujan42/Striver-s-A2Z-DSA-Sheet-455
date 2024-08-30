@@ -1,0 +1,69 @@
+1. Using Temp Variable
+TC : O(1) SC : O(1)
+
+class Solution{   
+public:
+    pair<int, int> get(int a, int b)
+    {
+        int temp = a;
+        a = b;
+        b = temp;
+        return {a, b};
+    }
+};
+
+
+2. Using Addition & Subtraction
+TC : O(1) SC : O(1)
+
+class Solution{   
+public:
+    pair<int, int> get(int a, int b)
+    {
+        a = a + b;
+        b = a - b;
+        a = a - b;
+        return {a, b};
+    }
+};
+
+
+
+3. Using Xor
+TC : O(1) SC : O(1)
+
+class Solution{   
+public:
+    pair<int, int> get(int a, int b)
+    {
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        return {a, b};
+    }
+};
+
+
+4. One Liner Code
+TC : O(1) SC : O(1)
+
+4a)
+class Solution{                            
+public: 
+    pair<int, int> get(int a, int b)
+    {
+        a = (a + b) - (b = a);
+        return {a, b};
+    }
+};
+
+
+4b)
+class Solution{   
+public:
+    pair<int, int> get(int a, int b)
+    {
+        a = a ^ b ^ (b = a);
+        return {a, b};
+    }
+};

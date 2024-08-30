@@ -1,0 +1,15 @@
+1. Count Number Of Bits To Be Flipped To Convert A To B - Minimum Bit Flips To Convert Number
+https://leetcode.com/problems/minimum-bit-flips-to-convert-number/description/
+
+2. Find The Number That Appears Odd Number Of Times - Single Number
+https://leetcode.com/problems/single-number/description/
+
+3. Power Set - Subsets
+https://leetcode.com/problems/subsets/
+
+4. Find Xor Of Numbers From L To R - Find Xor Of Numbers From L To R
+https://www.geeksforgeeks.org/problems/find-xor-of-numbers-from-l-to-r/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-xor-of-numbers-from-l-to-r
+
+5. Find The Two Numbers Appearing Odd Number Of Times - Two Numbers With Odd Occurrences
+https://www.geeksforgeeks.org/problems/two-numbers-with-odd-occurrences5846/1
+

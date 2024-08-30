@@ -1,0 +1,61 @@
+1. Brute Force Approach
+
+TC : O(Dividend) SC : O(1)     ->     TLE
+Max Value (Dividend) = 2^31
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) 
+    {
+        long long int Sum = 0, Count = 0;
+        int Sign = 1;
+
+        if(dividend < 0) Sign *= -1;
+        if(divisor < 0) Sign *= -1;
+        dividend = abs(dividend);
+        divisor = abs(divisor);
+
+        while(Sum + divisor <= dividend)
+        {
+            Count++;
+            Sum += divisor;
+        }
+        return Count * Sign;
+    }
+};
+
+
+
+2. Bit Manipulation
+TC : O(LogN * LogN) SC : O(1)
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) 
+    {
+        if(dividend == divisor) return 1;
+        int Sign = 1;
+
+        if(dividend < 0) Sign *= -1;
+        if(divisor < 0) Sign *= -1;
+
+        long long n = abs(dividend);
+        long long d = abs(divisor);
+        long long Answer = 0;
+
+        while(n >= d)
+        {
+            int Count = 0;
+            while(n >= (d << (Count + 1)))
+                Count++;
+            Answer += (1 << Count);
+            n -= (d << Count);
+        }
+
+        if(Answer == (1 << 31) && Sign == 1) return INT_MAX;
+        if(Answer == (1 << 31) && Sign == -1) return INT_MIN;
+
+        return Answer * Sign;
+    }
+};
+
