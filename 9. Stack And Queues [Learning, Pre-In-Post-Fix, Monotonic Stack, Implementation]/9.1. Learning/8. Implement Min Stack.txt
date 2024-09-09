@@ -1,0 +1,111 @@
+1. Using Vector
+TC : O(1) - Push, Pop, Top O(N) - GetMin
+SC : O(N)
+
+class MinStack {
+public:
+    vector<int> stk;
+    MinStack() {}
+    
+    void push(int val) 
+    {
+        stk.push_back(val);    
+    }
+    
+    void pop() 
+    {
+        stk.pop_back();
+    }
+    
+    int top() 
+    {
+        return stk[stk.size() - 1];
+    }
+    
+    int getMin() 
+    {
+        return *min_element(stk.begin(), stk.end());    
+    }
+};
+
+
+2. Using Stack <Pair>
+TC : O(1) SC : O(2*N)
+ 
+class MinStack {
+public:
+    stack<pair<int, int>> Stack;
+    MinStack() {}
+    
+    void push(int val) 
+    {
+        if(Stack.empty())
+            Stack.push({val, val});
+        else
+        {
+            int MinVal = min(val, Stack.top().second);
+            Stack.push({val, MinVal});
+        }    
+    }
+    
+    void pop() 
+    {
+        Stack.pop();
+    }
+    
+    int top() 
+    {
+        return Stack.top().first;
+    }
+    
+    int getMin() 
+    {
+        return Stack.top().second;    
+    }
+};
+
+
+3. Using Stack & Variable
+TC : O(1) SC : O(N)
+
+class MinStack {
+public:
+    stack<long long> Stack;
+    long long MinVal = INT_MAX;
+    MinStack() {}
+    
+    void push(int val) 
+    {
+        if(Stack.empty())
+        {
+            MinVal = val;
+            Stack.push(val);
+        }
+        else if(val > MinVal)
+            Stack.push(val);
+        else
+        {
+            Stack.push(2LL * val - MinVal);
+            MinVal = val;
+        }
+    }
+    
+    void pop() 
+    {
+        if(Stack.top() < MinVal)
+            MinVal = 2LL * MinVal - Stack.top();
+        Stack.pop();
+    }
+    
+    int top() 
+    {
+        if(Stack.top() < MinVal)
+            return MinVal;
+        return Stack.top();
+    }
+    
+    int getMin() 
+    {
+        return MinVal;    
+    }
+};

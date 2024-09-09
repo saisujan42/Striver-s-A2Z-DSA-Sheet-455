@@ -1,0 +1,91 @@
+1. Using 2 Stacks (Push is Costly)
+TC : O(2N) - Push, O(1) - Pop, Peek, Empty
+SC : O(2N)
+
+class MyQueue {
+public:
+    stack<int> S1, S2;
+    MyQueue() {}
+    
+    void push(int x) 
+    {
+        while(!S1.empty())
+        {
+            S2.push(S1.top());
+            S1.pop();
+        }    
+        S1.push(x);
+        while(!S2.empty())
+        {
+            S1.push(S2.top());
+            S2.pop();
+        }
+    }
+    
+    int pop() 
+    {
+        int Element = S1.top();
+        S1.pop();
+        return Element;    
+    }
+    
+    int peek() 
+    {
+        return S1.top();   
+    }
+    
+    bool empty() 
+    {
+        return S1.empty();    
+    }
+};
+
+
+2. Using 2 Stacks (Pop & Top are Costly)
+TC : O(1) - Push, Empty 
+     O(N) - Pop, Top (If Stack2 is Empty)
+     O(1) - Pop, Top (If Stack2 is not Empty)
+
+class MyQueue {
+public:
+    stack<int> S1, S2;
+    MyQueue() {}
+    
+    void push(int x) 
+    {
+        S1.push(x);
+    }
+    
+    int pop() 
+    {
+        if(S2.empty())
+        {
+            while(!S1.empty())
+            {
+                S2.push(S1.top());
+                S1.pop();
+            }
+        }    
+        int Element = S2.top();
+        S2.pop();
+        return Element;
+    }
+    
+    int peek() 
+    {
+        if(S2.empty())
+        {
+            while(!S1.empty())
+            {
+                S2.push(S1.top());
+                S1.pop();
+            }
+        }  
+        return S2.top();
+    }
+    
+    bool empty() 
+    {
+        return S1.empty() && S2.empty();    
+    }
+};
