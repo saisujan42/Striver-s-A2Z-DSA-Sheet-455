@@ -1,0 +1,25 @@
+1. Brute Force Approach
+TC : O(Q * N) SC : O(Q) (Q is space to store Answer)
+
+class Solution
+{
+    public:
+
+    vector<int> count_NGE(int n, vector<int> &arr, int q, vector<int> &indices)
+    {
+        vector<int> Answer;
+        for(int x = 0; x < q; x++)
+        {
+            int Index = indices[x], Count = 0;
+            for(int i = indices[x] + 1; i < n; i++)
+                if(arr[i] > arr[Index])
+                    Count++;
+            Answer.push_back(Count);
+        }
+        return Answer;
+    }
+
+};
+
+
+

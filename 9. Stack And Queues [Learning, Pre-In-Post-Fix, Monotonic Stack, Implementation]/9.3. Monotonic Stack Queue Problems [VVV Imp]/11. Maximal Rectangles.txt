@@ -1,0 +1,61 @@
+1. Sum The Consecutive 1s in Each Column
+   Then Apply Largest Rectangle In A Histogram for Each Row
+
+TC : O(N * M + N * 2M) = O(3*N*M)
+SC : O(N * M + N)
+
+class Solution {
+public:
+    int LargestHistogram(vector<int> &arr) 
+    {
+        int n = arr.size();
+        int MaxArea = INT_MIN;
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && arr[Stack.top()] >= arr[i])
+            {
+                int Element = arr[Stack.top()];
+                Stack.pop();
+                int NSE = i;
+                int PSE = Stack.empty() ? -1 : Stack.top();
+                int Area = Element * (NSE - PSE - 1);
+                MaxArea = max(Area, MaxArea);
+            }
+            Stack.push(i);
+        }
+        while(!Stack.empty())
+        {
+            int Element = arr[Stack.top()];
+            Stack.pop();
+            int NSE = n;
+            int PSE = Stack.empty() ? -1 : Stack.top();
+            int Area = Element * (NSE - PSE - 1);
+            MaxArea = max(Area, MaxArea);
+        }
+        return MaxArea;
+    }
+
+    int maximalRectangle(vector<vector<char>>& matrix) 
+    {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        vector<vector<int>> Matrix(n, vector<int>(m));
+        for(int j = 0; j < m; j++)
+        {
+            int Sum = 0;
+            for(int i = 0; i < n; i++)
+            {
+                Sum += (matrix[i][j] - '0');
+                if(matrix[i][j] == '0')
+                    Sum = 0;
+                Matrix[i][j] = Sum;
+            }
+        }    
+
+        int MaxRectangle = INT_MIN;
+        for(int i = 0; i < n; i++)
+            MaxRectangle = max(MaxRectangle, LargestHistogram(Matrix[i]));
+        return MaxRectangle;
+    }
+};

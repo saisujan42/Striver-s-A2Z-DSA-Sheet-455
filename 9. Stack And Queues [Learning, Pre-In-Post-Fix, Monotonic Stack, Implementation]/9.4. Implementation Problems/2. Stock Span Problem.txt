@@ -1,0 +1,46 @@
+1. Brute Force Approach
+TC : O(No. Of Next Calls * Current No. Of Days)
+SC : O(No. Of Days)
+
+class StockSpanner {
+public:
+    vector<int> Values;
+    StockSpanner() {}
+    
+    int next(int price) 
+    {
+        Values.push_back(price);
+        int Count = 0;
+        for(int i = Values.size() - 1; i >= 0; i--)
+        {
+            if(Values[i] <= price)
+                Count++;
+            else break;
+        }
+        return Count;
+    }
+};
+
+
+
+2. Using Stack & Previous Greater Element 
+TC : O(2N) SC : O(N)
+
+
+class StockSpanner {
+public:
+    int Index = -1;
+    stack<pair<int, int>> Stack;
+    StockSpanner() {}
+    
+    int next(int price) 
+    {
+        Index++;
+        while(!Stack.empty() && Stack.top().first <= price)
+            Stack.pop();
+        int PGE = Stack.empty() ? -1 : Stack.top().second;
+        int Answer = Index - PGE;
+        Stack.push({price, Index});
+        return Answer;
+    }
+};

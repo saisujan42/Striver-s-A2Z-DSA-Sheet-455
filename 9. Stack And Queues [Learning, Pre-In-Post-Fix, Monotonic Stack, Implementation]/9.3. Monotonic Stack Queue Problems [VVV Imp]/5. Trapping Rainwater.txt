@@ -1,0 +1,104 @@
+1. Brute Force Approach
+   Using Prefix Max and Suffix Max
+
+TC : O(3N) SC : O(2N)
+
+class Solution {
+public:
+    vector<int> PrefixMax(int n, vector<int> &arr)
+    {
+        vector<int> Prefix(n);
+        Prefix[0] = arr[0];
+        for(int i = 1; i < n; i++)
+            Prefix[i] = max(Prefix[i - 1], arr[i]);
+        return Prefix;
+    }
+    vector<int> SuffixMax(int n, vector<int> &arr)
+    {
+        vector<int> Suffix(n);
+        Suffix[n - 1] = arr[n - 1];
+        for(int i = n - 2; i >= 0; i--)
+            Suffix[i] = max(Suffix[i + 1], arr[i]);
+        return Suffix;
+    }
+    int trap(vector<int>& arr) 
+    {
+        int n = arr.size();
+        int Count = 0;
+        vector<int> Prefix = PrefixMax(n, arr);
+        vector<int> Suffix = SuffixMax(n, arr);
+        for(int i = 0; i < n; i++)
+        {
+            int LeftMax = Prefix[i];
+            int RightMax = Suffix[i];
+            if(arr[i] < LeftMax && arr[i] < RightMax)
+                Count += (min(LeftMax, RightMax) - arr[i]);
+        }    
+        return Count;
+    }
+};
+
+
+
+2. Space Optimised Brute Force
+   Eliminating PrefixMax Array & Using A Variable
+
+TC : O(2N) SC : O(N)
+
+class Solution {
+public:
+    vector<int> SuffixMax(int n, vector<int> &arr)
+    {
+        vector<int> Suffix(n);
+        Suffix[n - 1] = arr[n - 1];
+        for(int i = n - 2; i >= 0; i--)
+            Suffix[i] = max(Suffix[i + 1], arr[i]);
+        return Suffix;
+    }
+    int trap(vector<int>& arr) 
+    {
+        int n = arr.size();
+        int Count = 0, LeftMax = -1, RightMax;
+        vector<int> Suffix = SuffixMax(n, arr);
+        for(int i = 0; i < n; i++)
+        {
+            LeftMax = max(arr[i], LeftMax);
+            RightMax = Suffix[i];
+            if(arr[i] < LeftMax && arr[i] < RightMax)
+                Count += (min(LeftMax, RightMax) - arr[i]);
+        }    
+        return Count;
+    }
+};
+
+
+3. Two-Way Traversal
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    int trap(vector<int>& arr) 
+    {
+        int n = arr.size();
+        int Count = 0, Left = 0, Right = n - 1;
+        int LeftMax = -1, RightMax = -1;
+        while(Left < Right)
+        {
+            if(arr[Left] <= arr[Right])
+            {
+                if(LeftMax > arr[Left])
+                    Count += (LeftMax - arr[Left]);
+                LeftMax = max(LeftMax, arr[Left]);
+                Left++;
+            }
+            else
+            {
+                if(RightMax > arr[Right])
+                    Count += (RightMax - arr[Right]);
+                RightMax = max(RightMax, arr[Right]);
+                Right--;
+            }
+        }
+        return Count;
+    }
+};

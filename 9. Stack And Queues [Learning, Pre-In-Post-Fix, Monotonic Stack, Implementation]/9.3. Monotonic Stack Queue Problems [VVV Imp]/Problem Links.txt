@@ -1,0 +1,37 @@
+1. Next Greater Element (GFG) - Next Greater Element
+https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1
+
+1. Next Greater Element (LeetCode) - Next Greater Element I
+https://leetcode.com/problems/next-greater-element-i/description/
+
+2. Next Greater Element 2 - Next Greater Element II
+https://leetcode.com/problems/next-greater-element-ii/description/
+
+3. Next Smaller Element - Smallest Number On Left
+https://www.geeksforgeeks.org/problems/smallest-number-on-left3403/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+4. Number Of NGEs To The Right - Number Of NGEs To The Right
+https://www.geeksforgeeks.org/problems/number-of-nges-to-the-right/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=number-of-nges-to-the-right
+
+5. Trapping Rainwater - Trapping Rain Water
+https://leetcode.com/problems/trapping-rain-water/description/
+
+6. Sum Of Subarray Minimum - Sum Of Subarray Minimums
+https://leetcode.com/problems/sum-of-subarray-minimums/description/
+
+7. Asteroid Collision - Asteroid Collision
+https://leetcode.com/problems/asteroid-collision/description/
+
+8. Sum Of Subarray Ranges - Sum Of Subarray Ranges
+https://leetcode.com/problems/sum-of-subarray-ranges/description/
+
+9. Remove K Digits - Remove K Digits
+https://leetcode.com/problems/remove-k-digits/description/
+
+10. Largest Rectangle In A Histogram - Largest Rectangle In Histogram
+https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+
+11. Maximal Rectangles - Maximal Rectangle
+https://leetcode.com/problems/maximal-rectangle/description/
+
+ 

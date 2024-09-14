@@ -1,0 +1,27 @@
+1. Using Vector Like a Stack
+TC : O(N) SC : O(N)
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) 
+    {
+        int n = asteroids.size();
+        vector<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            if(asteroids[i] > 0)
+                Stack.push_back(asteroids[i]);
+            else
+            {
+                while(!Stack.empty() && Stack.back() > 0 && 
+                      abs(asteroids[i]) > Stack.back())
+                    Stack.pop_back();
+                if(!Stack.empty() && Stack.back() == abs(asteroids[i]))
+                    Stack.pop_back();
+                else if(Stack.empty() || Stack.back() < 0)
+                    Stack.push_back(asteroids[i]);
+            }
+        }    
+        return Stack;
+    }
+};

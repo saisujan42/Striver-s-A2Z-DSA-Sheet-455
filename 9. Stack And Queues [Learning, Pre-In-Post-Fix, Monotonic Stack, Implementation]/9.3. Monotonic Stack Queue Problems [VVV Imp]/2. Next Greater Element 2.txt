@@ -1,0 +1,98 @@
+1. Brute Force Approach
+TC : O(N^2) SC : O(1)  (Not Considering Answer as Extra Space)
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<int> Answer;
+        for(int i = 0; i < n; i++)
+        {
+            bool Value = true;
+            for(int j = i+1; j < n; j++)
+            {
+                if(nums[j] > nums[i])
+                {
+                    Answer.push_back(nums[j]);
+                    Value = false;
+                    break;
+                }
+            }
+            if(Value == true)
+            for(int j = 0; j < i; j++)
+            {
+                if(nums[j] > nums[i])
+                {
+                    Answer.push_back(nums[j]);
+                    Value = false;
+                    break;
+                }
+            }
+            if(Value == true)
+                Answer.push_back(-1);
+        }    
+        return Answer;
+    }
+};
+
+
+
+
+2. Simplified Brute Force Approach (Using % for Circular Array)
+TC : O(N^2) SC : O(1)
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<int> Answer;
+        for(int i = 0; i < n; i++)
+        {
+            bool Value = true;
+            for(int j = i+1; j < i+n; j++)
+            {
+                if(nums[j % n] > nums[i])
+                {
+                    Answer.push_back(nums[j % n]);
+                    Value = false;
+                    break;
+                }
+            }
+            if(Value == true)
+                Answer.push_back(-1);
+        }    
+        return Answer;
+    }
+};
+
+
+3. Using Monotonic Stack & Using % For Circular Array
+
+TC : O(2N + 2N) SC : O(2N)
+TC -> Extra 2N for the While Loop which may run for a 2N throughout the Program 
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<int> Answer(n);
+        stack<int> Stack;
+        for(int i = 2*n-1; i >= 0; i--)
+        {
+            while(!Stack.empty() && Stack.top() <= nums[i % n])
+                Stack.pop();
+            if(i < n)
+            {
+                if(Stack.empty())
+                    Answer[i] = -1;
+                else
+                    Answer[i] = Stack.top();
+            }
+            Stack.push(nums[i % n]);
+        }
+        return Answer;
+    }
+};
