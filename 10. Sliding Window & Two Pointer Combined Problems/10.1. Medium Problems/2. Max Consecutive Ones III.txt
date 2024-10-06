@@ -1,0 +1,82 @@
+1. Brute Force Approach 
+TC : O(N^2) SC : O(1)   ->    TLE
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int MaxLength = 0;
+        for(int i = 0; i < n; i++)
+        {
+            int Zeroes = 0;
+            for(int j = i; j < n; j++)
+            {
+                if(nums[j] == 0)
+                    Zeroes++;
+                if(Zeroes <= k)
+                    MaxLength = max(MaxLength, j - i + 1);
+                else break;
+            }
+        }    
+        return MaxLength;
+    }
+};
+
+
+
+2. Using 2-Pointer & Sliding Window
+TC : O(2N) SC : O(1)
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int MaxLength = 0, Start = 0, End = 0, Zeroes = 0;
+        while(End < n)
+        {
+            if(nums[End] == 0)
+                Zeroes++;
+            while(Zeroes > k)
+            {
+                if(nums[Start] == 0)
+                    Zeroes--;
+                Start++;
+            }
+            if(Zeroes <= k)
+                MaxLength = max(End - Start + 1, MaxLength);
+            End++;
+        }
+        return MaxLength;
+    }
+};
+
+
+
+3. Better Code
+   2-Pointer & Sliding Window
+
+TC : O(2N) SC : O(1)z
+
+class Solution {
+    public:
+    int longestOnes(vector<int>& nums, int k) 
+    {
+        int n = nums.size();
+        int Start = 0, End = 0;
+        while(End < n)
+        {
+            if(nums[End] == 0)
+                k--;
+            if(k < 0)
+            {
+                if(nums[Start] == 0)
+                    k++;
+                Start++;
+            } 
+            End++;
+        }    
+        return End - Start;
+    }
+};
