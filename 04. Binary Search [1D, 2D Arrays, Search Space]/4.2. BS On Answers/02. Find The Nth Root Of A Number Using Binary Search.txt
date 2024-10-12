@@ -1,0 +1,105 @@
+1. Brute Force Approach (Using Iteration To Find Power)
+TC : O(N * M) SC : O(1)
+
+class Solution{
+	public:
+	int FindPower(int n, int i)
+	{
+	    int Answer = 1;
+	    for(int j = 1; j <= n; j++)
+	        Answer *= i;
+	    return Answer;
+	}
+	int NthRoot(int n, int m)
+	{
+	    for(int i = 1; i <= m; i++)
+	    {
+	        int Value = FindPower(n, i);
+	        if(Value == m)
+	            return i;
+	        if(Value > m)
+	            return -1;
+	    }
+	    return -1;
+	}  
+};
+
+
+2. Brute Force Approach (Using LogN to Find Power)
+TC : O(M * LogN) SC : O(1)          ->    TLE
+
+class Solution{
+	public:
+	int FindPower(int n, int i)
+	{
+	    int Answer = 1;
+	    while(n)
+    	{
+    	    if(n % 2 == 1)
+    	    {
+    	        Answer *= i;
+    	        n--;
+    	    }
+    	    else
+    	    {
+    	        i *= i;
+    	        n /= 2;
+    	    }
+    	}
+	    return Answer;
+	}
+	int NthRoot(int n, int m)
+	{
+	    for(int i = 1; i <= m; i++)
+	    {
+	        int Value = FindPower(n, i);
+	        if(Value == m)
+	            return i;
+	        if(Value > m)
+	            return -1;
+	    }
+	    return -1;
+	}  
+};
+
+
+3. Binary Search
+TC : O(LogM * N) SC : O(1)
+
+FindPower Function:
+Returns 0 If Ans < M
+Returns 1 if Ans == M
+Returns 2 if Ans > M
+
+class Solution{
+	public:
+	int FindPower(int Mid, int n, int m)
+	{
+	    long long int Answer = 1;
+	    for(int i = 1; i <= n; i++)
+	    {
+	        Answer *= Mid;
+	        if(Answer > m)
+	            return 2;
+	    }
+	    if(Answer == m)
+	        return 1;
+	    return 0;
+	}
+	int NthRoot(int n, int m)
+	{
+	    int Low = 1, High = m;
+	    while(Low <= High)
+	    {
+	        int Mid = (Low + High) / 2;
+	        int Value = FindPower(Mid, n, m);
+	        if(Value == 1)
+	            return Mid;
+	        if(Value == 0)  //Power Value < M
+	            Low = Mid + 1;
+	        else            // Power Value > M
+	            High = Mid - 1;
+	    }
+	    return -1;
+	}  
+};

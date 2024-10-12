@@ -1,0 +1,79 @@
+1. Brute Force Approach (Linear Search)
+TC : O(N * (Max - Min + 1)) SC : O(1)
+
+class Solution {
+public:
+    bool isPossible(int day, int m, int k, vector<int> &bloomDay)
+    {
+        int n = bloomDay.size();
+        int Count = 0, Bouquets = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(bloomDay[i] <= day)
+                Count++;
+            else
+            {
+                Bouquets += (Count / k);
+                Count = 0;
+            }
+        }
+        Bouquets += (Count / k);
+        return Bouquets >= m;
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) 
+    {
+        int n = bloomDay.size();
+        if(m * k > n)
+            return -1;
+        int Min = *min_element(bloomDay.begin(), bloomDay.end());
+        int Max = *max_element(bloomDay.begin(), bloomDay.end());
+        for(int i = Min; i <= Max; i++)
+        {
+            if(isPossible(i, m, k, bloomDay))
+                return i;
+        }   
+        return -1;
+    }
+};
+
+
+2. Binary Search 
+TC : O(N * Log(Max - Min + 1)) SC : O(1)
+
+class Solution {
+public:
+    bool isPossible(int day, int m, int k, vector<int> &bloomDay)
+    {
+        int n = bloomDay.size();
+        int Count = 0, Bouquets = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(bloomDay[i] <= day)
+                Count++;
+            else
+            {
+                Bouquets += (Count / k);
+                Count = 0;
+            }
+        }
+        Bouquets += (Count / k);
+        return Bouquets >= m;
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) 
+    {
+        int n = bloomDay.size();
+        if(1LL * m * 1LL * k > n)
+            return -1;
+        int Low = *min_element(bloomDay.begin(), bloomDay.end());
+        int High = *max_element(bloomDay.begin(), bloomDay.end());
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            if(isPossible(Mid, m, k, bloomDay))
+                High = Mid - 1;
+            else
+                Low = Mid + 1;
+        }   
+        return Low;
+    }
+};

@@ -1,0 +1,38 @@
+1. Erase & Push_Back In-Built Functions
+
+#include <bits/stdc++.h> 
+vector<int> rotateArray(vector<int>& arr, int n) 
+{
+    int FirstValue = arr[0];
+    arr.erase(arr.begin());
+    arr.push_back(FirstValue);
+    return arr;
+}
+
+
+2. Copying Elements To New Array
+TC : O(N) SC : O(N)
+
+#include <bits/stdc++.h> 
+vector<int> rotateArray(vector<int>& arr, int n) 
+{
+    vector<int> Answer;
+    for(int i = 1; i < n; i++)
+        Answer.push_back(arr[i]);
+    Answer.push_back(arr[0]);
+    return Answer;
+}
+
+
+3. Shifting All Elements To Left & Placing First Element At Last
+TC : O(N) SC : O(1)
+
+#include <bits/stdc++.h> 
+vector<int> rotateArray(vector<int>& arr, int n) 
+{
+    int temp = arr[0];
+    for(int i = 1; i < n; i++)
+        arr[i - 1] = arr[i];
+    arr[n - 1] = temp;
+    return arr;
+}

@@ -1,0 +1,64 @@
+1. Brute Force Approach (By Taking K = Max(Array Elements))
+TC : O(Max(Array) * N) SC : O(1)     ->     TLE
+
+class Solution {
+public:
+    bool CanEatAllBananas(int k, int h, vector<int> &piles)
+    {
+        int n = piles.size();
+        long long int Hours = 0;
+        for(int i = 0; i < n; i++)
+            Hours += ceil((double)piles[i] / (double)k);
+        if(Hours <= h)
+            return true;
+        return false;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) 
+    {
+        int n = piles.size();
+        int Maximum = *max_element(piles.begin(), piles.end());
+        int Minimum = INT_MAX;
+        for(int i = 1; i <= Maximum; i++)
+        {
+            if(CanEatAllBananas(i, h, piles))
+                return i;
+        }  
+        return -1;  
+    }
+};
+
+
+
+2. Binary Search 
+TC : O(N * Log(max(Array))) SC : O(1)
+
+class Solution {
+public:
+    long long int CalculateHours(int k, vector<int> &piles)
+    {
+        int n = piles.size();
+        long long int Hours = 0;
+        for(int i = 0; i < n; i++)
+            Hours += ceil((double)piles[i] / (double)k);
+        return Hours;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) 
+    {
+        int n = piles.size();
+        int Low = 1, High = *max_element(piles.begin(), piles.end());
+        int Answer = 0;
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            long long int Hours = CalculateHours(Mid, piles);
+            if(Hours <= h)
+            {
+                Answer = Mid;
+                High = Mid - 1;
+            }
+            else
+                Low = Mid + 1;
+        }
+        return Answer;
+    }
+};

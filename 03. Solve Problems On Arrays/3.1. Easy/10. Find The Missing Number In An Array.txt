@@ -1,0 +1,100 @@
+1. Brute Force Approach
+TC : O(N^2) SC : O(1)
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int n = nums.size();
+        for(int i = 0; i <= n; i++)
+        {
+            bool temp = true;
+            for(int j = 0; j < n; j++)
+            {
+                if(nums[j] == i)
+                {
+                    temp = false;
+                    break;
+                }
+            }
+            if(temp)
+                return i;
+        }
+        return 0;
+    }
+};
+
+
+2. By Sorting And Iterating
+TC : O(NLogN + N) SC : O(1)
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < n - 1; i++)
+        {
+            if(nums[i] != nums[i+1] - 1)
+                return nums[i]+1;
+        }
+        if(nums[0] != 0)
+            return 0;
+        return n;
+    }
+};
+
+
+3. Using Map
+TC : O(2N) SC : O(N)
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<bool> Map(n + 1, false);
+        for(int i = 0; i < n; i++)
+            Map[nums[i]] = true;
+        for(int i = 0; i <= n; i++)
+            if(Map[i] == false)
+                return i;
+        return 0;
+    }
+};
+
+
+4. By Using Sum
+TC : O(N) SC : O(1)
+
+class Solution 
+{
+    public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int ArrSum = 0;
+        for(int i = 0; i < n; i++)
+            ArrSum += nums[i];
+        int Sum = n * (n + 1) / 2;
+        return Sum - ArrSum;
+    }
+};
+
+
+5. By Using XOR
+TC : O(N) SC : O(1)
+
+class Solution 
+{
+    public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int Xor = 0;
+        for(int i = 0; i < n; i++)
+            Xor ^= (i ^ nums[i]);
+        return Xor ^ n;
+    }
+};

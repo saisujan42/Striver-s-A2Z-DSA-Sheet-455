@@ -1,0 +1,70 @@
+1. Brute Force Approach (Linear Search)
+TC : O(N * (Max - Min)) SC : O(1)     ->     TLE
+
+class Solution 
+{
+    public:
+    bool canWePlaceCows(int Dist, int Cows, vector<int> &stalls)
+    {
+        int n = stalls.size();
+        int LastCowPos = stalls[0], CowCount = 1;
+        for(int i = 1; i < n; i++)
+        {
+            if(stalls[i] - LastCowPos >= Dist)
+            {
+                CowCount++;
+                LastCowPos = stalls[i];
+            }
+        }
+        return CowCount >= Cows;
+    }
+    int solve(int n, int k, vector<int> &stalls) 
+    {
+        sort(stalls.begin(), stalls.end());
+        int Min = stalls[0], Max = stalls[n - 1];
+        for(int i = 1; i <= Max - Min; i++)
+        {
+            if(!canWePlaceCows(i, k, stalls))
+                return i - 1;
+        }
+    }
+};
+
+
+2. Binary Search
+TC : O(NLogN + N * Log(Max - Min)) SC : O(1)
+
+class Solution 
+{
+    public:
+    bool canWePlaceCows(int Dist, int Cows, vector<int> &stalls)
+    {
+        int n = stalls.size();
+        int LastCowPos = stalls[0], CowCount = 1;
+        for(int i = 1; i < n; i++)
+        {
+            if(stalls[i] - LastCowPos >= Dist)
+            {
+                CowCount++;
+                LastCowPos = stalls[i];
+            }
+            if(CowCount >= Cows)
+                return true;
+        }
+        return false;
+    }
+    int solve(int n, int k, vector<int> &stalls) 
+    {
+        sort(stalls.begin(), stalls.end());
+        int Low = 1, High = stalls[n - 1] - stalls[0];  // High = Max - Min
+        while(Low <= High)
+        {
+            int Mid = (Low + High) / 2;
+            if(canWePlaceCows(Mid, k, stalls))
+                Low = Mid + 1;
+            else
+                High = Mid - 1;
+        }
+        return High;
+    }
+};
