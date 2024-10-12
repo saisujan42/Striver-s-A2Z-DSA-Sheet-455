@@ -1,0 +1,14 @@
+1. Sliding Window Maximum - Sliding Window Maximum
+https://leetcode.com/problems/sliding-window-maximum/description/
+
+2. Stock Span Problem - Online Stock Span
+https://leetcode.com/problems/online-stock-span/description/
+
+3. The Celebrity Problem - The Celebrity Problem
+https://www.geeksforgeeks.org/problems/the-celebrity-problem/1
+
+4. LRU Cache (IMPORTANT) - LRU Cache
+https://leetcode.com/problems/lru-cache/description/
+
+5. LFU Cache - LFU Cache
+https://leetcode.com/problems/lfu-cache/description/

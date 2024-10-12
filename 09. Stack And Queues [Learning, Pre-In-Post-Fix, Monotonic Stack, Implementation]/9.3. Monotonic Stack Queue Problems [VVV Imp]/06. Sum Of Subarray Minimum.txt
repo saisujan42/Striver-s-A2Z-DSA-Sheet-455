@@ -1,0 +1,79 @@
+1. Brute Force Approach
+TC : O(N^2) SC: O(1)        ->     TLE
+
+class Solution {
+public:
+    int sumSubarrayMins(vector<int>& arr) 
+    {
+        int MOD = 1000000000 + 7;
+        int n = arr.size();
+        int Sum = 0, Minimum = INT_MAX;
+        for(int i = 0; i < n; i++)
+        {
+            Minimum = INT_MAX;
+            for(int j = i; j < n; j++)
+            {
+                Minimum = min(Minimum, arr[j]);
+                Sum = (Sum + Minimum) % MOD;
+            }
+        }    
+        return Sum;
+    }
+};
+
+
+
+
+2. By Finding Previous Smaller Index & Next Smaller Index
+TC : O(2N + 2N + N) SC : O(2N + 2N)
+
+class Solution {
+public:
+    vector<int> FindPrevSmallerIndex(vector<int> &arr)
+    {
+        int n = arr.size();
+        vector<int> PSE(n);
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && arr[Stack.top()] > arr[i])
+                Stack.pop();
+            if(Stack.empty())
+                PSE[i] = -1;
+            else
+                PSE[i] = Stack.top();
+            Stack.push(i);
+        }
+        return PSE;
+    }
+    vector<int> FindNextSmallerIndex(vector<int> &arr)
+    {
+        int n = arr.size();
+        vector<int> NSE(n);
+        stack<int> Stack;
+        for(int i = n - 1; i >= 0; i--)
+        {
+            while(!Stack.empty() && arr[Stack.top()] >= arr[i])
+                Stack.pop();
+            if(Stack.empty())
+                NSE[i] = n;
+            else
+                NSE[i] = Stack.top();
+            Stack.push(i);
+        }
+        return NSE;
+    }
+    int sumSubarrayMins(vector<int>& arr) 
+    {
+        int MOD = 1000000000 + 7;
+        int n = arr.size(), Sum = 0;
+        vector<int> PSE = FindPrevSmallerIndex(arr);
+        vector<int> NSE = FindNextSmallerIndex(arr);
+        for(int i = 0; i < n; i++)
+        {
+            int Count = (NSE[i] - i) * (i - PSE[i]);
+            Sum = (Sum + ((Count *1LL * arr[i]) % MOD)) % MOD;
+        }    
+        return Sum;
+    }
+};

@@ -1,0 +1,50 @@
+1. Implement Queue Using Linked List
+TC : O(1) SC : O(1)
+
+/* Structure of a node in Queue
+struct QueueNode
+{
+    int data;
+    QueueNode *next;
+    QueueNode(int a)
+    {
+        data = a;
+        next = NULL;
+    }
+};
+
+And structure of MyQueue
+struct MyQueue {
+    QueueNode *front;
+    QueueNode *rear;
+    void push(int);
+    int pop();
+    MyQueue() {front = rear = NULL;}
+}; */
+
+//Function to push an element into the queue.
+void MyQueue:: push(int x)
+{
+    QueueNode *NewNode = new QueueNode(x);
+    if(front == NULL)
+        front = rear = NewNode;
+    else
+    {
+        rear -> next = NewNode;
+        rear = NewNode;
+    }
+}
+
+//Function to pop front element from the queue.
+int MyQueue :: pop()
+{
+    if(front == NULL)
+        return -1;
+    if(front -> next == NULL)
+        rear = NULL;
+    int Element = front -> data;
+    QueueNode *DelNode = front;
+    front = front -> next;
+    delete(DelNode);
+    return Element;
+}

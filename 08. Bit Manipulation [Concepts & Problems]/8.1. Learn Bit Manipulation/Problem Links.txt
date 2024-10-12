@@ -1,0 +1,23 @@
+1. Introduction To Bit Manipulation [Theory] - Bit Manipulation
+https://www.geeksforgeeks.org/problems/bit-manipulation-1666686020/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=bit-manipulation
+
+2. Check If The i-th Bit Is Set Or Not - K-th Bit Is Set Or Not
+https://www.geeksforgeeks.org/problems/check-whether-k-th-bit-is-set-or-not-1587115620/1
+
+3. Check If A Number Is Odd Or Not - Odd Or Even
+https://www.geeksforgeeks.org/problems/odd-or-even3618/1
+
+4. Check If A Number Is Power Of 2 Or Not - Power Of Two
+https://leetcode.com/problems/power-of-two/description/
+
+5. Count The Number Of Set Bits - Count Total Set Bits
+https://www.geeksforgeeks.org/problems/count-total-set-bits-1587115620/1
+
+6. Set/Unset The Rightmost Unset Bit - Set The Rightmost Unset Bit
+https://www.geeksforgeeks.org/problems/set-the-rightmost-unset-bit4436/1
+
+7. Swap Two Numbers - Swap Two Numbers
+https://www.geeksforgeeks.org/problems/swap-two-numbers3844/1
+
+8. Divide Two Integers Without Using Multiplication, Division And Mod Operator - Divide Two Integers
+https://leetcode.com/problems/divide-two-integers/description/

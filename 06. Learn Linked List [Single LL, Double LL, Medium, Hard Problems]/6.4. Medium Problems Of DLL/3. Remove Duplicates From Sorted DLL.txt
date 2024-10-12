@@ -1,0 +1,58 @@
+1. Linear Traversal & Deleting Adjacent Duplicates
+TC : O(N) SC : O(1)
+
+class Solution
+{
+public:
+    void Delete(struct Node *temp)
+    {
+        if(temp -> next == NULL)
+            temp -> prev -> next = NULL;
+        else
+        {
+            temp -> prev -> next = temp -> next;
+            temp -> next -> prev = temp -> prev;
+        }
+        delete(temp);
+    }
+    Node *removeDuplicates(struct Node *head)
+    {
+        struct Node *temp = head;
+        while(temp -> next != NULL)
+        {
+            if(temp -> data == temp -> next -> data)
+                Delete(temp -> next);
+            else
+                temp = temp -> next;
+        }
+        return head;
+    }
+};
+
+
+2. Striver's Code 
+TC : O(N) SC : O(1)
+
+class Solution
+{
+public:
+    Node *removeDuplicates(struct Node *head)
+    {
+        struct Node *temp = head;
+        while(temp != NULL && temp -> next != NULL)
+        {
+            struct Node *nextNode = temp -> next;
+            while(nextNode != NULL && nextNode -> data == temp -> data)
+            {
+                struct Node *duplicate = nextNode;
+                delete(duplicate);
+                nextNode = nextNode -> next;
+            }
+            temp -> next = nextNode;
+            if(nextNode != NULL)
+                nextNode -> prev = temp;
+            temp = temp -> next;
+        }
+        return head;
+    }
+};

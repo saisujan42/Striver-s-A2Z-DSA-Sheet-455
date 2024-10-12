@@ -1,0 +1,52 @@
+1. Brute Force Approach
+TC : O(N^2) SC : O(1) (Not Considering Answer as Extra Space)
+
+class Solution{
+    public:
+    vector<int> leftSmaller(int n, int a[])
+    {
+        vector<int> Answer;
+        for(int i = 0; i < n; i++)
+        {
+            bool Value = true;
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if(a[j] < a[i])
+                {
+                    Answer.push_back(a[j]);
+                    Value = false;
+                    break;
+                }
+            }
+            if(Value == true)
+                Answer.push_back(-1);
+        }
+        return Answer;
+    }
+};
+
+
+
+2. Using Monotonic Stack
+TC : O(2N) -> 1N for the While Loop which runs for a Max of N 
+SC : O(N)  -> Not Considering Answer as Extra Space
+
+class Solution{
+    public:
+    vector<int> leftSmaller(int n, int a[])
+    {
+        vector<int> Answer;
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && Stack.top() >= a[i])
+                Stack.pop();
+            if(Stack.empty())
+                Answer.push_back(-1);
+            else
+                Answer.push_back(Stack.top());
+            Stack.push(a[i]);
+        }
+        return Answer;
+    }
+};

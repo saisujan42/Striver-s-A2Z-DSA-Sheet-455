@@ -1,0 +1,135 @@
+1. Using STL Pow() Function
+TC : O(31) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        for(int i = 0; i < 31; i++)
+        {
+            int Answer = pow(2, i);
+            if(Answer == n)
+                return true;
+        }
+        return false;
+    }
+};
+
+
+
+2. Calculating 2-Powers & Comparing
+TC : O(LogN) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n == 1) return true;
+        long long int Value = 1;
+        while(Value <= n)
+        {
+            Value *= 2;
+            if(Value == n)
+                return true;
+        }
+        return false;
+    }
+};
+
+
+3. Dividing N By 2
+TC : O(LogN) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n == 0) return false;
+        while(n)
+        {
+            if(n == 1)
+                return true;
+            if(n % 2 != 0)
+                return false;
+            n /= 2;
+        }
+        return false;
+    }
+};
+
+
+4. Using Left Shift
+TC : O(LogN) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        int x = 1;
+        while(x <= n)
+        {
+            if(x == n) return true;
+            if(x > INT_MAX / 2) return false;
+            x = x << 1;
+        }
+        return false;
+    }
+};
+
+
+5. Using BuiltIn PopCount to Count No.Of Set Bits
+TC : O(LogN) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n <= 0)
+            return false;
+        int Count = __builtin_popcount(n);
+        return (Count == 1);
+    }
+};
+
+
+
+6. Using Ceil & Floor
+TC : O(1) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n == 0)
+            return false;
+        return floor(log2(n)) == ceil(log2(n)) ? true : false;
+    }
+};
+
+
+7. Using % Operator
+TC : O(1) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n <= 0)
+            return false;
+        return ((1 << 30) % n == 0);
+    }
+};
+
+
+8. By n & (n - 1) == 0
+TC : O(1) SC : O(1)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n <= 0)
+            return false;
+        return (n & (n - 1)) == 0;
+    }
+};

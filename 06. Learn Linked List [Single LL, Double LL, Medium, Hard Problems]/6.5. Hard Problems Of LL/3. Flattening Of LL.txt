@@ -1,0 +1,106 @@
+1. Copy To Vector, Sort & Convert To LL
+TC : O(2*(N*M) + (N*M)Log(N*M)) SC : O(2*N*M)
+
+/* Node structure  used in the program
+struct Node{
+    int data;
+    struct Node * next;
+    struct Node * bottom;
+
+    Node(int x){
+        data = x;
+        next = NULL;
+        bottom = NULL;
+    }
+
+};
+*/
+
+class Solution {
+  public:
+    Node *ConvertToLL(vector<int> &Values)
+    {
+        Node *head = new Node(Values[0]);
+        Node *temp = head;
+        for(int i = 1; i < Values.size(); i++)
+        {
+            Node *NewNode = new Node(Values[i]);
+            temp -> bottom = NewNode;
+            temp = temp -> bottom;
+        }
+        return head;
+    }
+    Node *flatten(Node *head) 
+    {
+        if(head == NULL) return NULL;
+        Node *temp = head;
+        vector<int> Values;
+        while(temp != NULL)
+        {
+            Node *t2 = temp;
+            while(t2 != NULL)
+            {
+                Values.push_back(t2 -> data);
+                t2 = t2 -> bottom;
+            }
+            temp = temp -> next;
+        }
+        sort(Values.begin(), Values.end());
+        return ConvertToLL(Values);
+    }
+};
+
+
+2. Merging Each Downward List
+TC : O(N * 2M) SC : O(N) (Recursive Stack Space)
+
+/* Node structure  used in the program
+struct Node{
+    int data;
+    struct Node * next;
+    struct Node * bottom;
+
+    Node(int x){
+        data = x;
+        next = NULL;
+        bottom = NULL;
+    }
+
+};
+*/
+
+class Solution {
+  public:
+    Node *Merge(Node *L1, Node *L2)
+    {
+        Node *NewHead = new Node(-1);
+        Node *temp = NewHead;
+        while(L1 != NULL && L2 != NULL)
+        {
+            if(L1 -> data < L2 -> data)
+            {
+                temp -> bottom = L1;
+                L1 = L1 -> bottom;
+            }
+            else
+            {
+                temp -> bottom = L2;
+                L2 = L2 -> bottom;
+            }
+            temp -> next = NULL;
+            temp = temp -> bottom;
+        }
+        if(L1 != NULL)
+            temp -> bottom = L1;
+        else
+            temp -> bottom = L2;
+        return NewHead -> bottom;
+    }
+    Node *flatten(Node *head) 
+    {
+        if(head == NULL || head -> next == NULL) 
+            return head;
+        head -> next = flatten(head -> next);
+        return Merge(head, head -> next);
+    }
+};

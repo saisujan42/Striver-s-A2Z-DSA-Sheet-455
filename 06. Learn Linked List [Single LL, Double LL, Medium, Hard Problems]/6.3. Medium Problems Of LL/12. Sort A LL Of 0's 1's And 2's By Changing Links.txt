@@ -1,0 +1,100 @@
+1. Count 0s, 1s, & 2s Then Copy 
+TC : O(2N) SC : O(1)
+
+/*
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution {
+  public:
+    // Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node* head) 
+    {
+        int Zeroes = 0, Ones = 0, Twos = 0;
+        Node *temp = head;
+        while(temp != NULL)
+        {
+            if(temp -> data == 0) Zeroes++;
+            if(temp -> data == 1) Ones++;
+            if(temp -> data == 2) Twos++;
+            temp = temp -> next;
+        }
+        temp = head;
+        while(Zeroes--)
+        {
+            temp -> data = 0;
+            temp = temp -> next;
+        }
+        while(Ones--)
+        {
+            temp -> data = 1;
+            temp = temp -> next;
+        }
+        while(Twos--)
+        {
+            temp -> data = 2;
+            temp = temp -> next;
+        }
+        return head;
+    }
+};
+
+
+2. Use 3 Heads To Seperate 0s,1s,2s and Join 
+TC : O(N) SC : O(1)
+
+/*
+  Node is defined as
+  struct Node {
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+class Solution {
+  public:
+    // Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node* head) 
+    {
+        Node *ZeroHead = new Node(-1);
+        Node *OneHead = new Node(-1);
+        Node *TwoHead = new Node(-1);
+        Node *temp = head;
+        Node *Zero = ZeroHead, *One = OneHead, *Two = TwoHead;
+        while(temp != NULL)
+        {
+            if(temp -> data == 0) 
+            {
+                Zero -> next = temp;
+                Zero = Zero -> next;
+            }
+            else if(temp -> data == 1)
+            {
+                One -> next = temp;
+                One = One -> next;
+            }
+            else
+            {
+                Two -> next = temp;
+                Two = Two -> next;
+            }
+            temp = temp -> next;
+        }
+        Zero -> next = (OneHead -> next) ? OneHead -> next : TwoHead -> next;
+        One -> next = TwoHead -> next;
+        Two -> next = NULL;
+        return ZeroHead -> next;
+    }
+};

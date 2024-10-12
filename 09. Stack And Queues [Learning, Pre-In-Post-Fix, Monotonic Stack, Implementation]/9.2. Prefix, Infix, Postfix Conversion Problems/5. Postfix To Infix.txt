@@ -1,0 +1,28 @@
+1. Push if s[i] is Operand
+   Pop 2 Top Elements and Place operator in between Top Elements and Again Push (if Operator)
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    string postToInfix(string s) 
+    {
+        int n = s.size();
+        stack<string> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            if(isalnum(s[i]))
+                Stack.push(string(1, s[i]));
+            else
+            {
+                string b = Stack.top();
+                Stack.pop();
+                string a = Stack.top();
+                Stack.pop();
+                Stack.push('(' + a + s[i] + b + ')');
+            }
+        }
+        return Stack.top();
+    }
+};

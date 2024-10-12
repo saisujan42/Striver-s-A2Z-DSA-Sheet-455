@@ -1,0 +1,81 @@
+1. Count Nodes & Delete Node
+TC : O(2N) SC : O(1)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* Delete(ListNode *prev, ListNode *temp, ListNode *head)
+    {
+        if(temp == head)
+        {
+            head = head -> next;
+            delete(temp);
+            return head;
+        }
+        prev -> next = temp -> next;
+        delete(temp);
+        return head;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {
+        int Count = 0;
+        ListNode *temp = head, *prev = NULL;
+        while(temp != NULL)
+        {
+            Count++;
+            temp = temp -> next;
+        }    
+        n = Count - n;
+        temp = head;
+        for(int i = 1; i <= n; i++)
+        {
+            prev = temp;
+            temp = temp -> next;
+        }
+        return Delete(prev, temp, head);
+    }
+};
+
+
+2. Using Slow & Fast Pointers (By Moving Fast Pointer By N Positions)
+TC : O(N) SC : O(1)
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {
+        ListNode *slow = head, *fast = head;
+        while(n--)
+            fast = fast -> next;
+        if(fast == NULL)
+            return head -> next;
+        while(fast -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next;
+        }
+        ListNode *temp = slow -> next;
+        slow -> next = slow -> next -> next;
+        delete(temp);
+        return head;
+    }
+};

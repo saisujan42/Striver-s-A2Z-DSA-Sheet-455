@@ -1,0 +1,182 @@
+1. Brute Force Approach
+TC : O(N^2) SC : O(1)
+
+class Solution {
+public:
+    long long subArrayRanges(vector<int>& nums) 
+    {
+        int n = nums.size();
+        long long Sum = 0;
+        for(int i = 0; i < n; i++)
+        {
+            int Minimum = nums[i], Maximum = nums[i];
+            for(int j = i; j < n; j++)
+            {
+                Minimum = min(Minimum, nums[j]);
+                Maximum = max(Maximum, nums[j]);
+                Sum += (Maximum - Minimum);
+            }
+        }    
+        return Sum;
+    }
+};
+
+
+
+2. Using (Sum Of Subarray Maximum - Sum Of Subarray Minimum)
+TC : O(5N + 5N) SC : O(5N + 5N)
+
+class Solution {
+public:
+    long long SubArrayMinimum(vector<int> &nums)
+    {
+        int n = nums.size();
+        long long Sum = 0;
+        vector<int> PSE = FindPreviousSmallerIndex(nums);
+        vector<int> NSE = FindNextSmallerIndex(nums);
+        for(int i = 0; i < n; i++)
+        {
+            long long Count = (NSE[i] - i) * (i - PSE[i]);
+            Sum += (Count * nums[i]);
+        }
+        return Sum;
+    }
+    vector<int> FindPreviousSmallerIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> PSE(n);
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && nums[Stack.top()] > nums[i])
+                Stack.pop();
+            PSE[i] = Stack.empty() ? -1 : Stack.top();
+            Stack.push(i);
+        }
+        return PSE;
+    }
+    vector<int> FindNextSmallerIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> NSE(n);
+        stack<int> Stack;
+        for(int i = n - 1; i >= 0; i--)
+        {
+            while(!Stack.empty() && nums[Stack.top()] >= nums[i])
+                Stack.pop();
+            NSE[i] = Stack.empty() ? n : Stack.top();
+            Stack.push(i);
+        }
+        return NSE;
+    }
+
+
+    long long SubArrayMaximum(vector<int> &nums)
+    {
+        int n = nums.size();
+        long long Sum = 0;
+        vector<int> PGE = FindPreviousGreaterIndex(nums);
+        vector<int> NGE = FindNextGreaterIndex(nums);
+        for(int i = 0; i < n; i++)
+        {
+            long long Count = (NGE[i] - i) * (i - PGE[i]);
+            Sum += (Count * nums[i]);
+        }
+        return Sum;
+    }
+    vector<int> FindPreviousGreaterIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> PGE(n);
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && nums[Stack.top()] < nums[i])
+                Stack.pop();
+            PGE[i] = Stack.empty() ? -1 : Stack.top();
+            Stack.push(i);
+        }
+        return PGE;
+    }
+    vector<int> FindNextGreaterIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> NGE(n);
+        stack<int> Stack;
+        for(int i = n - 1; i >= 0; i--)
+        {
+            while(!Stack.empty() && nums[Stack.top()] <= nums[i])
+                Stack.pop();
+            NGE[i] = Stack.empty() ? n : Stack.top();
+            Stack.push(i);
+        }
+        return NGE;
+    }
+    long long subArrayRanges(vector<int>& nums) 
+    {
+        return SubArrayMaximum(nums) - SubArrayMinimum(nums);
+    }
+};
+
+
+
+3. Simplified Code (Shorter Code)
+   Using (Sum of Subarray Maximum - Sum of Subarray Minimum)
+   By Using Same Function to Find Minimum (Converting array elements to negative to find Minimum which becomes Maximum)
+
+TC : O(10N + 1N) ->  1N For Convertin Array Elements to Negative
+SC : O(10N)
+
+class Solution {
+public:
+    long long SubArrayMinMax(vector<int> &nums)
+    {
+        int n = nums.size();
+        long long Sum = 0;
+        vector<int> PSE = PreviousIndex(nums);
+        vector<int> NSE = NextIndex(nums);
+        for(int i = 0; i < n; i++)
+        {
+            long long Count = (NSE[i] - i) * (i - PSE[i]);
+            Sum += (Count * nums[i]);
+        }
+        return Sum;
+    }
+    vector<int> PreviousIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> PSE(n);
+        stack<int> Stack;
+        for(int i = 0; i < n; i++)
+        {
+            while(!Stack.empty() && nums[Stack.top()] > nums[i])
+                Stack.pop();
+            PSE[i] = Stack.empty() ? -1 : Stack.top();
+            Stack.push(i);
+        }
+        return PSE;
+    }
+    vector<int> NextIndex(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> NSE(n);
+        stack<int> Stack;
+        for(int i = n - 1; i >= 0; i--)
+        {
+            while(!Stack.empty() && nums[Stack.top()] >= nums[i])
+                Stack.pop();
+            NSE[i] = Stack.empty() ? n : Stack.top();
+            Stack.push(i);
+        }
+        return NSE;
+    }
+    long long subArrayRanges(vector<int>& nums) 
+    {
+        int n = nums.size();
+        long long Minimum = SubArrayMinMax(nums);
+        for(int i = 0; i < n; i++)
+            nums[i] *= (-1);
+        long long Maximum = (-1) * SubArrayMinMax(nums);
+        return Maximum - Minimum;
+    }
+};

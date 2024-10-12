@@ -1,0 +1,28 @@
+1. Iterate from Reverse
+   Push to Stack if Operand
+   Pop & Add Operator in Between (if Operator)
+
+TC : O(N) SC : O(N)
+
+class Solution {
+  public:
+    string preToInfix(string s) 
+    {
+        int n = s.size();
+        stack<string> Stack;
+        for(int i = n - 1; i >= 0; i--)
+        {
+            if(isalnum(s[i]))
+                Stack.push(string(1, s[i]));
+            else
+            {
+                string a = Stack.top();
+                Stack.pop();
+                string b = Stack.top();
+                Stack.pop();
+                Stack.push('(' + a + s[i] + b + ')');
+            }
+        }
+        return Stack.top();
+    }
+};
