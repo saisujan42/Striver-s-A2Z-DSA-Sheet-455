@@ -1,0 +1,13 @@
+TC : O(2N) SC : O(N)
+
+class Solution{
+    public:
+    void frequencyCount(vector<int>& arr,int N, int P)
+    { 
+        unordered_map<int, int> Map;
+        for(int i = 0; i < N; i++)
+            Map[arr[i]]++;
+        for(int i = 0; i < N; i++)
+            arr[i] = Map[i + 1];
+    }
+};

@@ -1,0 +1,6 @@
+2. Counting Frequencies Of Array Elements - Frequencies of Limited Range Array Elements
+https://www.geeksforgeeks.org/problems/frequency-of-array-elements-1587115620/0
+
+3. Find The Highest or Lowest Frequency Element - Highest/Lowest Frequency Elements
+https://www.naukri.com/code360/problems/k-most-occurrent-numbers_625382?count=25&search=&sort_entity=order&sort_order=ASC&page=1
+
