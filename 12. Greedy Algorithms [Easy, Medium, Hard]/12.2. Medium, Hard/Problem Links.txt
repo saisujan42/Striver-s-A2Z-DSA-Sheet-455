@@ -1,0 +1,32 @@
+1. N Meetings In One Room - N Meetings In One Room
+https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+
+2. Jump Game - Jump Game
+https://leetcode.com/problems/jump-game/
+
+3. Jump Game 2 - Jump Game II
+https://leetcode.com/problems/jump-game-ii/
+
+4. Minimum Number Of Platforms Required For A Railway - Minimum Platforms
+https://www.geeksforgeeks.org/problems/minimum-platforms-1587115620/1
+
+5. Job Sequencing Problem - Job Sequencing Problem
+https://www.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1
+
+6. Candy - Candy
+https://leetcode.com/problems/candy/description/
+
+7. Program For Shortest Job First (SJF) CPU Scheduling - Shortest Job First
+https://www.geeksforgeeks.org/problems/shortest-job-first/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=shortest-job-first
+
+8. Program For Least Recently Used (LRU) Page Replacement Algorithm - Page Faults In LRU
+https://www.geeksforgeeks.org/problems/page-faults-in-lru5603/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=page-faults-in-lru
+
+9. Insert Interval - Insert Interval
+https://leetcode.com/problems/insert-interval/description/
+
+10. Merge Intervals - Merge Intervals
+https://leetcode.com/problems/merge-intervals/description/
+
+11. Non-Overlapping Intervals - Non-Overlapping Intervals
+https://leetcode.com/problems/non-overlapping-intervals/description/

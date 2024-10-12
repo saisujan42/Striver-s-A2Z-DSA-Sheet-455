@@ -1,0 +1,98 @@
+1. Implementing LRU Cache (From Stack & Queue Playlist)
+   Using Doubly Linked List & Map
+
+TC : O(N) SC : O(Capacity)
+
+class Node
+{
+    public:
+    int Value;
+    Node *prev, *next;
+    Node(int key)
+    {
+        Value = key;
+        prev = next = NULL;
+    }
+};
+
+class LRUCache {
+public:
+    int Capacity = 0;
+    Node *head, *tail;
+    unordered_map<int, Node*> Map;
+
+    LRUCache(int capacity) 
+    {
+        Capacity = capacity;  
+        head = new Node(-1);
+        tail = new Node(-1);
+        head -> next = tail;
+        tail -> prev = head;  
+    }
+    
+    void DeleteNode(Node *temp)
+    {
+        Node *PrevNode = temp -> prev;
+        Node *NextNode = temp -> next;
+        PrevNode -> next = NextNode;
+        NextNode -> prev = PrevNode;
+    }
+    void InsertAtHead(Node *temp)
+    {
+        temp -> next = head -> next;
+        temp -> prev = head;
+        head -> next -> prev = temp;
+        head -> next = temp;
+    }
+    int get(int key) 
+    {
+        if(Map.find(key) == Map.end())
+            return -1;
+        Node *temp = Map[key];
+        DeleteNode(temp);
+        InsertAtHead(temp);
+        return temp -> Value;
+    }
+    
+    void put(int value) 
+    {
+        if(Map.find(value) != Map.end())
+        {
+            Node *temp = Map[value];
+            temp -> Value = value;
+            DeleteNode(temp);
+            InsertAtHead(temp);
+        }
+        else
+        {
+            if(Map.size() == Capacity)
+            {
+                Node *temp = tail -> prev;
+                Map.erase(temp -> Value);
+                DeleteNode(temp);
+            }
+            Node *NewNode = new Node(value);
+            Map[value] = NewNode;
+            InsertAtHead(NewNode);
+        }
+    }
+};
+
+class Solution
+{
+    public:
+    int pageFaults(int N, int C, int pages[])
+    {
+        LRUCache Cache(C);
+        int Faults = 0;
+        for(int i = 0; i < N; i++)
+        {
+            if(Cache.get(pages[i]) == -1)
+            {
+                Faults++;
+                Cache.put(pages[i]);
+            }
+        }
+        return Faults;
+    }
+};

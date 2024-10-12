@@ -1,0 +1,25 @@
+1. Greedy Algorithm 
+   (Only Works for Denominations Including 2000, 500, 200, 100, 50, 20, 10, 5, 2, 1)
+   (For other variation of this problem use DP)
+
+TC : O(10) SC : O(10) 
+(For 10 Denominations)
+
+class Solution{
+public:
+    vector<int> minPartition(int N)
+    {
+        vector<int> Coins = {2000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
+        vector<int> Answer;
+        int i = 0;
+        while(N)
+        {
+            int Count = N / Coins[i];
+            while(Count--)
+                Answer.push_back(Coins[i]);
+            N %= Coins[i];
+            i++;
+        }
+        return Answer;
+    }
+};

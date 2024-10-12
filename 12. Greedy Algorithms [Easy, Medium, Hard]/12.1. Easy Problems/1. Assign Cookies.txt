@@ -1,0 +1,23 @@
+1. Greedy Algorithm
+   (Sorting & 2-Pointer Approach)
+
+TC : O(NLogN + MLogM + M) SC : O(1)
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& Greed, vector<int>& Cookies) 
+    {
+        int n = Greed.size();
+        int m = Cookies.size();
+        sort(Greed.begin(), Greed.end());
+        sort(Cookies.begin(), Cookies.end());
+        int Left = 0, Right = 0;
+        while(Left < m && Right < n)
+        {
+            if(Greed[Right] <= Cookies[Left])
+                Right++;
+            Left++;
+        }    
+        return Right;
+    }
+};

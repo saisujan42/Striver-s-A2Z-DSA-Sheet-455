@@ -1,0 +1,54 @@
+1. Brute Force Approach
+TC : O(N^2) SC : O(1)  ->   TLE
+
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) 
+    {
+        int n = nums.size();
+        int Count = 0;    
+        for(int i = 0; i < n; i++)
+        {
+            int Sum = 0;
+            for(int j = i; j < n; j++)
+            {
+                Sum += nums[j];
+                if(Sum == goal) Count++;
+                if(Sum > goal) break;
+            }
+        }
+        return Count;
+    }
+};
+
+
+
+2. Sliding Window & 2-Pointer Approach
+   No.Of Subarrays With Sum Less Than Equal To Goal - No.Of Subarrays With Sum Less Than Equal To Goal-1
+
+TC : O(2 * 2N) SC : O(1)
+
+class Solution {
+public:
+    int CountSubarraysLessThanGoal(vector<int> &nums, int goal)
+    {
+        if(goal < 0) return 0;
+        int n = nums.size();
+        int Start = 0, End = 0, Count = 0, Sum = 0;    
+        while(End < n)
+        {
+            Sum += nums[End];
+            while(Sum > goal)
+                Sum -= nums[Start++];
+            Count += (End - Start + 1);
+            End++;
+        }
+        return Count;
+    }
+    int numSubarraysWithSum(vector<int>& nums, int goal) 
+    {
+        int Sum1 = CountSubarraysLessThanGoal(nums, goal);
+        int Sum2 = CountSubarraysLessThanGoal(nums, goal - 1);
+        return Sum1 - Sum2;
+    }
+}; 

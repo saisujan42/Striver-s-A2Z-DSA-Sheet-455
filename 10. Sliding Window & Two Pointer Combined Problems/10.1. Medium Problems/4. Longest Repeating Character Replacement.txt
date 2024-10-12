@@ -1,0 +1,89 @@
+1. Brute Force Approach (Using Map)
+TC : O(N^2) SC : O(3)    ->    TLE
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) 
+    {
+        int n = s.size();
+        int Length = 0;
+        for(int i = 0; i < n; i++)
+        {
+            unordered_map<char, int> Map;
+            int MaxFreq = 0;
+            for(int j = i; j < n; j++)
+            {
+                Map[s[j]]++;
+                MaxFreq = max(Map[s[j]], MaxFreq);
+                int Changes = (j - i + 1) - MaxFreq;
+                if(Changes > k)
+                    break;
+                Length = max(Length, j - i + 1);
+            }
+        }    
+        return Length;
+    }
+};
+
+
+
+2. Sliding Window & 2-Pointer Approach (Using Map)
+TC : O(2N * 26) -> As we're Scanning through the Map fro MaxFrequency 
+SC : O(26)      -> We'll Store At Max 26 Uppercase Characters in Map
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) 
+    {
+        int n = s.size();
+        int Start = 0, End = 0, MaxLength = 0, MaxFreq = 0;
+        unordered_map<char, int> Map;
+        while(End < n)
+        {
+            Map[s[End]]++;
+            MaxFreq = max(MaxFreq, Map[s[End]]);
+            while((End - Start + 1) - MaxFreq > k)
+            {
+                Map[s[Start]]--;
+                MaxFreq = 0;
+                for(auto ch : Map)
+                    MaxFreq = max(ch.second, MaxFreq);
+                Start++;
+            }
+            if((End - Start + 1) - MaxFreq <= k)
+                MaxLength = max(MaxLength, End - Start + 1);
+            End++;
+        }    
+        return MaxLength;
+    }
+};
+
+
+
+3. Optimized Sliding Window & 2-Pointer Approach
+TC : O(N)  -> We'll Not Update MaxFreq as Reducing it Won't Give us a Longer Subsequence
+SC : O(26) 
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) 
+    {
+        int n = s.size();
+        int Start = 0, End = 0, MaxLength = 0, MaxFreq = 0;
+        unordered_map<char, int> Map;
+        while(End < n)
+        {
+            Map[s[End]]++;
+            MaxFreq = max(MaxFreq, Map[s[End]]);
+            if((End - Start + 1) - MaxFreq > k)      // Optimization Step
+            {
+                Map[s[Start]]--;
+                Start++;
+            }
+            if((End - Start + 1) - MaxFreq <= k)
+                MaxLength = max(MaxLength, End - Start + 1);
+            End++;
+        }    
+        return MaxLength;
+    }
+};

@@ -1,0 +1,25 @@
+1. Sorting & Counting
+TC : O(2 * NLogN + N) SC : O(1)
+
+class Solution {
+    public:
+    int findPlatform(vector<int>& arr, vector<int>& dep) 
+    {
+        int n = arr.size();
+        sort(arr.begin(), arr.end());
+        sort(dep.begin(), dep.end());
+        
+        int Count = 0, MaxCount = 0;
+        int Left = 0, Right = 0;
+        
+        while(Left < n && Right < n)
+        {
+            if(arr[Left] <= dep[Right])
+                Count++, Left++;
+            else
+                Count--, Right++;
+            MaxCount = max(Count, MaxCount);
+        }
+        return MaxCount;
+    }
+};

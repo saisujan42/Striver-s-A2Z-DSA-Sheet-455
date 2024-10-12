@@ -1,0 +1,23 @@
+1. Greedy Approach
+   (Counting Ranges From Starting Index)
+
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    int jump(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int Count = 0, Left = 0, Right = 0;    
+        while(Right < n - 1)
+        {
+            int MaxIndex = 0;
+            for(int i = Left; i <= Right; i++)
+                MaxIndex = max(MaxIndex, i + nums[i]);
+            Left = Right + 1;
+            Right = MaxIndex;
+            Count++;
+        }
+        return Count;
+    }
+};

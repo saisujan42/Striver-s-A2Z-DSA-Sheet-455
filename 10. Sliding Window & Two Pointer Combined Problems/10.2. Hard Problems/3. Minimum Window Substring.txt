@@ -1,0 +1,89 @@
+1. Brute Force Approach (Using Map)
+TC : O(N * (M + N)) 
+SC : O(52)        ->  Max of 26, if the string has all 26 Alphabets (Small & Capital)
+
+class Solution {
+public:
+    string minWindow(string s, string t) 
+    {
+        int n = s.size();
+        int m = t.size();
+        int MinLength = INT_MAX, Index = -1;
+        if(m > n) return "";
+
+        for(int i = 0; i < n; i++)
+        {
+            unordered_map<char, int> Map;
+            for(int j = 0; j < m; j++)
+                Map[t[j]]++;
+            int Count = 0;
+
+            for(int j = i; j < n; j++)
+            {
+                if(Map[s[j]] > 0)
+                    Count++;
+                Map[s[j]]--;
+                if(Count == m)
+                {
+                    int Length = j - i + 1;
+                    if(Length < MinLength)
+                    {
+                        MinLength = min(MinLength, j - i + 1);
+                        Index = i;
+                    }
+                    break;
+                }
+            }
+        }
+        if(Index == -1)
+            return "";
+        return s.substr(Index, MinLength);
+    }
+};
+
+
+
+2. Sliding Window & 2-Pointer Approach
+
+TC : O(M + 2N)
+SC : O(52)    ->  Max of 26, if the string has all 26 Alphabets (Small & Capital)
+
+class Solution {
+public:
+    string minWindow(string s, string t) 
+    {
+        int n = s.size();
+        int m = t.size();
+        if(m > n) return "";
+        
+        int MinLength = INT_MAX, Index = -1;
+        int Start = 0, End = 0, Count = 0;
+        unordered_map<char, int> Map;
+        for(int i = 0; i < m; i++)
+            Map[t[i]]++;
+
+        while(End < n)
+        {
+            if(Map[s[End]] > 0)
+                Count++;
+            Map[s[End]]--;
+            while(Count == m)
+            {
+                int Length = End - Start + 1;
+                if(Length < MinLength)
+                {
+                    MinLength = Length;
+                    Index = Start;
+                }
+                Map[s[Start]]++;
+                if(Map[s[Start]] > 0)
+                    Count--;
+                Start++;
+            }
+            End++;
+        }
+        if(Index == -1)
+            return "";
+        return s.substr(Index, MinLength);
+    }
+};

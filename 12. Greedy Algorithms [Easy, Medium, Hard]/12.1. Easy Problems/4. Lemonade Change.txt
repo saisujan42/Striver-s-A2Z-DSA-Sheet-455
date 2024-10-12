@@ -1,0 +1,30 @@
+1. Greedy Algorithm
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) 
+    {
+        int n = bills.size();
+        int Five = 0, Ten = 0, Twenty = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(bills[i] == 5)
+                Five++;
+            if(bills[i] == 10) 
+            {
+                Ten++;
+                if(Five > 0) Five--;
+                else return false;
+            }
+            if(bills[i] == 20) 
+            {
+                Twenty++;
+                if(Five > 0 && Ten > 0) Five--, Ten--;
+                else if(Five >= 3) Five -= 3;
+                else return false;
+            }
+        }    
+        return true;
+    }
+};

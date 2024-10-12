@@ -1,0 +1,15 @@
+1. Assign Cookies - Assign Cookies
+https://leetcode.com/problems/assign-cookies/
+
+2. Fractional Knapsack Problem - Fractional Knapsack
+https://www.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1
+
+3. Greedy Algorithm To Find Minimum Number Of Coins - Minimum Number Of Coins
+https://www.geeksforgeeks.org/problems/-minimum-number-of-coins4426/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+4. Lemonade Change - Lemonade Change
+https://leetcode.com/problems/lemonade-change/description/
+
+5. Valid Paranthesis Checker - Valid Parenthesis String
+https://leetcode.com/problems/valid-parenthesis-string/description/
+

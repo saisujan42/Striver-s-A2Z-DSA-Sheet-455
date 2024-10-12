@@ -1,0 +1,89 @@
+1. Brute Force Approach (Using Set)
+TC : O(N^2)
+SC : O(3)  -> As Set size can be Max of 3 in this case
+
+class Solution 
+{
+    public:
+    int totalFruits(vector<int> &arr) 
+    {
+        int n = arr.size();
+        int Fruits = 0;
+        for(int i = 0; i < n; i++)
+        {
+            set<int> Set;
+            for(int j = i; j < n; j++)
+            {
+                Set.insert(arr[j]);
+                if(Set.size() > 2)
+                    break;
+                Fruits = max(j - i + 1, Fruits);
+            }
+        }
+        return Fruits;
+    }
+};
+
+
+
+2. Sliding Window & 2-Pointer Approach (Using Map)
+TC : O(2N)
+SC : O(3)  -> As Set size can be Max of 3 in this case
+
+
+class Solution 
+{
+    public:
+    int totalFruits(vector<int> &arr) 
+    {
+        int n = arr.size();
+        unordered_map<int, int> Map;
+        int Fruits = 0, Start = 0, End = 0;
+        while(End < n)
+        {
+            Map[arr[End]]++;
+            while(Map.size() > 2)
+            {
+                Map[arr[Start]]--;
+                if(Map[arr[Start]] == 0)
+                    Map.erase(arr[Start]);
+                Start++;
+            }
+            Fruits = max(End - Start + 1, Fruits);
+            End++;
+        }
+        return Fruits;
+    }
+};
+
+
+
+
+3. Optimisied Sliding Window & 2-Pointer Approach
+TC : O(N)
+SC : O(3) -> As we are at Max Storing 3 Elements
+
+class Solution 
+{
+    public:
+    int totalFruits(vector<int> &arr) 
+    {
+        int n = arr.size();
+        unordered_map<int, int> Map;
+        int Fruits = 0, Start = 0, End = 0;
+        while(End < n)
+        {
+            Map[arr[End]]++;
+            if(Map.size() > 2)            //Optimization Step (Reducing A Pass)
+            {
+                Map[arr[Start]]--;
+                if(Map[arr[Start]] == 0)
+                    Map.erase(arr[Start]);
+                Start++;
+            }
+            Fruits = max(End - Start + 1, Fruits);
+            End++;
+        }
+        return Fruits;
+    }
+};

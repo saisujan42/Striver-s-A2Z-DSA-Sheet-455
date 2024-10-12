@@ -1,0 +1,54 @@
+1. Using Recursion
+   (Trying All Possible Combinations For '*')
+
+TC : O(3^N) -> 3^N as Every * Has 3 Cases
+SC : O(N)   -> Recursion Stack Space
+
+class Solution {
+public:
+    bool Answer(string s, int Index, int Count)
+    {
+        if(Count < 0) 
+            return false;
+        if(Index == s.size())
+            return Count == 0;
+        if(s[Index] == '(')
+            return Answer(s, Index + 1, Count + 1);
+        if(s[Index] == ')')
+            return Answer(s, Index + 1, Count - 1);
+        return Answer(s, Index + 1, Count + 1) || Answer (s, Index + 1, Count - 1) || Answer(s, Index + 1, Count);
+    }
+    bool checkValidString(string s) 
+    {
+        return Answer(s, 0, 0);  
+    }
+};
+
+
+
+2. Greedy Approach
+   (Using Min & Max to Store Range instead of Count)
+
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    bool checkValidString(string s) 
+    {
+        int n = s.size();
+        int Min = 0, Max = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(s[i] == '(')
+                Min++, Max++;
+            else if(s[i] == ')')
+                Min--, Max--;
+            else
+                Min--, Max++;
+            
+            if(Min < 0) Min = 0;
+            if(Max < 0) return false;
+        }  
+        return Min == 0;
+    }
+};

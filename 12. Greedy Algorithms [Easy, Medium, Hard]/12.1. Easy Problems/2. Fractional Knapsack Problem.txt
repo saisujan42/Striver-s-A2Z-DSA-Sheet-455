@@ -1,0 +1,34 @@
+1. Greedy Algorithm
+   (Calculating Value/Weight)
+
+TC : O(NLogN + N) SC : O(1)
+
+class Solution {
+    public:
+    bool static comp(Item &a, Item &b)
+    {
+        double r1 = (double)a.value / (double)a.weight;
+        double r2 = (double)b.value / (double)b.weight;
+        return r1 >= r2;
+    }
+    double fractionalKnapsack(int w, Item arr[], int n) 
+    {
+        sort(arr, arr + n, comp);
+        double Answer = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(arr[i].weight <= w)
+            {
+                Answer += arr[i].value;
+                w -= arr[i].weight;
+            }
+            else
+            {
+                double Unit = (double)arr[i].value / (double)arr[i].weight;
+                Answer += (Unit * (double)w);
+                break;
+            }
+        }
+        return Answer;
+    }
+};

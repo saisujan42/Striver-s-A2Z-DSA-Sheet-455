@@ -1,0 +1,96 @@
+1. Finding From Left & Right 
+   Then, Adding Max Of Both To The Sum
+
+TC : O(2N) SC : O(2N)
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) 
+    {
+        int n = ratings.size();
+        vector<int> Left(n), Right(n);
+        Left[0] = Right[n - 1] = 1;
+        for(int i = 1; i < n; i++)
+        {
+            if(ratings[i - 1] < ratings[i])
+                Left[i] = Left[i - 1] + 1;
+            else
+                Left[i] = 1;
+            
+            if(ratings[n - i] < ratings[n - i - 1])
+                Right[n - i - 1] = Right[n - i] + 1;
+            else
+                Right[n - i - 1] = 1; 
+        }    
+        int Answer = 0;
+        for(int i = 0; i < n; i++)
+            Answer += max(Left[i], Right[i]);
+        return Answer;
+    }
+};
+
+
+2. Optimized Approach of (1)
+TC : O(2N) SC : O(N)
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) 
+    {
+        int n = ratings.size();
+        vector<int> Left(n);
+        Left[0] = 1;
+        for(int i = 1; i < n; i++)
+        {
+            if(ratings[i - 1] < ratings[i])
+                Left[i] = Left[i - 1] + 1;
+            else
+                Left[i] = 1;
+        }    
+        int Right = 1, Current = 1, Sum = max(1, Left[n - 1]);
+        for(int i = n - 2; i >= 0; i--)
+        {
+            if(ratings[i + 1] < ratings[i])
+                Current = Right + 1;
+            else
+                Current = 1; 
+            Right = Current;
+            Sum += max(Left[i], Current);
+        }
+        return Sum;
+    }
+};
+
+
+
+3. Using Slope & Peak
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) 
+    {
+        int n = ratings.size();
+        int Sum = 1, i = 1, Peak = 1, Down = 1;
+        while(i < n)
+        {
+            if(ratings[i] == ratings[i - 1])
+                Sum++, i++;
+            Peak = 1;
+            while(i < n && ratings[i] > ratings[i - 1])
+            {
+                Peak++, i++;
+                Sum += Peak;
+            }
+            Down = 1;
+            while(i < n && ratings[i] < ratings[i - 1])
+            {
+                Sum += Down;
+                Down++, i++;
+            }
+            if(Down > Peak)
+                Sum += (Down - Peak);
+        }
+        return Sum;
+    }
+};
