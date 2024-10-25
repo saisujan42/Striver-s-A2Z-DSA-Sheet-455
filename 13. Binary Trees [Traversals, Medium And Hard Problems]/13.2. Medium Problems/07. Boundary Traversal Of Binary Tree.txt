@@ -1,0 +1,63 @@
+1. First Add Left Boundary
+   Then Add Leaf Nodes Using InOrder Traversal
+   Then Add Right Boundary & Reverse the Order
+
+TC : O(Height + Height + N)
+SC : O(N)
+
+class Solution 
+{
+    public:
+    void LeftBoundary(Node *root, vector<int> &Answer)
+    {
+        Node *Curr = root -> left;
+        while(Curr != NULL)
+        {
+            if(Curr -> left != NULL || Curr -> right != NULL)
+                Answer.push_back(Curr -> data);
+            if(Curr -> left) 
+                Curr = Curr -> left;
+            else
+                Curr = Curr -> right;
+        }
+    }
+    void LeafNodes(Node *root, vector<int> &Answer)
+    {
+        if(root -> left == NULL && root -> right == NULL)
+        {
+            Answer.push_back(root -> data);
+            return;
+        }
+        if(root -> left) LeafNodes(root -> left, Answer);
+        if(root -> right) LeafNodes(root -> right, Answer);
+    }
+    void RightBoundary(Node *root, vector<int> &Answer)
+    {
+        Node *Curr = root -> right;
+        vector<int> Temp;
+        while(Curr != NULL)
+        {
+            if(Curr -> left != NULL || Curr -> right != NULL)
+                Temp.push_back(Curr -> data);
+            if(Curr -> right)
+                Curr = Curr -> right;
+            else
+                Curr = Curr -> left;
+        }
+        for(int i = Temp.size() - 1; i >= 0; i--)
+            Answer.push_back(Temp[i]);
+    }
+    vector<int> boundary(Node *root)
+    {
+        if(root == NULL) return {};
+        vector<int> Answer;
+        Answer.push_back(root -> data);
+        if(root -> left == NULL && root -> right == NULL)
+            return Answer;
+        
+        LeftBoundary(root, Answer);
+        LeafNodes(root, Answer);
+        RightBoundary(root, Answer);
+        return Answer;
+    }
+};

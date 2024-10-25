@@ -1,0 +1,39 @@
+1. InOrder, PreOrder, PostOrder Traversals
+TC : O(3N) ->  For 3 Traversals
+SC : O(3n) ->  To Store Answer (O(1), If Print Answer)
+
+void InOrder(TreeNode *root, vector<int> &Answer)
+{
+    if(root != NULL)
+    {
+        InOrder(root -> left, a);
+        Answer.push_back(root -> data);
+        InOrder(root -> right, a);
+    }
+}
+void PreOrder(TreeNode *root, vector<int> &Answer)
+{
+    if(root != NULL)
+    {
+        Answer.push_back(root -> data);
+        PreOrder(root -> left, b);
+        PreOrder(root -> right, b);
+    }
+}
+void PostOrder(TreeNode *root, vector<int> &Answer)
+{
+    if(root != NULL)
+    {
+        PostOrder(root -> left, c);
+        PostOrder(root -> right, c);
+        Answer.push_back(root -> data);
+    }
+}
+vector<vector<int>> getTreeTraversal(TreeNode *root)
+{
+    vector<int> a, b, c;
+    InOrder(root, a);
+    PreOrder(root, b);
+    PostOrder(root, c);
+    return {a, b, c};
+}

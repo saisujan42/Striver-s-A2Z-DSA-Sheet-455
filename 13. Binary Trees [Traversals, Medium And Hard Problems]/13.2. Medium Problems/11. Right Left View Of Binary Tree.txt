@@ -1,0 +1,64 @@
+1. Right View of Binary Tree
+   Using Level Order Traversal
+   Adding Last Element Of Every Level to the Answer
+
+TC : O(N) 
+SC : O(Max Nodes in a Level)
+
+class Solution 
+{
+    public:
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        if(root == NULL) return {};
+        
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+        vector<int> Answer;
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *node = Queue.front();
+                Queue.pop();
+                if(i == Size - 1)  
+                    Answer.push_back(node -> val);
+                if(node -> left) Queue.push(node -> left);
+                if(node -> right) Queue.push(node -> right);
+            }
+        }
+        return Answer;
+    }
+};
+
+
+
+2. Recursive Solution
+   Using Reverse PreOrder Traversal (Reverse Order - RLD)
+   If Level == Answer.size() Add Element to Answer
+   As This Means this Level is Visited First Time
+
+TC : O(N) SC : O(Height)
+
+class Solution 
+{
+    public:
+    void Traversal(TreeNode *root, int Level, vector<int> &Answer)
+    {
+        if(root == NULL) return;
+        if(Level == Answer.size())
+            Answer.push_back(root -> val);
+        Traversal(root -> right, Level + 1, Answer);
+        Traversal(root -> left, Level + 1, Answer);
+    }
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        if(root == NULL) return {};
+        vector<int> Answer;
+        Traversal(root, 0, Answer);
+        return Answer;
+    }
+};
+   

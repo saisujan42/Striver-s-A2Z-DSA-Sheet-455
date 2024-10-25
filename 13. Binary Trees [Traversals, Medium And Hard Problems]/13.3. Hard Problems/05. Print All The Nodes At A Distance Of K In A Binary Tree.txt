@@ -1,0 +1,82 @@
+1. Using Level Order Traversal To Store Parent of Each Node in A Map
+   Using Level Order Traversal Again to Travel K Nodes From Target Node
+   From Each Target Node, We Travel to 2 Child Nodes & The Parent Node
+
+TC : O(N + N) = O(2N)
+SC : O(N + N + N) = O(3N) -> Queue, Parent Map, Visited Map
+
+
+class Solution 
+{
+    public:
+    void FindParents(unordered_map<TreeNode*, TreeNode*> &Map, TreeNode* root)
+    {
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *node = Queue.front();
+                Queue.pop();
+                if(node -> left)
+                {
+                    Map[node -> left] = node;
+                    Queue.push(node -> left);
+                }
+                if(node -> right)
+                {
+                    Map[node -> right] = node;
+                    Queue.push(node -> right);
+                }
+            }
+        }
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) 
+    {
+        unordered_map<TreeNode*, TreeNode*> Parent;
+        FindParents(Parent, root);
+
+        unordered_map<TreeNode*, bool> Visited;
+        queue<TreeNode*> Queue;
+        Queue.push(target);
+        Visited[target] = true;
+        int Count = 0;
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            if(Count == k) break;
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *node = Queue.front();
+                Queue.pop();
+                if(node -> left && !Visited[node -> left])
+                {
+                    Queue.push(node -> left);
+                    Visited[node -> left] = true;
+                }
+                if(node -> right && !Visited[node -> right])
+                {
+                    Queue.push(node -> right);
+                    Visited[node -> right] = true;
+                }
+                if(Parent[node] && !Visited[Parent[node]])
+                {
+                    Queue.push(Parent[node]);
+                    Visited[Parent[node]] = true;
+                }
+            }
+            Count++;
+        }
+
+        vector<int> Answer;
+        while(!Queue.empty())
+        {
+            Answer.push_back(Queue.front() -> val);
+            Queue.pop();
+        }
+        return Answer;
+    }
+};

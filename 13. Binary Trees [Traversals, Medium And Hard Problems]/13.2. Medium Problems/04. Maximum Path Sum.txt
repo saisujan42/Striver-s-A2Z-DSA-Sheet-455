@@ -1,0 +1,22 @@
+1. Using Recursion
+   Same Approach as Diameter Of Binary Tree
+
+TC : O(N) SC : O(N)
+
+class Solution {
+public:
+    int FindMaxSum(TreeNode *root, int &Sum)
+    {
+        if(root == NULL) return 0;
+        int LeftSum = max(0, FindMaxSum(root -> left, Sum));
+        int RightSum = max(0, FindMaxSum(root -> right, Sum));
+        Sum = max(Sum, LeftSum + RightSum + root -> val);
+        return root -> val + max(LeftSum, RightSum);
+    }
+    int maxPathSum(TreeNode* root) 
+    {
+        int Sum = INT_MIN;
+        FindMaxSum(root, Sum);
+        return Sum;
+    }
+};

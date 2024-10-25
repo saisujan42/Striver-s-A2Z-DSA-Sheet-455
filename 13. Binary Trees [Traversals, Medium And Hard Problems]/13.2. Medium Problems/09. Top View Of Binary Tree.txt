@@ -1,0 +1,38 @@
+1. Top View Of Binary Tree
+   Using Vertical Order Traversal
+   Adding First Element of Every Column to Answer
+
+TC : O(N) SC : O(N)
+
+class Solution
+{
+    public:
+    vector<int> topView(Node *root)
+    {
+        if(root == NULL) return {};
+        
+        vector<int> Answer;
+        map<int, int> Map;
+        queue<pair<Node*, int>> Queue;
+        Queue.push({root, 0});
+        
+        while(!Queue.empty())
+        {
+            auto it = Queue.front();
+            Queue.pop();
+            Node *node = it.first;
+            int Column = it.second;
+            
+            if(Map.find(Column) == Map.end())
+                Map[Column] = node -> data;
+                
+            if(node -> left) Queue.push({node -> left, Column - 1});
+            if(node -> right) Queue.push({node -> right, Column + 1});
+        }
+        
+        for(auto Value : Map)
+            Answer.push_back(Value.second);
+        return Answer;
+    }
+
+};

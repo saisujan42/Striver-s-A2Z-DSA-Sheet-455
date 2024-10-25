@@ -1,0 +1,17 @@
+1. 1 -> PreOrder
+   2 -> InOrder
+   3 -> PostOrder
+
+A Tree can't be Formed with PreOrder & PostOrder
+So 2 + 1 and 2 + 3 is Possible
+
+class Solution
+{
+public:
+    bool isPossible(int a,int b)
+    {
+        if(a + b == 3 || a + b == 5)
+            return true;
+        return false;
+    }
+};

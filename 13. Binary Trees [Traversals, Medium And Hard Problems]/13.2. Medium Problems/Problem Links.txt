@@ -1,0 +1,37 @@
+1. Height Of A Binary Tree - Maximum Depth Of Binary Tree
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+2. Check If The Binary Tree Is Height-Balanced Or Not - Balanced Binary Tree
+https://leetcode.com/problems/balanced-binary-tree/description/
+
+3. Diameter Of Binary Tree - Diameter Of Binary Tree
+https://leetcode.com/problems/diameter-of-binary-tree/description/
+
+4. Maximum Path Sum - Binary Tree Maximum Path Sum
+https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+
+5. Check If Two Trees Are Identical Or Not - Same Tree
+https://leetcode.com/problems/same-tree/description/
+
+6. Zig Zag Traversal Of Binary Tree - Binary Tree Zigzag Level Order Traversal
+https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
+
+7. Boundary Traversal Of Binary Tree - Tree Boundary Traversal
+https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+8. Vertical Order Traversal Of Binary Tree - Vertical Order Traversal Of A Binary Tree
+https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/description/
+
+9. Top View Of Binary Tree - Top View Of Binary Tree
+https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+
+10. Bottom View Of Binary Tree - Bottom View Of Binary Tree
+https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
+
+11. Right/Left View Of Binary Tree - Binary Tree Right Side View
+https://leetcode.com/problems/binary-tree-right-side-view/
+
+12. Symmetric Binary Tree - Symmetric Tree
+https://leetcode.com/problems/symmetric-tree/description/
+
+

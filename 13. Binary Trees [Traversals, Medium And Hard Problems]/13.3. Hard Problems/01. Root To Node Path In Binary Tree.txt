@@ -1,0 +1,31 @@
+1. Using Inorder Traversal
+   Traverse The Tree & Add String to Answer if Leaf Node
+
+TC : O(N) 
+SC : O(N) -> Recursive Stack Space (Not Considering Answer as Extra Space)
+
+class Solution 
+{
+    public:
+    string Arrow = "->";
+    void FindPaths(TreeNode *root, string Temp, vector<string> &Answer)
+    {
+        if(root == NULL) return;
+        if(root -> left == NULL && root -> right == NULL)
+        {
+            Temp = Temp + to_string(root -> val);
+            Answer.push_back(Temp);
+            return;
+        }
+        else
+            Temp = Temp + to_string(root -> val) + Arrow;
+        FindPaths(root -> left, Temp, Answer);
+        FindPaths(root -> right, Temp, Answer);
+    }
+    vector<string> binaryTreePaths(TreeNode* root) 
+    {
+        vector<string> Answer;
+        FindPaths(root, "", Answer);
+        return Answer;        
+    }
+};

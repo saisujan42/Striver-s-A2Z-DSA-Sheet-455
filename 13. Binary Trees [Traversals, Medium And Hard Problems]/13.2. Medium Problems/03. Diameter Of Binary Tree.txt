@@ -1,0 +1,55 @@
+1. Brute Force Approach
+   Traverse to Each Node & Find Height Of Left & Right SubTree At Each Node
+
+TC : O(N^2) SC : O(N^2)
+
+class Solution 
+{
+    public:
+    int FindHeight(TreeNode *root)
+    {
+        if(root == NULL) return 0;
+        int Left = FindHeight(root -> left);
+        int Right = FindHeight(root -> right);
+        return 1 + max(Left, Right);
+    }
+    void FindDiameter(TreeNode *root, int &MaxDiameter)
+    {
+        if(root == NULL) return;
+        int Left = FindHeight(root -> left);
+        int Right = FindHeight(root -> right);
+        MaxDiameter = max(Left + Right, MaxDiameter);
+        FindDiameter(root -> left, MaxDiameter);
+        FindDiameter(root -> right, MaxDiameter);
+    }
+    int diameterOfBinaryTree(TreeNode* root) 
+    {
+        int MaxDiameter = 0;
+        FindDiameter(root, MaxDiameter);
+        return MaxDiameter;    
+    }
+};
+
+
+
+2. Calculating Max Diameter While Traversing Each Node
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    int FindDiameter(TreeNode *root, int &MaxDiameter)
+    {
+        if(root == NULL) return 0;
+        int Left = FindDiameter(root -> left, MaxDiameter);
+        int Right = FindDiameter(root -> right, MaxDiameter);
+        MaxDiameter = max(Left + Right, MaxDiameter);
+        return 1 + max(Left, Right);
+    }
+    int diameterOfBinaryTree(TreeNode* root) 
+    {
+        int MaxDiameter = 0;
+        FindDiameter(root, MaxDiameter);
+        return MaxDiameter;    
+    }
+};

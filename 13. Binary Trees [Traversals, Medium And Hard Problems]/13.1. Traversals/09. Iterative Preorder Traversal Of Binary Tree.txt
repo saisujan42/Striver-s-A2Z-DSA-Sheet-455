@@ -1,0 +1,26 @@
+1. Iterative Preorder Traversal
+   Using Stack
+
+TC : O(N) 
+SC : O(N) -> For Stack
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) 
+    {
+        if(root == NULL) return {};
+
+        vector<int> Answer;
+        stack<TreeNode*> Stack;
+        Stack.push(root);
+        while(!Stack.empty())
+        {
+            TreeNode *temp = Stack.top();
+            Stack.pop();
+            Answer.push_back(temp -> val);
+            if(temp -> right != NULL) Stack.push(temp -> right);  // First Push Right
+            if(temp -> left != NULL) Stack.push(temp -> left);    // Then Push Left
+        }
+        return Answer;    
+    }
+};

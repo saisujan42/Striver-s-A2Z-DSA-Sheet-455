@@ -1,0 +1,32 @@
+1. Iterative InOrder Traversal
+   Using Stack
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    vector<int> inorderTraversal(TreeNode* root) 
+    {
+        stack<TreeNode*> Stack;
+        TreeNode *temp = root;
+        vector<int> Answer;
+        while(true)
+        {
+            if(temp != NULL)
+            {
+                Stack.push(temp);
+                temp = temp -> left;
+            }
+            else
+            {
+                if(Stack.empty()) break;
+                temp = Stack.top();
+                Stack.pop();
+                Answer.push_back(temp -> val);
+                temp = temp -> right;
+            }
+        }
+        return Answer;
+    }
+};

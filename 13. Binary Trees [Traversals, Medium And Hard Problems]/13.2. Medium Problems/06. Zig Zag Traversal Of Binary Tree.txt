@@ -1,0 +1,50 @@
+1. Using Level Order Traversal
+   Using A Bool Variable to Keep Track of Left-Right or Right-Left Order
+
+TC : O(N) SC : O(N)
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution 
+{
+    public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
+    {
+        if(root == NULL) return {};
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+        vector<vector<int>> Answer;
+        bool Flag = true;
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            vector<int> Temp;
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *Node = Queue.front();
+                Queue.pop();
+                if(Node -> left) Queue.push(Node -> left);
+                if(Node -> right) Queue.push(Node -> right);
+                Temp.push_back(Node -> val);
+            }
+            if(Flag == false)
+            {
+                reverse(Temp.begin(), Temp.end());
+                Flag = true;
+            }
+            else Flag = false;
+            Answer.push_back(Temp);
+        }
+        return Answer;
+    }
+};

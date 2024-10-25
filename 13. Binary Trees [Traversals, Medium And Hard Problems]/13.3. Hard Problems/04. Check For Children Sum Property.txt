@@ -1,0 +1,26 @@
+1. Using InOrder Traversal
+   Comapring Sum Of Children At Every Node
+
+TC : O(N) 
+SC : O(N) -> Recursive Stack Space
+
+class Solution{
+    public:
+    bool CheckSum(Node *root)
+    {
+        if(root == NULL)
+            return true;
+        if(root -> left == NULL && root -> right == NULL)
+            return true;
+        
+        int Left = (root -> left) ? root -> left -> data : 0;
+        int Right = (root -> right) ? root -> right -> data : 0;
+        if(root -> data == Left + Right)
+            return CheckSum(root -> left) && CheckSum(root -> right);
+        return false;
+    }
+    int isSumProperty(Node *root)
+    {
+        return CheckSum(root);
+    }
+};

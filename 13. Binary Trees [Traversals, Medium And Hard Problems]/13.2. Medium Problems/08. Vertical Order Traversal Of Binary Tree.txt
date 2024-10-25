@@ -1,0 +1,78 @@
+1. Vertical Order Traversal (Iterative - Level Order)
+   Using Level Order Traversal To Store Nodes in Queue 
+   Using Queue to Store Node & It's Row & Column
+   Using Map To Store The Values in Sorted Order As Per Column
+
+TC : O(NLogN) 
+SC : O(N + N) -> 1N For Queue & 1N For Map
+
+class Solution 
+{
+    public:
+    vector<vector<int>> verticalTraversal(TreeNode* root)         
+    {
+        map<int, map<int, multiset<int>>> Map;
+        queue<pair<TreeNode*, pair<int, int>>> Queue;
+        Queue.push({root, {0, 0}});
+
+        while(!Queue.empty())
+        {
+            auto Temp = Queue.front();
+            Queue.pop();
+            TreeNode *node = Temp.first;
+            int x = Temp.second.first;
+            int y = Temp.second.second;
+            Map[x][y].insert(node -> val);
+            if(node -> left)
+                Queue.push({node -> left, {x - 1, y + 1}});
+            if(node -> right)
+                Queue.push({node -> right, {x + 1, y + 1}});
+        }
+
+        vector<vector<int>> Answer;
+        for(auto m : Map)
+        {
+            vector<int> Temp;
+            for(auto Set : m.second)
+                Temp.insert(Temp.end(), Set.second.begin(), Set.second.end());
+            Answer.push_back(Temp);
+        }
+        return Answer;
+    }
+};
+
+
+
+2. Vertical Order Traversal (Recursive - DFS)
+   Using Map To Store Values As Per Column
+   Using DFS InOrder Traversal 
+
+TC : O(NLogN) SC : O(N)
+
+class Solution 
+{
+    public:
+    void DFS(TreeNode *root, int x, int y, map<int, map<int, multiset<int>>> &Map)
+    {
+        if(root == NULL) return;
+
+        Map[x][y].insert(root -> val);
+        DFS(root -> left, x - 1, y + 1, Map);
+        DFS(root -> right, x + 1, y + 1, Map);
+    }
+    vector<vector<int>> verticalTraversal(TreeNode* root)         
+    {
+        map<int, map<int, multiset<int>>> Map;
+        DFS(root, 0, 0, Map);
+
+        vector<vector<int>> Answer;
+        for(auto m : Map)
+        {
+            vector<int> Temp;
+            for(auto Set : m.second)
+                Temp.insert(Temp.end(), Set.second.begin(), Set.second.end());
+            Answer.push_back(Temp);
+        }
+        return Answer;
+    }
+};

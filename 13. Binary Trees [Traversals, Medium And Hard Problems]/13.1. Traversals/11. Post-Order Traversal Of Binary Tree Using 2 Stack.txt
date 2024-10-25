@@ -1,0 +1,32 @@
+1. Iterative PostOrder Traversal
+   (Using 2 Stacks)
+
+TC : O(N) SC : O(2N)
+
+class Solution 
+{
+    public:
+    vector<int> postorderTraversal(TreeNode* root) 
+    {
+        if(root == NULL) return {};
+        vector<int> Answer;
+        stack<TreeNode*> Stack1, Stack2;
+        Stack1.push(root);
+
+        while(!Stack1.empty())
+        {
+            root = Stack1.top();
+            Stack1.pop();
+            Stack2.push(root);
+            if(root -> left != NULL) Stack1.push(root -> left);
+            if(root -> right != NULL) Stack1.push(root -> right);
+        }    
+
+        while(!Stack2.empty())
+        {
+            Answer.push_back(Stack2.top() -> val);
+            Stack2.pop();
+        }
+        return Answer;
+    }
+};

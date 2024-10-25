@@ -1,0 +1,72 @@
+1. Using Level Order Traversal to Convert to String
+   Use # to Represent NULL Node
+   
+TC : O(2N) -> 1N to Serialize & 1N to Deserialize
+SC : O(2N) -> 1N to Serialize & 1N to Deserialize 
+
+class Codec 
+{
+    public:
+    string serialize(TreeNode* root) 
+    {
+        if(root == NULL) return "";
+        string s = "";
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+
+        while(!Queue.empty())
+        {
+            TreeNode *node = Queue.front();
+            Queue.pop();
+            
+            if(node == NULL) 
+                s.append("#,");
+            else
+                s.append(to_string(node -> val) + ',');
+
+            if(node)
+            {
+                Queue.push(node -> left);
+                Queue.push(node -> right);
+            } 
+        }    
+        return s;
+    }
+
+    TreeNode* deserialize(string data) 
+    {
+        int n = data.size();
+        if(n == 0) return NULL;
+
+        stringstream s(data);        // Makes string Iterable like Objects
+        string str;
+        getline(s, str, ',');        // Breaks string using ',' as Seperator
+
+        TreeNode *root = new TreeNode(stoi(str));
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+
+        while(!Queue.empty())
+        {
+            TreeNode *node = Queue.front();
+            Queue.pop();
+            
+            getline(s, str, ',');
+            if(str != "#")
+            {
+                TreeNode *LeftNode = new TreeNode(stoi(str));
+                node -> left = LeftNode;
+                Queue.push(LeftNode);
+            }
+
+            getline(s, str, ',');
+            if(str != "#")
+            {
+                TreeNode *RightNode = new TreeNode(stoi(str));
+                node -> right = RightNode;
+                Queue.push(RightNode);
+            }
+        }
+        return root;
+    }
+};

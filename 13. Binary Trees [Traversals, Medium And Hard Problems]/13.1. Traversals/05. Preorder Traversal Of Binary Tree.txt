@@ -1,0 +1,45 @@
+1. PreOrder Traversal In C++ (Recursion)
+TC : O(N)
+SC : O(1) -> Not Considering Answer as Extra Space
+
+class Solution {
+public:
+    void PreOrder(TreeNode *root, vector<int> &Answer)
+    {
+        if(root != NULL)
+        {
+            Answer.push_back(root -> val);
+            PreOrder(root -> left, Answer);
+            PreOrder(root -> right, Answer);
+        }
+    }
+    vector<int> preorderTraversal(TreeNode* root) 
+    {
+        vector<int> Answer;
+        PreOrder(root, Answer);
+        return Answer;    
+    }
+};
+
+
+ 
+2. PreOrder Traversal In Java (Recursion)
+TC : O(N) 
+SC : O(1) -> Not Considering Answer as Extra Space
+ 
+class Solution {
+    void Preorder(TreeNode root, List<Integer> l)
+    {
+        if(root == null)
+           return;
+        l.add(root.val);
+        Preorder(root.left, l);
+        Preorder(root.right, l);
+    }
+    public List<Integer> preorderTraversal(TreeNode root) 
+    {
+        List<Integer> l = new ArrayList<>();
+        Preorder(root, l);
+        return l;
+    }
+}

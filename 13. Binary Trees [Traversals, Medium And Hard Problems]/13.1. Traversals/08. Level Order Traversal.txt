@@ -1,0 +1,34 @@
+1. Level Order Traversal (BFS)
+   Using Queue
+
+TC : O(N) 
+SC : O(Max Nodes in a Level)
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) 
+    {
+        if(root == NULL)
+            return {};
+        if(root -> left == NULL && root -> right == NULL)
+            return {{root -> val}};    
+        vector<vector<int>> ans;
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+        while(!Queue.empty())
+        {
+            int n = Queue.size();
+            vector<int> level;
+            for(int i = 0; i < n; i++)
+            {
+                TreeNode* temp = Queue.front();
+                if(temp -> left != NULL) Queue.push(temp -> left);
+                if(temp -> right != NULL) Queue.push(temp -> right);
+                level.push_back(temp -> val);
+                Queue.pop();
+            }
+            ans.push_back(level);
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,46 @@
+1. Using Recursion
+TC : O(N) SC : O(Height)
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) 
+    {
+        if(root == NULL)
+            return 0;
+        int left = maxDepth(root -> left);
+        int right = maxDepth(root -> right);
+        return max(left, right) + 1;    
+    }
+};
+
+
+
+2. Using Iteration (BFS - Level Order Traversal)
+TC : O(N) 
+SC : O(Max Nodes In A Level) (Worst Case O(N))
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) 
+    {
+        if(root == NULL) return 0;
+        int Height = 0;
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            Height++;
+            
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *temp = Queue.front();
+                Queue.pop();
+                if(temp -> left) Queue.push(temp -> left);
+                if(temp -> right) Queue.push(temp -> right);
+            }
+        }    
+        return Height;
+    }
+};

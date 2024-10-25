@@ -1,0 +1,43 @@
+1. Morris Inorder Traversal
+   Using Threaded Binary Tree 
+   To Link To Head Node From Rightmost Node of Left Subtree
+
+TC : O(N) SC : O(1)
+
+class Solution 
+{
+    public:
+    vector<int> inorderTraversal(TreeNode* root) 
+    {
+        vector<int> Inorder;
+        TreeNode *Current = root;
+
+        while(Current != NULL)
+        {
+            if(Current -> left == NULL)
+            {
+                Inorder.push_back(Current -> val);
+                Current = Current -> right;
+            }
+            else
+            {
+                TreeNode *prev = Current -> left;
+                while(prev -> right && prev -> right != Current)
+                    prev = prev -> right;
+                
+                if(prev -> right == NULL)
+                {
+                    prev -> right = Current;
+                    Current = Current -> left;
+                }
+                else
+                {
+                    prev -> right = NULL;
+                    Inorder.push_back(Current -> val);
+                    Current = Current -> right;
+                }
+            }
+        }
+        return Inorder;
+    }
+};

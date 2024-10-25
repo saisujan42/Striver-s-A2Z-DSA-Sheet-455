@@ -1,0 +1,25 @@
+1. Using Recursion
+   A Binary Tree is Height Balanced if,
+   abs(Left-Height - Right-Height) <= 1
+
+TC : O(N) SC : O(N)
+
+class Solution {
+public:
+    int Check(TreeNode *root)
+    {
+        if(root == NULL) return 0;
+        
+        int Left = Check(root -> left);
+        if(Left == -1) return -1;
+        int Right = Check(root -> right);
+        if(Right == -1) return -1;
+
+        if(abs(Left - Right) > 1) return -1;
+        return 1 + max(Left, Right);
+    }
+    bool isBalanced(TreeNode* root) 
+    {
+        return Check(root) != -1;
+    }
+};

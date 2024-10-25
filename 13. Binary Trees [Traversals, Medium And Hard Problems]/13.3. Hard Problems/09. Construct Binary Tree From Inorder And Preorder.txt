@@ -1,0 +1,32 @@
+1. InOrder & PreOrder
+   Using Map to Store Indices of InOrder
+   Building Binary Tree using Recursion
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    TreeNode *BuildTree(unordered_map<int, int> &Map, vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd)
+    {
+        if(preStart > preEnd || inStart > inEnd)
+            return NULL;
+        
+        TreeNode *root = new TreeNode(preorder[preStart]);
+        int inRoot = Map[root -> val];
+        int numsLeft = inRoot - inStart;
+
+        root -> left = BuildTree(Map, preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1);
+
+        root -> right = BuildTree(Map, preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) 
+    {
+        int n = inorder.size();
+        unordered_map<int, int> Map;
+        for(int i = 0; i < n; i++)
+            Map[inorder[i]] = i;
+        return BuildTree(Map, preorder, 0, n - 1, inorder, 0, n - 1);
+    }
+};

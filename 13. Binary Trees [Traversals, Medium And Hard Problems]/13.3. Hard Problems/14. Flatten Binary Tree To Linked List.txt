@@ -1,0 +1,81 @@
+1. Using Recursion
+   Using Reverse PreOrder (Right Left Root)
+   Moving All The Left Nodes to the Right
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    TreeNode *prev = NULL;
+    void flatten(TreeNode* root) 
+    {
+        if(root == NULL) return;
+
+        flatten(root -> right);
+        flatten(root -> left);
+
+        root -> right = prev;
+        root -> left = NULL;
+        prev = root;
+    }
+};
+
+
+
+2. Using Iteration
+   Using Stack to Move All The Left Nodes to the Right
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    void flatten(TreeNode* root) 
+    {
+        if(root == NULL) return;
+        stack<TreeNode*> Stack;
+        Stack.push(root);
+
+        while(!Stack.empty())
+        {
+            TreeNode *curr = Stack.top();
+            Stack.pop();
+            if(curr -> right) Stack.push(curr -> right);
+            if(curr -> left) Stack.push(curr -> left);
+
+            if(!Stack.empty())
+                curr -> right = Stack.top();
+            curr -> left = NULL;
+        }
+    }
+};
+
+
+
+3. Using Morris Traversal
+   Changing Links to Flatten Binary Tree
+
+TC : O(N) SC : O(1)
+
+class Solution 
+{
+    public:
+    void flatten(TreeNode* root) 
+    {
+        TreeNode *curr = root, *prev;
+        while(curr != NULL)
+        {
+            if(curr -> left != NULL)
+            {
+                prev = curr -> left;
+                while(prev -> right)
+                    prev = prev -> right;
+                prev -> right = curr -> right;
+                curr -> right = curr -> left;
+                curr -> left = NULL;
+            }
+            curr = curr -> right;
+        }
+    }
+};

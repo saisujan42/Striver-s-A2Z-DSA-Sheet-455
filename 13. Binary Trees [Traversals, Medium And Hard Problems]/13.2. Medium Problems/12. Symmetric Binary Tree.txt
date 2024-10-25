@@ -1,0 +1,23 @@
+1. Checking If The Tree is Mirror Image
+   Using Left & Right Nodes
+
+TC : O(N) SC : O(N)
+
+class Solution 
+{
+    public:
+    bool CheckSymmetry(TreeNode *Left, TreeNode *Right)
+    {
+        if(Left == NULL && Right == NULL) 
+            return true;
+        if(Left == NULL || Right == NULL)  //One Node is NULL & Other is Not
+            return false;
+        if(Left -> val != Right -> val)
+            return false;
+        return CheckSymmetry(Left -> left, Right -> right) && CheckSymmetry(Left -> right, Right -> left);
+    }
+    bool isSymmetric(TreeNode* root)     
+    {
+        return CheckSymmetry(root, root);
+    }
+};

@@ -1,0 +1,83 @@
+1. Using Level Order Traversal To Store Parent of Each Node in A Map
+   Using Level Order Traversal Again to Travel K Nodes From Target Node
+   From Each Target Node, We Travel to 2 Child Nodes & The Parent Node
+   Using this To Count Number of Operations Which is the Minimum Time
+
+TC : O(N + N) = O(2N)
+SC : O(N + N + N) = O(3N) -> Queue, Parent Map, Visited Map
+
+
+class Solution 
+{
+    public:
+    TreeNode* FindParentAndTarget(unordered_map<TreeNode*, TreeNode*> &Parent, TreeNode* root, int Start)
+    {
+        TreeNode *Target = NULL;
+        queue<TreeNode*> Queue;
+        Queue.push(root);
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *node = Queue.front();
+                Queue.pop();
+                if(node -> val == Start)
+                    Target = node;
+                if(node -> left)
+                {
+                    Parent[node -> left] = node;
+                    Queue.push(node -> left);
+                }
+                if(node -> right)
+                {
+                    Parent[node -> right] = node;
+                    Queue.push(node -> right);
+                }
+            }
+        }
+        return Target;
+    }
+    int amountOfTime(TreeNode* root, int start) 
+    {
+        unordered_map<TreeNode*, TreeNode*> Parent;
+        TreeNode *Target = FindParentAndTarget(Parent, root, start);
+
+        unordered_map<TreeNode*, bool> Visited;
+        queue<TreeNode*> Queue;
+        Queue.push(Target);
+        Visited[Target] = true;
+
+        int Time = 0;
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            int Flag = 0;
+            for(int i = 0; i < Size; i++)
+            {
+                TreeNode *node = Queue.front();
+                Queue.pop();
+                if(node -> left && !Visited[node -> left])
+                {
+                    Flag = 1;
+                    Visited[node -> left] = true;
+                    Queue.push(node -> left);
+                }
+                if(node -> right && !Visited[node -> right])
+                {
+                    Flag = 1;
+                    Visited[node -> right] = true;
+                    Queue.push(node -> right);
+                }
+                if(Parent[node] && !Visited[Parent[node]])
+                {
+                    Flag = 1;
+                    Visited[Parent[node]] = true;
+                    Queue.push(Parent[node]);
+                }
+            }
+            if(Flag) Time++;
+        }
+        return Time;
+    }
+};
