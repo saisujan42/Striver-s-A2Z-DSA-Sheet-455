@@ -1,0 +1,25 @@
+1. Using Recursion
+   Going Right if Root->Val <= X
+
+TC : O(LogN) SC : O(1)
+
+class Solution
+{
+    public:
+    int floor(Node* root, int x) 
+    {
+        if(root == NULL) return -1;
+        int Ceil = -1;
+        while(root != NULL)
+        {
+            if(root -> data <= x)
+            {
+                Ceil = root -> data;
+                root = root -> right;
+            }
+            else
+                root = root -> left;
+        }
+        return Ceil;
+    }
+};

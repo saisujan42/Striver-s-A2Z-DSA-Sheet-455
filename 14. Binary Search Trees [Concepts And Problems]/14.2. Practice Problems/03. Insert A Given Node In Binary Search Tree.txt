@@ -1,0 +1,37 @@
+1. Traverse to the Leaf Node
+   Add New Node Based on Current Node Value
+
+TC : O(LogN) SC : O(1)
+
+class Solution 
+{
+    public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) 
+    {
+        if(root == NULL)
+            return new TreeNode(val);
+
+        TreeNode *Current = root;
+        while(Current != NULL)
+        {
+            if(val > Current -> val)
+            {
+                if(Current -> right)
+                    Current = Current -> right;
+                else break;
+            }
+            else
+            {
+                if(Current -> left)
+                    Current = Current -> left;
+                else break;
+            }
+        }    
+
+        if(val < Current -> val)
+            Current -> left = new TreeNode(val);     // You can add these statements
+        else                                         // Within Else blocks of While Loop   
+            Current -> right = new TreeNode(val);
+        return root;
+    }
+};

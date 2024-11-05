@@ -1,0 +1,39 @@
+1. Ceil In A Binary Search Tree - Ceil In BST
+https://www.geeksforgeeks.org/problems/implementing-ceil-in-bst/1
+
+2. Floor In A Binary Search Tree - Floor In BST
+https://www.geeksforgeeks.org/problems/floor-in-bst/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=floor-in-bst
+
+3. Insert A Given Node In Binary Search Tree - Insert Into A Binary Search Tree
+https://leetcode.com/problems/insert-into-a-binary-search-tree/description/
+
+4. Delete A Node In Binary Search Tree - Delete Node In A BST
+https://leetcode.com/problems/delete-node-in-a-bst/
+
+5. Find K-th Smallest/Largest Element In BST - Kth Smallest Element In A BST
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
+
+6. Check If A Tree Is A BST Or BT - Validate Binary Search Tree
+https://leetcode.com/problems/validate-binary-search-tree/
+
+7. LCA In Binary Search Tree - Lowest Common Ancestor In A Binary Search Tree
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/
+
+8. Construct A BST From A Preorder Traversal - Construct Binary Search Tree From Preorder Traversal
+https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+
+9. Inorder Successor/Predecessor In BST - Predecessor And Successor
+https://www.geeksforgeeks.org/problems/predecessor-and-successor/1
+
+10. Bianry Search Tree Iterator - Binary Search Tree Iterator
+https://leetcode.com/problems/binary-search-tree-iterator/description/
+
+11. Two Sum In BST | Check If There Exists A Pair With Sum K -> Two Sum IV - Input Is A BST
+https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+
+12. Recover BST | Correct BST With Two Nodes Swapped - Recover Binary Search Tree
+https://leetcode.com/problems/recover-binary-search-tree/description/
+
+13. Largest BST In Binary Tree - Largest BST
+https://www.geeksforgeeks.org/problems/largest-bst/1
+

@@ -1,0 +1,16 @@
+1. Finding Minimum Element
+   Iterative Approach
+   Min Node is at Complete Left of BST
+
+TC : O(LogN) SC : O(1)
+
+class Solution 
+{
+    public:
+    int minValue(Node* root) 
+    {
+        while(root -> left != NULL)
+            root = root -> left;
+        return root -> data;
+    }
+};

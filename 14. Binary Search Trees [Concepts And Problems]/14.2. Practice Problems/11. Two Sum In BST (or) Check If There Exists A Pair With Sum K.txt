@@ -1,0 +1,77 @@
+1. Using InOrder Traversal
+   Store Traversal in Vector
+   Use 2-Pointers to Find Sum Pair
+
+TC : O(2N) -> 1N for InOrder Traversal, 1N to find Sum Pair 
+SC : O(N)  -> InOrder Vector
+
+class Solution 
+{
+    public:
+    void InOrder(TreeNode *root, vector<int> &Path)
+    {
+        if(root == NULL) return;
+
+        InOrder(root -> left, Path);
+        Path.push_back(root -> val);
+        InOrder(root -> right, Path);
+    }
+    bool findTarget(TreeNode* root, int k) 
+    {
+        vector<int> Path;
+        InOrder(root, Path);    
+        
+        int Left = 0, Right = Path.size() - 1;
+        while(Left <= Right)
+        {
+            long Sum = Path[Left] + Path[Right];
+            if(Sum == k && Path[Left] != Path[Right])
+                return true;
+            if(Sum < k) Left++;
+            else Right--;
+        }
+        return false;
+    }
+};
+
+
+
+
+2. Using InOrder Traversal,
+   To Store Node Values in Map
+   Traversing Again to Find if Sum Difference Exists in Map
+
+TC : O(2N) -> 1N to Store in Map, 1N to Find Sum Pair
+SC : O(N)  -> Map
+
+class Solution 
+{
+    public:
+    void InOrder(TreeNode *root, unordered_map<int, bool> &Map)
+    {
+        if(root == NULL) return;
+
+        InOrder(root -> left, Map);
+        Map[root -> val] = true;
+        InOrder(root -> right, Map);
+    }
+    bool CheckSum(TreeNode *root, int k, unordered_map<int, bool> &Map)
+    {
+        if(root == NULL) 
+            return false;
+        int Pair = k - root -> val;
+        if(Map.find(Pair) != Map.end())
+        {
+            if(Pair != root -> val)
+                return true;
+        }
+
+        return CheckSum(root -> left, k, Map) || CheckSum(root -> right, k, Map);
+    }
+    bool findTarget(TreeNode* root, int k) 
+    {
+        unordered_map<int, bool> Map;
+        InOrder(root, Map);    
+        return CheckSum(root, k, Map);
+    }
+};

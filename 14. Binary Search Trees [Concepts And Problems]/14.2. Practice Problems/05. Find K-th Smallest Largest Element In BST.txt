@@ -1,0 +1,120 @@
+1. Using PreOrder or PostOrder Traversal
+   Storing Values in Vector
+   Sorting the Vector
+   Returning K - 1 Index As Answer
+
+TC : O(N + NLogN)
+SC : O(N + N)
+
+class Solution 
+{
+    public:
+    void PreOrder(TreeNode *root, vector<int> &Answer)
+    {
+        if(root == NULL) return;
+        Answer.push_back(root -> val);
+        PreOrder(root -> left, Answer);
+        PreOrder(root -> right, Answer);
+    }
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        vector<int> Answer;
+        PreOrder(root, Answer);
+        sort(Answer.begin(), Answer.end());
+        return Answer[k - 1];
+    }
+};
+
+
+
+2. Using InOrder Traversal
+   Store Values in a Vector
+   As InOrder Gives Sorted Traversal,
+   Return K - 1 Index as Answer
+
+TC : O(N) 
+SC : O(N + N) -> 1N Recursive Stack Space, 1N Answer Vector
+
+class Solution 
+{
+    public:
+    void InOrder(TreeNode *root, vector<int> &Answer)
+    {
+        if(root == NULL) return;
+        InOrder(root -> left, Answer);
+        Answer.push_back(root -> val);
+        InOrder(root -> right, Answer);
+    }
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        vector<int> Answer;
+        InOrder(root, Answer);
+        return Answer[k - 1];
+    }
+};
+
+
+
+3. Using Priority Queue (Not A Good Approach)
+   Use any DFS Traversal
+   Store Only K Elements
+   Return PQ.top() at End
+
+TC : O(N + NLogN) 
+SC : O(N) 
+
+class Solution 
+{
+    public:
+    void PreOrder(TreeNode *root, int k, priority_queue<int> &PQ)
+    {
+        if(root == NULL) return;
+        
+        PQ.push(root -> val);
+        if(PQ.size() > k) PQ.pop();
+
+        PreOrder(root -> left, k, PQ);
+        PreOrder(root -> right, k, PQ);
+    }
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        priority_queue<int> PQ;
+        PreOrder(root, k, PQ);
+        return PQ.top();
+    }
+};
+
+
+4. Optimal Approach
+   Using InOrder Traversal & Count
+   Return Answer if Count == K
+
+TC : O(N) 
+SC : O(N) -> Recursive Stack Space
+
+SC : O(1) -> If Morris Traversal Is Used
+
+class Solution 
+{
+    public:
+    void InOrder(TreeNode *root, int &Count, int &Answer, int k)
+    {
+        if(root == NULL || Count > k) 
+            return;
+        
+        InOrder(root -> left, Count, Answer, k);
+        Count++;
+        if(Count == k)
+        {
+            Answer = root -> val;
+            return;
+        }
+        InOrder(root -> right, Count, Answer, k);
+    }
+    int kthSmallest(TreeNode* root, int k) 
+    {
+        int Answer, Count = 0;
+        InOrder(root, Count, Answer, k);
+        return Answer;
+    }
+};

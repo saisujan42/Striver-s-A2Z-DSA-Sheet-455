@@ -1,0 +1,97 @@
+1. Brute Force Approach
+   Traverse From Root Node Everytime to Insert Every Node
+
+TC : O(N * Height) SC : O(1)
+
+class Solution {
+public:
+    void InsertNode(TreeNode *root, int key)
+    {
+        if(key < root -> val)
+        {
+            if(root -> left == NULL)
+                root -> left = new TreeNode(key);
+            else
+                InsertNode(root -> left, key);
+        }
+        else 
+        {
+            if(root -> right == NULL)
+                root -> right = new TreeNode(key);
+            else
+                InsertNode(root -> right, key);
+        }
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) 
+    {
+        int n = preorder.size();
+        TreeNode *root = new TreeNode(preorder[0]);
+        for(int i = 1; i < n; i++)    
+            InsertNode(root, preorder[i]);
+        return root;
+    }
+};
+
+
+
+2. Copy PreOrder to Another Vector
+   Sort This Vector which Gives InOrder Traversal
+   Using InOrder & PreOrder to Construct BST
+
+TC : O(NLogN + N) -> NLogN for Sorting, N for Building Tree
+SC : O(N)         -> To Store InOrder Vector
+
+class Solution {
+public:
+    TreeNode *BuildTree(unordered_map<int, int> &Map, vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd)
+    {
+        if(preStart > preEnd || inStart > inEnd)
+            return NULL;
+        
+        TreeNode *root = new TreeNode(preorder[preStart]);
+        int inRoot = Map[root -> val];
+        int numsLeft = inRoot - inStart;
+
+        root -> left = BuildTree(Map, preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1);
+
+        root -> right = BuildTree(Map, preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd);
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) 
+    {
+        vector<int> inorder = preorder;
+        sort(inorder.begin(), inorder.end());
+
+        int n = inorder.size();
+        unordered_map<int, int> Map;
+        for(int i = 0; i < n; i++)
+            Map[inorder[i]] = i;
+        return BuildTree(Map, preorder, 0, n - 1, inorder, 0, n - 1);
+    }
+};
+
+
+
+3. Using Only PreOrder Traversal
+   Using UpperBound Value (maxVal)
+
+TC : O(3N) -> As Each Node Gets Visited a Max of 3 Times
+SC : O(1)
+
+class Solution {
+    public:
+    TreeNode *BuildTree(vector<int> &preorder, int &i, long MaxVal)
+    {
+        if(i == preorder.size() || preorder[i] > MaxVal)
+            return NULL;
+        TreeNode *root = new TreeNode(preorder[i++]);
+        root -> left = BuildTree(preorder, i, root -> val);
+        root -> right = BuildTree(preorder, i, MaxVal);
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) 
+    {
+        int i = 0;
+        return BuildTree(preorder, i, LONG_MAX);
+    }
+};

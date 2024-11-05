@@ -1,0 +1,85 @@
+1. Brute Force Approach
+   Go To Every Node & Check If It is Valid BST
+   If It is Valid BST, Count Nodes in Sub Tree
+
+TC : O(N^2) SC : O(1)
+
+class Solution
+{
+    public:
+    int Size = 0;
+    bool ValidBST(Node *root, long MinVal, long MaxVal)
+    {
+        if(root == NULL) return true;
+        if(root -> data <= MinVal || root -> data >= MaxVal)
+            return false;
+        return ValidBST(root -> left, MinVal, root -> data) && ValidBST(root -> right, root -> data, MaxVal);
+    }
+    void InOrder(Node *root)
+    {
+        if(root == NULL) return;
+        InOrder(root -> left);
+        if(ValidBST(root, LONG_MIN, LONG_MAX))
+            Size = max(Size, CountNodes(root));
+        InOrder(root -> right);    
+    }
+    int CountNodes(Node *root)
+    {
+        if(root == NULL) return 0;
+        return 1 + CountNodes(root -> left) + CountNodes(root -> right);
+    }
+    int largestBst(Node *root)
+    {
+        Size = 0;
+    	InOrder(root);
+    	return Size;
+    }
+};
+
+
+
+2. Using PostOrder Traversal
+   Finding Largest Value in Left SubTree & Smallest Value in Right SubTree
+   If Left.MaxVal < Node.Val < Right.MinVal, Then it is A BST
+
+TC : O(N) SC : O(1)
+
+//TreeNode Defined By User
+class TreeNode
+{
+    public:
+    int Size, MinVal, MaxVal;
+    
+    TreeNode(int S, int Min, int Max)
+    {
+        Size = S;
+        MinVal = Min;
+        MaxVal = Max;
+    }
+};
+
+class Solution
+{
+    public:
+    TreeNode LargestBST(Node *root)
+    {
+        if(root == NULL)
+            return TreeNode(0, INT_MAX, INT_MIN);
+            
+        TreeNode Left = LargestBST(root -> left);
+        TreeNode Right = LargestBST(root -> right);
+        
+        if(Left.MaxVal < root -> data && root -> data < Right.MinVal)
+        {
+            int size = 1 + Left.Size + Right.Size;
+            int minval = min(root -> data, Left.MinVal);
+            int maxval = max(root -> data, Right.MaxVal);
+            return TreeNode(size, minval, maxval);
+        }
+        return TreeNode(max(Left.Size, Right.Size), INT_MIN, INT_MAX);
+    }
+    int largestBst(Node *root)
+    {
+        return LargestBST(root).Size;
+    }
+};

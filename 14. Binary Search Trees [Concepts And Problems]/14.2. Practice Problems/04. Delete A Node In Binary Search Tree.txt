@@ -1,0 +1,59 @@
+1. Delete A Given Node in BST
+   Attach Node->Left = DelNode->Left
+   Then Attach LastRightNode->Right = DelNode->Right
+
+TC : O(Height) 
+SC : O(Height) -> Recursive Stack Space
+
+class Solution 
+{
+    public:
+    TreeNode* FindLastRight(TreeNode *root)
+    {
+        if(root -> right == NULL)
+            return root;
+        return FindLastRight(root -> right);
+    }
+    TreeNode* Delete(TreeNode *root)
+    {
+        if(root -> left == NULL)
+            return root -> right;
+        else if(root -> right == NULL)
+            return root -> left;
+
+        TreeNode *RightChild = root -> right;
+        TreeNode *LastRight = FindLastRight(root -> left);
+        LastRight -> right = RightChild;
+        return root -> left;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) 
+    {
+        if(root == NULL) return NULL;
+        if(root -> val == key) 
+            return Delete(root);
+        TreeNode *RootNode = root;
+
+        while(root != NULL)
+        {
+            if(root -> val > key)
+            {
+                if(root -> left && root -> left -> val == key)
+                {
+                    root -> left = Delete(root -> left);
+                    break;
+                }
+                else root = root -> left;
+            }
+            else
+            {
+                if(root -> right && root -> right -> val == key)
+                {
+                    root -> right = Delete(root -> right);
+                    break;
+                }
+                else root = root -> right;
+            }
+        }
+        return RootNode;
+    }
+};

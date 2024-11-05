@@ -1,0 +1,18 @@
+1. Check Range Of Each Node
+
+TC : O(N) SC : O(1)
+
+class Solution {
+public:
+    bool CheckBST(TreeNode *root, long MinVal, long MaxVal)
+    {
+        if(root == NULL) return true;
+        if(root -> val <= MinVal || root -> val >= MaxVal)
+            return false;
+        return CheckBST(root -> left, MinVal, root -> val) && CheckBST(root -> right, root -> val, MaxVal);
+    }
+    bool isValidBST(TreeNode* root) 
+    {
+        return CheckBST(root, LONG_MIN, LONG_MAX);
+    }
+};

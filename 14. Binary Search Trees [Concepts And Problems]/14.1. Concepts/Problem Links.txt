@@ -1,0 +1,10 @@
+1. Introduction To Binary Search Tree - Binary Search Trees
+https://www.geeksforgeeks.org/problems/binary-search-trees/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=binary-search-trees
+
+2. Search In A Binary Search Tree - Search In A Binary Search Tree
+https://leetcode.com/problems/search-in-a-binary-search-tree/description/
+
+3. Find Min/Max In BST - Minimum Element In BST
+https://www.geeksforgeeks.org/problems/minimum-element-in-bst/1
+
+

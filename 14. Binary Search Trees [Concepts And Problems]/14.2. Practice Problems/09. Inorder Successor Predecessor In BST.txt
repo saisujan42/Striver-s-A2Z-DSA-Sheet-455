@@ -1,0 +1,113 @@
+1. Brute Force Approach
+   Find InOrder Traversal & Store in a Vector
+   Find Predecessor & Successor by Traversing the Vector
+
+TC : O(N + N) -> 1N for InOrder & 1N For Traversing Vector 
+SC : O(N)     -> To Store InOrder Vector
+
+Note : You Can Use Binary Search instead of Linear Search to Optimize 
+       Which Takes TC of LogN instead of N
+
+
+class Solution
+{
+    public:
+    void InOrder(Node *root, vector<Node*> &arr)
+    {
+        if(root == NULL) return;
+        InOrder(root -> left, arr);
+        arr.push_back(root);
+        InOrder(root -> right, arr);
+    }
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        pre = suc = NULL;
+        vector<Node*> arr;
+        InOrder(root, arr);
+        
+        int n = arr.size();
+        for(int i = 0; i < n; i++)
+        {
+            if(arr[i] -> key < key)
+                pre = arr[i];
+            if(arr[i] -> key > key)
+            {
+                suc = arr[i];
+                break;
+            }
+        }
+    }
+};
+
+
+
+2. Using InOrder Traversal
+   Without Using Vector to Store Traversed Nodes
+   Updating the Pre & Suc Nodes
+
+TC : O(N) 
+SC : O(N) -> Recursive Stack Space
+
+class Solution
+{
+    public:
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        if (root == NULL) return;
+        
+        findPreSuc(root -> left, pre, suc, key);
+        if (root -> key > key) 
+        {        
+            if (!suc || (suc && suc->key > root->key))
+                suc = root;
+        }
+        else if (root -> key < key)
+            pre = root;
+        findPreSuc(root->right, pre, suc, key);
+    }
+};
+
+
+
+3. Using BST Property
+   Moving to Left or Right Based on Node Value
+
+TC : O(Height) SC : O(1)
+
+class Solution
+{
+    public:
+    void FindSuccessor(Node *root, Node *&suc, int key)
+    {
+        suc = NULL;
+        while(root != NULL)
+        {
+            if(key >= root -> key)
+                root = root -> right;
+            else
+            {
+                suc = root;
+                root = root -> left;
+            }
+        }
+    }
+    void FindPredecessor(Node *root, Node *&pre, int key)
+    {
+        pre = NULL;
+        while(root != NULL)
+        {
+            if(key <= root -> key)
+                root = root -> left;
+            else
+            {
+                pre = root;
+                root = root -> right;
+            }
+        }
+    }
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        FindSuccessor(root, suc, key);
+        FindPredecessor(root, pre, key);
+    }
+};
