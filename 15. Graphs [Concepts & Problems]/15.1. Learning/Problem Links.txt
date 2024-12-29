@@ -1,0 +1,20 @@
+1. Graph And Types - Graphs And Vertices
+https://www.geeksforgeeks.org/problems/graph-and-vertices/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=graph-and-vertices
+
+2. Graph Representation | C++ - Print Adjaceny List
+https://www.geeksforgeeks.org/problems/print-adjacency-list-1587115620/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=print-adjacency-list
+
+3. Graph Representation | Java - Print Adjacency List
+https://www.geeksforgeeks.org/problems/print-adjacency-list-1587115620/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=print-adjacency-list
+
+4. Connected Components | Logic Explanation - Number Of Connected Components In An Undirected Graph 
+https://www.lintcode.com/problem/3651/
+
+5. BFS - BFS Of Graph
+https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
+
+6. DFS - DFS Of Graph
+https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+
+
+

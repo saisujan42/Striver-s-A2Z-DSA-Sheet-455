@@ -1,0 +1,28 @@
+1. Depth First Search
+   Using Recursion for Traversing
+
+TC : O(N + 2E) -> To Traverse All Nodes & 2E for its Adjacent Nodes
+SC : O(2N)     -> 1N For Visited, 1N for Recursive Stack
+
+class Solution 
+{
+    public:
+    void DFS(int Node, vector<bool> &Visited, vector<int> &Answer, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        Answer.push_back(Node);
+        for(auto it : adj[Node])
+        {
+            if(!Visited[it])
+                DFS(it, Visited, Answer, adj);
+        }
+    }
+    vector<int> dfsOfGraph(vector<vector<int>>& adj) 
+    {
+        int n = adj.size();
+        vector<int> Answer;
+        vector<bool> Visited(n, false);
+        DFS(0, Visited, Answer, adj);
+        return Answer;
+    }
+};

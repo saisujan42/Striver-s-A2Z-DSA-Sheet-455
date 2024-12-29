@@ -1,0 +1,94 @@
+1. Using Disjoint Set
+   Using Map to Store Mails with Their Index
+
+TC : (M * Alpha(N) + MLogM)  -> M * Alpha(N) for Insertion into Map & Disjoint Set
+                             -> MLogM for Sorting the Result
+SC : O(2N + M)               -> 2N for Size, Parent Arrays
+                             -> M for Map    
+M -> No. Of Mails 
+
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n)
+    {
+        Size.resize(n, 1);
+        Parent.resize(n);
+        for(int i = 0; i < n; i++)
+            Parent[i] = i;
+    }
+
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+        
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) 
+    {
+        int n = accounts.size();
+        unordered_map<string, int> Map;
+
+        DisjointSet DS(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 1; j < accounts[i].size(); j++)
+            {
+                string Mail = accounts[i][j];
+                if(Map.find(Mail) == Map.end())
+                    Map[Mail] = i;
+                else
+                    DS.UnionBySize(Map[Mail], i);
+            }
+        }
+
+        vector<vector<string>> Result(n);
+        for(auto it : Map)
+        {
+            string Mail = it.first;
+            int Node = DS.FindParent(it.second);
+            Result[Node].push_back(Mail);
+        }
+
+        vector<vector<string>> Answer;
+        for(int i = 0; i < n; i++)
+        {
+            if(Result[i].size() == 0) continue;
+
+            sort(Result[i].begin(), Result[i].end());
+            vector<string> Temp;
+            Temp.push_back(accounts[i][0]);
+            for(auto it : Result[i])
+                Temp.push_back(it);
+            Answer.push_back(Temp);
+        }
+        return Answer;
+    }
+};

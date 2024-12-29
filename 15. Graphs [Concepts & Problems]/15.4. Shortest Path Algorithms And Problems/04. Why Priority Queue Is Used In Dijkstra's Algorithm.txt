@@ -1,0 +1,68 @@
+1. Using Dijkstra's Algorithm
+   Print Shortest Path From Node 1 To Node N
+   Using Parent Vector to Keep Track of Parent of Each Node Along Path
+
+TC : O(E + E*LogV + Path)    E       -> Build AdjList
+			     E*LogV -> Dijkstra's Algorithm
+ 			     Path   -> Length of Path
+SC : O(V + E)
+
+class Solution 
+{
+    public:
+    vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) 
+    {
+        vector<vector<pair<int, int>>> AdjList(n + 1);
+        for(int i = 0; i < m; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            AdjList[u].push_back({v, w});
+            AdjList[v].push_back({u, w});
+        }
+        
+        vector<int> Distance(n + 1, INT_MAX);
+        Distance[1] = 0;
+        vector<int> Parent(n + 1);
+        for(int i = 1; i <= n; i++)
+            Parent[i] = i;
+        
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> PQ;
+        PQ.push({0, 1}); // {Weight, Node}
+        
+        while(!PQ.empty())
+        {
+            int Node = PQ.top().second;
+            int Dist = PQ.top().first;
+            PQ.pop();
+            
+            for(auto it : AdjList[Node])
+            {
+                int AdjNode = it.first;
+                int EdgeWeight = it.second;
+                
+                if(Dist + EdgeWeight < Distance[AdjNode])
+                {
+                    Distance[AdjNode] = Dist + EdgeWeight;
+                    PQ.push({Distance[AdjNode], AdjNode});
+                    Parent[AdjNode] = Node;
+                }
+            }
+        }
+        
+        if(Distance[n] == INT_MAX)
+            return {-1};
+        vector<int> Path;
+        int Node = n;
+        while(Parent[Node] != Node)
+        {
+            Path.push_back(Node);
+            Node = Parent[Node];
+        }
+        Path.push_back(1);
+        Path.push_back(Distance[n]);
+        reverse(Path.begin(), Path.end());
+        return Path;
+    }
+};

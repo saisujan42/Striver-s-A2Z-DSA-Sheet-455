@@ -1,0 +1,33 @@
+1. Topological Sort
+   If U -> V, then U should appear Before V in Sorted Order
+   Using BFS Traversal & Stack to Store Order
+
+TC : O(N + E)
+SC : O(2N)     -> Stack, Visited
+
+class Solution {
+    public:
+    void DFS(int Node, vector<bool> &Visited, vector<vector<int>> &adj, vector<int> &Stack)
+    {
+        Visited[Node] = true;
+        
+        for(auto it : adj[Node])
+            if(!Visited[it])
+                DFS(it, Visited, adj, Stack);
+        
+        Stack.push_back(Node);
+    }
+    vector<int> topologicalSort(vector<vector<int>>& adj) 
+    {
+        int n = adj.size();
+        vector<bool> Visited(n, false);
+        vector<int> Stack;
+        
+        for(int i = 0; i < n; i++)
+            if(!Visited[i])
+                DFS(i, Visited, adj, Stack);
+        
+        reverse(Stack.begin(), Stack.end());
+        return Stack;
+    }
+};

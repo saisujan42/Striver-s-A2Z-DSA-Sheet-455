@@ -1,0 +1,21 @@
+1. Topo Sort - Topological Sort
+https://www.geeksforgeeks.org/problems/topological-sort/1
+
+2. Kahn's Algorithm - Topological Sort
+https://www.geeksforgeeks.org/problems/topological-sort/1
+
+3. Cycle Detection In Directed Graph (BFS) - Cycle In A Directed Graph
+https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+
+4. Course Schedule - I  ->  Course Schedule
+https://leetcode.com/problems/course-schedule/
+
+5. Course Schedule - II -> Course Schedule II
+https://leetcode.com/problems/course-schedule-ii/description/
+
+6. Find Eventual Safe States - Find Eventual Safe States
+https://leetcode.com/problems/find-eventual-safe-states/
+
+7. Alien Dictionary - Alien Dictionary
+https://www.geeksforgeeks.org/problems/alien-dictionary/1
+

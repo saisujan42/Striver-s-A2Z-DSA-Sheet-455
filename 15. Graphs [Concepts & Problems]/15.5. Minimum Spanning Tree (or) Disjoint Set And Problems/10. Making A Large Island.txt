@@ -1,0 +1,117 @@
+1. Using Disjoint Set
+   Connecting All Components of 1s using Disjoint Set
+   Then Again Traversing Grid to Check By Connecting Each Node
+   Using Set to Store Component Parents in Four Directions
+
+Total Grid Cells = N*N
+TC : O(N^2 * Alpha(N^2))
+SC : O(2* N^2)             -> Size, Parent Arrays
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n)
+    {
+        Size.resize(n, 1);
+        Parent.resize(n);
+        for(int i = 0; i < n; i++)
+            Parent[i]= i;
+    }
+
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+        
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+vector<int> X = {-1, 1, 0, 0};
+vector<int> Y = {0, 0, -1, 1};
+
+class Solution 
+{
+    public:
+    int largestIsland(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        DisjointSet DS(n * n);
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(grid[i][j] == 0) continue;
+                for(int x = 0; x < 4; x++)
+                {
+                    int row = i + X[x];
+                    int col = j + Y[x];
+
+                    if(row >= 0 && row < n && col >= 0 && col < n)
+                    {
+                        if(grid[row][col] == 1)
+                        {
+                            int Node = i * n + j;
+                            int AdjNode = row * n + col;
+                            DS.UnionBySize(Node, AdjNode);
+                        }
+                    }
+                }
+            }
+        }
+
+        int MaxIsland = 0;
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(grid[i][j] == 1) continue;
+                unordered_set<int> Set;
+
+                for(int x = 0; x < 4; x++)
+                {
+                    int row = i + X[x];
+                    int col = j + Y[x];
+
+                    if(row >= 0 && row < n && col >= 0 && col < n)
+                    {
+                        int AdjNode = row * n + col;
+                        if(grid[row][col] == 1)
+                            Set.insert(DS.FindParent(AdjNode));
+                    }
+                }
+
+                int Island = 1;
+                for(auto it : Set)
+                    Island += DS.Size[it];
+                MaxIsland = max(Island, MaxIsland);
+            }
+        }
+
+        //If All Cells are 1
+        for(int i = 0; i < n * n; i++)
+            MaxIsland = max(MaxIsland, DS.Size[i]);
+        return MaxIsland;
+    }
+};

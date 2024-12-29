@@ -1,0 +1,10 @@
+1. Bridges In Graph - Critical Connections In A Network
+https://leetcode.com/problems/critical-connections-in-a-network/description/
+
+2. Articulation Point - Articulation Point-I
+https://www.geeksforgeeks.org/problems/articulation-point-1/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=articulation-point
+
+3. Kosaraju's Algorithm - Strongly Connected
+https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=strongly-connected-components-kosarajus-algo
+
+

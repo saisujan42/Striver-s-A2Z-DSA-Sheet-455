@@ -1,0 +1,38 @@
+1. Using DFS Traversal
+   This Problem Has Disconnected Graphs
+   If A Node is Visted again, It detects a Cycle
+
+TC : O(N + 2E)
+SC : O(2N)      -> 1N for Visited, 1N for Recursive Stack Space 
+
+class Solution {
+  public:
+    bool DFS(int Node, int Parent, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        for(auto it : adj[Node])
+        {
+            if(!Visited[it]) 
+            {
+                if(DFS(it, Node, Visited, adj))
+                    return true;
+            }
+            else if(it != Parent)
+                return true;
+        }
+        return false;
+    }
+    bool isCycle(vector<vector<int>>& adj) 
+    {
+        int n = adj.size();
+        vector<bool> Visited(n, false);
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+                if(DFS(i, -1, Visited, adj) == true)
+                    return true;
+        }
+        return false;
+    }
+};

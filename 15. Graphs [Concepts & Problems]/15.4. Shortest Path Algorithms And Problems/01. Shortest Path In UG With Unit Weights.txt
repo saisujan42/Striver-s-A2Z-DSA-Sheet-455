@@ -1,0 +1,50 @@
+1. Using BFS Traversal
+   Finding Shortest Distance to All Nodes From Source Node
+
+TC : O(V + E) -> BFS Traversal
+SC : O(2V)    -> Queue, Distance
+
+class Solution {
+    public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N, int M, int src)
+    {
+        vector<vector<int>> adjList(N);
+        vector<int> Distance(N, INT_MAX);
+        for(int i = 0; i < M; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adjList[u].push_back(v);
+            adjList[v].push_back(u);
+        }
+        
+        queue<int> Queue;
+        Queue.push(src);
+        Distance[src] = 0;
+        int Level = 0;
+        
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            Level++;
+            for(int i = 0; i < Size; i++)
+            {
+                int Node = Queue.front();
+                Queue.pop();
+                
+                for(auto it : adjList[Node])
+                {
+                    if(Level < Distance[it])
+                    {
+                        Distance[it] = min(Distance[it], Level);
+                        Queue.push(it);
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < N; i++)
+            if(Distance[i] == INT_MAX)
+                Distance[i] = -1;
+        return Distance;
+    }
+};

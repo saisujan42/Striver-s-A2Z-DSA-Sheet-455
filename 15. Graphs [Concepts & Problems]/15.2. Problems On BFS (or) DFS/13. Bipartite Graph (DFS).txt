@@ -1,0 +1,35 @@
+1. Using MultiSource DFS Traversal
+   If All Nodes Can be Coloured Such That No Two Adjacent Nodes Have Same Colour,
+   It is BiPartite Graph
+
+TC : O(N + E)
+SC : O(N)     -> Color Array
+
+class Solution {
+public:
+    bool DFS(int Node, int Value, vector<int> &Color, vector<vector<int>> &graph)
+    {
+        Color[Node] = Value;
+        for(auto it : graph[Node])
+        {
+            if(Color[it] == -1)
+            {
+                if(DFS(it, 1 - Value, Color, graph) == false)
+                    return false;
+            }
+            else if(Color[it] == Value)
+                return false;
+        }
+        return true;
+    }
+    bool isBipartite(vector<vector<int>>& graph) 
+    {
+        int n = graph.size();
+        vector<int> Color(n, -1);
+        for(int i = 0; i < n; i++)
+            if(Color[i] == -1)
+                if(DFS(i, 0, Color, graph) == false)
+                    return false;
+        return true;    
+    }
+};

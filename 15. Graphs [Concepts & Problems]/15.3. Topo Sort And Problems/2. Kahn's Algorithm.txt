@@ -1,0 +1,49 @@
+1. Topological Sort 
+   Using Kahn's Algorithm (BFS)
+   Calculate InDegree of Every Node
+   If InDegree == 0, Push in Queue
+   Reduce InDegree of Adjacent Nodes While Popping Node
+
+TC : O(2*(N + E)) -> To Calculate InDegree, BFS 
+SC : O(2N)        -> Queue, InDegree
+
+class Solution {
+    public:
+    vector<int> BFS(vector<int> &InDegree, vector<vector<int>> &adj)
+    {
+        int n = adj.size();
+        queue<int> Queue;
+        vector<int> Answer;
+        
+        for(int i = 0; i < n; i++)
+            if(InDegree[i] == 0)
+                Queue.push(i);
+                
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+            Answer.push_back(Node);
+            
+            for(auto it : adj[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        return Answer;
+    }
+    vector<int> topologicalSort(vector<vector<int>>& adj) 
+    {
+        int n = adj.size();
+        vector<int> InDegree(n, 0);
+        
+        for(int i = 0; i < n; i++)
+        {
+            for(auto it : adj[i])
+                InDegree[it]++;
+        }
+        return BFS(InDegree, adj);
+    }
+};

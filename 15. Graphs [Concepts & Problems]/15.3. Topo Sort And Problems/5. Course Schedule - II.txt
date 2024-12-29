@@ -1,0 +1,56 @@
+1. Using Topological Sort
+   Using Kahn's Algorithm (BFS)
+   If Topological Sort Answer Size is Less Than N Nodes,
+   It Represents a Cycle
+   Edge Should Be Stored in AdjList in Reverse Order, i.e V -> U (instead of U -> V)
+
+TC : O(2*(N+E)) -> Finding InDegree, BFS
+SC : O(2N)      -> Queue, InDegree
+
+class Solution {
+public:
+    vector<int> BFS(vector<int> &InDegree, vector<vector<int>> &adjList)
+    {
+        int V = adjList.size();
+        queue<int> Queue;
+        vector<int> Answer;
+        for(int i = 0; i < V; i++)
+            if(InDegree[i] == 0)
+                Queue.push(i);
+        
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+            Answer.push_back(Node);
+
+            for(auto it : adjList[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        if(Answer.size() < V)
+            return {};
+        return Answer;
+    }
+    vector<int> findOrder(int V, vector<vector<int>>& edges) 
+    {
+        int n = edges.size();
+        vector<vector<int>> adjList(V);
+        vector<int> InDegree(V, 0);
+        for(int i = 0; i < n; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adjList[v].push_back(u);
+            InDegree[u]++;
+        }
+
+        vector<int> Order = BFS(InDegree, adjList);
+        if(Order.size() == V)
+            return Order;
+        return {};
+    }
+};

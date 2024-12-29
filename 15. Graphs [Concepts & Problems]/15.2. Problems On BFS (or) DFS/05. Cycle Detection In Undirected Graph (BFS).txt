@@ -1,0 +1,44 @@
+1. Using BFS Traversal
+   This Problem Has Disconnected Graphs
+   If A Node is Visted again, It detects a Cycle
+
+TC : O(N + 2E)
+SC : O(2N) 
+
+class Solution {
+    public:
+    bool isCycle(vector<vector<int>>& adj) 
+    {
+        int n = adj.size();
+        queue<pair<int, int>> Queue;
+        vector<int> Visited(n, 0);
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Queue.push({i, -1});
+                Visited[i] = 1;
+        
+                while(!Queue.empty())
+                {
+                    int Node = Queue.front().first;
+                    int Parent = Queue.front().second;
+                    Queue.pop();
+                        
+                    for(auto it : adj[Node])
+                    {
+                        if(!Visited[it])
+                        {
+                            Visited[it] = 1;
+                            Queue.push({it, Node});
+                        }
+                        else if(it != Parent)
+                            return true;
+                    }
+                }    
+            }
+        }
+        return false;
+    }
+};

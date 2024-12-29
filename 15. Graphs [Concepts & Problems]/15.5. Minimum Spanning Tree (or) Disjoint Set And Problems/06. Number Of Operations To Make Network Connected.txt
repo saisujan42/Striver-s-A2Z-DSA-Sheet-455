@@ -1,0 +1,82 @@
+1. Using Disjoint Set & MST
+   Adding Edges to Disjoint Set 
+   Counting Extra Edges if Parent[U] == Parent[V]
+   If (Connected Components - 1 <= Extra Edges), Components-1 is the Answer
+   Else Return -1
+
+TC : O(E*Alpha(V))
+SC : O(2V)              -> Size, Parent Arrays
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n)
+    {
+        Size.resize(n, 1);
+        Parent.resize(n);
+        for(int i = 0; i < n; i++)
+            Parent[i] = i;
+    }
+
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+        
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& connections) 
+    {
+        int E = connections.size();
+        if(E < n - 1)
+            return -1;
+
+        DisjointSet DS(n);
+        int ExtraEdges = 0;
+
+        for(auto it : connections)
+        {
+            int U = it[0];
+            int V = it[1];
+            if(DS.FindParent(U) == DS.FindParent(V))
+                ExtraEdges++;
+            else
+                DS.UnionBySize(U, V);
+        }
+
+        int ConnectedComponents = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(DS.Parent[i] == i)
+                ConnectedComponents++;
+        }
+
+        if(ConnectedComponents - 1 <= ExtraEdges)
+            return ConnectedComponents - 1;
+        return -1;
+    }
+};

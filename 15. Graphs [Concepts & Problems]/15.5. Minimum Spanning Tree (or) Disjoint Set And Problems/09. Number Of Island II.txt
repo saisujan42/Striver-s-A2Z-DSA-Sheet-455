@@ -1,0 +1,99 @@
+1. Using Disjoint Set
+   Using (i * m + j) As Node Number for Disjoint Set
+   Increasing Count After Changing Node to 1
+   Decreasing Count After Connecting 2 Disconnected Components,
+   By finding If Same Parent Or Not
+
+TC : O(Q * Alpha(N))
+SC : O(3 * N*M)         -> Visited Matrix, Size, Parent Arrays 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class DisjointSet 
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n) 
+    {
+        Size.resize(n, 1);
+        Parent.resize(n);
+        for (int i = 0; i < n; i++)
+            Parent[i] = i;
+    }
+
+    int FindParent(int Node) 
+    {
+        if (Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V) 
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if (UParent == VParent)
+            return;
+
+        if (Size[UParent] < Size[VParent]) 
+	{
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        } 
+	else 
+	{
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+vector<int> X = {-1, 1, 0, 0};
+vector<int> Y = {0, 0, -1, 1};
+
+vector<int> numOfIslandsII(int n, int m, vector<vector<int>> &q) 
+{
+    DisjointSet DS(n * m);
+    vector<int> Answer;
+
+    vector<vector<int>> Visited(n, vector<int>(m, 0));
+    int Count = 0;
+
+    for (auto it : q) 
+    {
+        int i = it[0];
+        int j = it[1];
+
+        if (Visited[i][j] == 1)
+            Answer.push_back(Count);
+        else 
+	{
+            Visited[i][j] = 1;
+            Count++;
+
+            for (int x = 0; x < 4; x++) 
+	    {
+                int row = i + X[x];
+                int col = j + Y[x];
+
+                if (row >= 0 && row < n && col >= 0 && col < m) 
+		{
+                    if (Visited[row][col] == 1) 
+		    {
+                        int Node = i * m + j;
+                        int AdjNode = row * m + col;
+                        if (DS.FindParent(Node) != DS.FindParent(AdjNode)) 
+			{
+                            Count--;
+                            DS.UnionBySize(Node, AdjNode);
+                        }
+                    }
+                }
+            }
+        }
+        Answer.push_back(Count);
+    }
+    return Answer;
+}

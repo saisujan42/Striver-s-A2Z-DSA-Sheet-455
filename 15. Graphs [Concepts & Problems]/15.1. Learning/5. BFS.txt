@@ -1,0 +1,34 @@
+1. Breadth First Traversal
+   Using Queue & Visited Array
+
+TC : O(N + 2E) -> 2E is Degree of a Node, as We Traverse all Neighbours of a Node 
+SC : O(2N)     -> 1N for Queue, 1N for Visited
+
+class Solution 
+{
+    public:
+    vector<int> bfsOfGraph(vector<vector<int>> &adj) 
+    {
+        int n = adj.size();
+        vector<bool> Visited(n, false);
+        vector<int> Answer;
+        queue<int> Queue;
+        Queue.push(0);
+        
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+                
+            if(!Visited[Node])
+            {
+                Answer.push_back(Node);
+                for(int i = 0; i < adj[Node].size(); i++)
+                    if(!Visited[Node])
+                        Queue.push(adj[Node][i]);
+                Visited[Node] = true;
+            }
+        }
+        return Answer;
+    }
+};

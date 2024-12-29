@@ -1,0 +1,50 @@
+1. Using BFS Traversal
+   To Find The Min Distance of 0s to Each Cell in Matrix
+
+TC : O(2 * M * N) -> 1 For Initialization, 1 For BFS
+SC : O(2 * M * N) -> 1 For Queue, 1 for Answer
+
+class Solution {
+public:
+    vector<int> X = {-1, 1, 0, 0};
+    vector<int> Y = {0, 0, -1, 1};
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) 
+    {
+        int n = mat.size();
+        int m = mat[0].size();
+        vector<vector<int>> Answer(n, vector<int>(m, 1e9));
+        queue<pair<int, int>> Queue;
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+                if(mat[i][j] == 0)
+                {
+                    Queue.push({i, j});
+                    Answer[i][j] = 0;
+                }
+        }   
+
+        while(!Queue.empty())
+        {
+            int i = Queue.front().first;
+            int j = Queue.front().second;
+            Queue.pop();
+
+            for(int k = 0; k < 4; k++)
+            {
+                int row = i + X[k];
+                int col = j + Y[k];
+
+                if(row >= 0 && row < n && col >= 0 && col < m)
+                {
+                    if(Answer[row][col] > Answer[i][j] + 1)
+                    {
+                        Answer[row][col] = Answer[i][j] + 1;
+                        Queue.push({row, col});
+                    }
+                }
+            }
+        }
+        return Answer;
+    }
+};

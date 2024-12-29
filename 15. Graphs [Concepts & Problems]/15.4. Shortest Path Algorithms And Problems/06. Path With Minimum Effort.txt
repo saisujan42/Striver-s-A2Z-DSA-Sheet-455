@@ -1,0 +1,57 @@
+1. Using Dijkstra's Algorithm
+   Using Priority Queue
+   If End Corner is Reached Return the Difference as Answer
+
+TC : O(ELogV)          -> Here, E = n*m*4, V = n*m
+TC : O(4*N*M Log(N*M))
+
+SC : O(2*N*M) -> Distance Matrix, Queue
+
+
+class Solution {
+public:
+    vector<int> X = {-1, 1, 0, 0};
+    vector<int> Y = {0, 0, -1, 1};
+
+    int minimumEffortPath(vector<vector<int>>& heights) 
+    {
+        int n = heights.size();
+        int m = heights[0].size();
+
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> PQ;
+        PQ.push({0, {0, 0}});   // {Diff, {row, col}}
+
+        vector<vector<int>> Difference(n, vector<int>(m, INT_MAX));
+        Difference[0][0] = 0;
+
+        while(!PQ.empty())
+        {
+            int Diff = PQ.top().first;
+            int i = PQ.top().second.first;
+            int j = PQ.top().second.second;
+            PQ.pop();
+
+            if(i == n - 1 && j == m - 1)
+                return Diff;
+            
+            for(int x = 0; x < 4; x++)
+            {
+                int row = i + X[x];
+                int col = j + Y[x];
+
+                if(row >= 0 && row < n && col >= 0 && col < m)
+                {
+                    int Effort = abs(heights[row][col] - heights[i][j]);
+                    Effort = max(Effort, Diff);
+
+                    if(Effort < Difference[row][col])
+                    {
+                        Difference[row][col] = Effort;
+                        PQ.push({Effort, {row, col}});
+                    }
+                }
+            }
+        }    
+        return 0;
+    }
+};

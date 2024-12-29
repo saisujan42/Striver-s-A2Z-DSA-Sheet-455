@@ -1,0 +1,38 @@
+1. Shortest Path In UG With Unit Weights - Shortest Path In Undirected
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=shortest-path-in-undirected-graph-having-unit-distance
+
+2. Shortest Path In DAG - Shortest Path In Directed Acyclic Graph
+https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=shortest-path-in-undirected-graph
+
+3. Dijkstra's Algorithm - Dijkstra Algorithm
+https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1
+
+4. Why Priority Queue Is Used In Dijkstra's Algorithm - Shortest Path In Weighted Undirected Graph
+https://www.geeksforgeeks.org/problems/shortest-path-in-weighted-undirected-graph/0
+
+5. Shortest Path In A Binary Maze - Shortest Path In Binary Matrix
+https://leetcode.com/problems/shortest-path-in-binary-matrix/description/
+
+6. Path With Minimum Effort - Path With Minimum Effort
+https://leetcode.com/problems/path-with-minimum-effort/
+
+7. Cheapest Flights Within K Stops - Cheapest Flights Within K Stops
+https://leetcode.com/problems/cheapest-flights-within-k-stops/
+
+8. Network Delay Time - Network Delay Time
+https://leetcode.com/problems/network-delay-time/
+
+9. Number Of Ways To Arrive At Destination - Number Of Ways To Arrive At Destination
+https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+
+10. Minimum Steps To Reach End From Start By Performing Multiplication And Mod Opeartions With Array Elements - Minimum Multiplications to Reach End
+https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=minimum-multiplications-to-reach-end
+
+11. Bellman Ford Algorithm - Bellman-Ford
+https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1
+
+12. Floyd Warshal Algorithm - Floyd Warshall
+https://www.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1
+
+13. Find The City With The Smallest Number Of Neighbors In A Threshold Distance - Find The City With The Smallest Number Of Neighbors At A Threshold Distance
+https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/description/

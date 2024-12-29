@@ -1,0 +1,95 @@
+1. Using DFS
+   Using DFS to Count Components in a Graph
+
+TC : O(N + 2E) -> 1N to Traverse all Nodes, 2E to Traverse all of its Adj Nodes
+SC : O(N)      -> Visited Array
+
+class Solution { 
+    public:
+    void DFS(int Node, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        for(auto it : adj[Node])
+        {
+            if(!Visited[it])
+                DFS(it, Visited, adj);
+        }
+    }
+    int countComponents(int n, vector<vector<int>> &edges) 
+    {
+        int Count = 0;
+        vector<bool> Visited(n, false);
+        
+        vector<vector<int>> adj(n);
+        for(int i = 0; i < edges.size(); i++)
+        {
+            int u = edges[i][0], v = edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Count++;
+                DFS(i, Visited, adj);
+            }
+        }
+        return Count;
+    }
+};
+
+
+
+2. Using BFS
+   Using BFS to Count Components
+
+TC : O(N + 2E) -> 2E is Degree of a Node, as We Traverse all Neighbours of a Node 
+SC : O(2N)     -> 1N for Queue, 1N for Visited
+
+class Solution {
+    public:
+    void BFS(int Curr, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        queue<int> Queue;
+        Queue.push(Curr);
+        
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+                
+            if(!Visited[Node])
+            {
+                for(int i = 0; i < adj[Node].size(); i++)
+                    if(!Visited[Node])
+                        Queue.push(adj[Node][i]);
+                Visited[Node] = true;
+            }
+        }
+    }
+    int countComponents(int n, vector<vector<int>> &edges) 
+    {
+        int Count = 0;
+        vector<bool> Visited(n, false);
+        
+        vector<vector<int>> adj(n);
+        for(int i = 0; i < edges.size(); i++)
+        {
+            int u = edges[i][0], v = edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Count++;
+                BFS(i, Visited, adj);
+            }
+        }
+        return Count;
+    }
+};

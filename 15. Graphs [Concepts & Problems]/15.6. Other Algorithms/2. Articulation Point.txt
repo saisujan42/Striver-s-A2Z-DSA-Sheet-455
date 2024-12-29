@@ -1,0 +1,60 @@
+1. Articulation Point is a Node When Removed Disconnects a Graph into 2 Parts
+   Using DFS Traversal
+   Using Low, InTime, Visited & Points Arrays to Mark Articualtion Points
+   Seperate Condition for Parent Node (i.e., Starting Node)
+
+TC : O(V + 2E)  ->  DFS Traversal
+SC : O(4V)      ->  Visited, InTime, Low, Points Arrays
+
+class Solution {
+  public:
+    int Timer = 0;
+    void DFS(int Node, int Parent, vector<int> adj[], vector<bool> &Visited, vector<int> &InTime, vector<int> &Low, vector<bool> &Points)
+    {
+        Visited[Node] = true;
+        InTime[Node] = Low[Node] = Timer;
+        Timer++;
+        
+        int Children = 0;
+        
+        for(auto it : adj[Node])
+        {
+            if(it == Parent)
+                continue;
+            if(!Visited[it])
+            {
+                DFS(it, Node, adj, Visited, InTime, Low, Points);
+                Low[Node] = min(Low[it], Low[Node]);
+                
+                if(Low[it] >= InTime[Node] && Parent != -1)
+                    Points[Node] = true;
+                Children++;
+            }
+            else
+                Low[Node] = min(InTime[it], Low[Node]);
+        }
+        
+        if(Parent == -1 && Children > 1)
+            Points[Node] = true;
+    }
+    vector<int> articulationPoints(int V, vector<int>adj[]) 
+    {
+        vector<bool> Visited(V, false);
+        vector<int> InTime(V), Low(V);
+        vector<bool> Points(V, false);
+        
+        for(int i = 0; i < V; i++)
+            if(!Visited[i])
+                DFS(i, -1, adj, Visited, InTime, Low, Points);
+        
+        vector<int> Answer;
+        for(int i = 0; i < V; i++)
+        {
+            if(Points[i])
+                Answer.push_back(i);
+        }
+        if(Answer.size() == 0)
+            return {-1};
+        return Answer;
+    }
+};

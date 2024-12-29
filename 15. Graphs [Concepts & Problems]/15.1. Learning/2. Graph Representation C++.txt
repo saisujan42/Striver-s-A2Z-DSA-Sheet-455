@@ -1,0 +1,21 @@
+1. Converting Edges Vector to Adjaceny List
+TC : O(E) SC : O(2*E)
+E -> No. Of Edges
+
+class Solution 
+{
+    public:
+    vector<vector<int>> printGraph(int V, vector<pair<int, int>>& edges) 
+    {
+        vector<vector<int>> adjList(V);
+        int n = edges.size();
+        for(int i = 0; i < n; i++)
+        {
+            int u = edges[i].first;
+            int v = edges[i].second;
+            adjList[u].push_back(v);
+            adjList[v].push_back(u);
+        }
+        return adjList;
+    }
+};

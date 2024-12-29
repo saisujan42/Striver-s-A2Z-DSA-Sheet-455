@@ -1,0 +1,51 @@
+1. A Bridge is an Edge if Removed Breaks A Graph into 2 Components
+   Using DFS Traversal
+   Using Low & InTime Arrays 
+
+TC : O(V + 2E)          -> DFS Traversal
+SC : O((V + 2E) + 3V)   -> V+2E for AdjList
+                        -> 3V for Visited, InTime, Low Arrays
+
+class Solution {
+    public:
+    int Timer = 1;
+
+    void DFS(int Node, int Parent, vector<vector<int>> &AdjList, vector<bool> &Visited, vector<int> &InTime, vector<int> &Low, vector<vector<int>> &Answer)
+    {
+        Visited[Node] = true;
+        InTime[Node] = Low[Node] = Timer;
+        Timer++;
+
+        for(auto it : AdjList[Node])
+        {
+            if(it == Parent)
+                continue;
+            if(!Visited[it])
+            {
+                DFS(it, Node, AdjList, Visited, InTime, Low, Answer);
+                Low[Node] = min(Low[it], Low[Node]);
+
+                if(Low[it] > InTime[Node])
+                    Answer.push_back({it, Node});
+            }
+            else
+                Low[Node] = min(Low[it], Low[Node]);
+        }
+    }
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) 
+    {
+        vector<vector<int>> AdjList(n);
+        for(auto it : connections)
+        {
+            AdjList[it[0]].push_back(it[1]);
+            AdjList[it[1]].push_back(it[0]);
+        }    
+
+        vector<vector<int>> Answer;
+        vector<bool> Visited(n, false);
+        vector<int> InTime(n), Low(n);
+
+        DFS(0, -1, AdjList, Visited, InTime, Low, Answer);
+        return Answer;
+    }
+};

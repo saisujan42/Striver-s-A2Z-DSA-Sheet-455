@@ -1,0 +1,42 @@
+1. Bellman Ford Algorithm
+   Iterating over all Edges for N-1 Times
+   Apply the Formula (Dist[u] + Wt < Dist[v]) for Every Edge
+   Iterate over the Edges For Nth Time, 
+   If Dist Changes in the Nth Time, it Indicates Negative Cycle
+
+TC : O(V * E)
+SC : O(V)      -> Dist Array
+
+class Solution {
+    public:
+    vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) 
+    {
+        int E = edges.size();
+        vector<int> Dist(V, 1e8);
+        Dist[src] = 0;
+        
+        for(int i = 0; i < V - 1; i++)
+        {
+            for(int j = 0; j < E; j++)
+            {
+                int u = edges[j][0];
+                int v = edges[j][1];
+                int w = edges[j][2];
+                
+                if(Dist[u] != 1e8 && Dist[u] + w < Dist[v])
+                    Dist[v] = Dist[u] + w;
+            }
+        }
+        
+        for(int j = 0; j < E; j++)
+        {
+            int u = edges[j][0];
+            int v = edges[j][1];
+            int w = edges[j][2];
+                
+            if(Dist[u] != 1e8 && Dist[u] + w < Dist[v])
+                return {-1};
+        }
+        return Dist;
+    }
+};

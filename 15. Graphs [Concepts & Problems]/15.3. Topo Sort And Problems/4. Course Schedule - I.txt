@@ -1,0 +1,108 @@
+1. Course Schedule
+   Using Cycle Detection by DFS Traversal
+   In Directed Graph
+   If Cycle is Detected Return False (Courses Can't Be Taken if Cycle is Present)
+   Else Return True
+
+TC : O(N + E) -> DFS Traversal
+SC : O(2N)    -> Visited, PathVisited
+
+class Solution {
+public:
+    bool FindCycle(int Node, vector<bool> &Visited, vector<bool> &PathVisited, vector<vector<int>> &AdjList)
+    {
+        Visited[Node] = true;
+        PathVisited[Node] = true;
+        for(auto it : AdjList[Node])
+        {
+            if(!Visited[it])
+            {
+                if(FindCycle(it, Visited, PathVisited, AdjList))
+                    return true;
+            }
+            else if(PathVisited[it])
+                return true;
+        }
+        PathVisited[Node] = false;
+        return false;
+    }
+    bool canFinish(int V, vector<vector<int>>& edges) 
+    {
+        int n = edges.size();
+        vector<bool> Visited(V, false);
+        vector<bool> PathVisited(V, false);
+
+        vector<vector<int>> AdjList(V);
+        for(int i = 0; i < n; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            AdjList[u].push_back(v);
+        }
+
+        for(int i = 0; i < V; i++)
+        {
+            if(!Visited[i])
+                if(FindCycle(i, Visited, PathVisited, AdjList) == true)
+                    return false;
+        }
+        return true;
+    }
+};
+
+
+
+2. Using Topological Sort
+   Using Kahn's Algorithm (BFS)
+   If Topological Sort Answer Size is Less Than N Nodes,
+   It Represents a Cycle
+
+TC : O(2*(N+E)) -> Finding InDegree, BFS
+SC : O(2N)      -> Queue, InDegree
+
+class Solution {
+public:
+    bool IsCyclic(vector<int> &InDegree, vector<vector<int>> &adjList)
+    {
+        int V = adjList.size();
+        queue<int> Queue;
+        for(int i = 0; i < V; i++)
+            if(InDegree[i] == 0)
+                Queue.push(i);
+
+        int Count = 0;
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+            Count++;
+
+            for(auto it : adjList[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        if(Count < V)
+            return true;
+        return false;
+    }
+    bool canFinish(int V, vector<vector<int>>& edges) 
+    {
+        int n = edges.size();
+        vector<vector<int>> adjList(V);
+        vector<int> InDegree(V, 0);
+        for(int i = 0; i < n; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adjList[u].push_back(v);
+            InDegree[v]++;
+        }
+        
+        if(IsCyclic(InDegree, adjList))
+            return false;
+        return true;
+    }
+};

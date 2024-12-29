@@ -1,0 +1,81 @@
+1. Using Disjoint Set
+   Using Row & Column Index as Nodes
+   Column Value will be ColumnIndex+NoOfRows+1
+   Answer Will Be NoOfStones-NoOfComponents
+
+TC : O(E * Alpha(E))
+SC : O(2V)            -> Parent, Size   
+
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n)
+    {
+        Size.resize(n + 1, 1);
+        Parent.resize(n + 1);
+        for(int i = 0; i <= n; i++)
+            Parent[i] = i;
+    }
+
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+        
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+class Solution 
+{
+    public:
+    int removeStones(vector<vector<int>>& stones) 
+    {
+        int n = stones.size();
+        int Rows = 0, Columns = 0;
+        for(int i = 0; i < n; i++)
+        {
+            Rows = max(Rows, stones[i][0]);
+            Columns = max(Columns, stones[i][1]);
+        }
+        
+        DisjointSet DS(Rows + Columns + 1);
+        unordered_map<int, int> Map;        // To Store Rows & Cols that Have Stones 
+        for(auto it : stones)
+        {
+            int row = it[0];
+            int col = it[1] + Rows + 1;
+            DS.UnionBySize(row, col);
+            Map[row] = Map[col] = 1;
+        }  
+
+        int Count = 0;
+        for(auto it : Map)
+        {
+            if(DS.FindParent(it.first) == it.first)
+                Count++;
+        }
+        return n - Count;
+    }
+};

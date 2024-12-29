@@ -1,0 +1,94 @@
+TC : O(Alpha(N)) -> For Union & Find
+
+Where, Alpha(N) -> Inverse Ackermann Function
+       Alpha(N) <= 4 for Any Value of N
+
+SC : O(2N) -> Parent & Rank/Size Arrays
+
+
+
+
+
+1. Disjoint Set
+   Without Union By Rank or Union By Size
+
+
+int find(int Parent[], int Node)
+{
+    if(Parent[Node] == Node)
+        return Node;
+    return Parent[Node] = find(Parent, Parent[Node]);
+}
+void unionSet(int Parent[], int U, int V)
+{
+	int UParent = find(Parent, U);
+	int VParent = find(Parent, V);
+	if(UParent == VParent)
+	    return;
+	Parent[UParent] = VParent;
+}
+
+
+
+
+2. Disjoint Set
+   Using Union By Rank
+
+int find(int Parent[], int Node)
+{
+    if(Parent[Node] == Node)
+        return Node;
+    return Parent[Node] = find(Parent, Parent[Node]);
+}
+void unionSet(int Parent[], int Rank[], int U, int V) 
+{
+    int UParent = find(Parent, U);
+    int VParent = find(Parent, V);
+
+    if (UParent == VParent)
+        return;
+
+    if (Rank[UParent] < Rank[VParent]) 
+        Parent[UParent] = VParent;
+    else if (Rank[UParent] > Rank[VParent]) 
+        Parent[VParent] = UParent;
+    else 
+    {
+        Parent[UParent] = VParent;
+        Rank[VParent]++;
+    }
+}
+
+
+
+
+3. Disjoint Set
+   Using Union By Size
+
+
+int find(int Parent[], int Node)
+{
+    if(Parent[Node] == Node)
+        return Node;
+    return Parent[Node] = find(Parent, Parent[Node]);
+}
+void unionSet(int Parent[], int Size[], int U, int V) 
+{
+    int UParent = find(Parent, U);
+    int VParent = find(Parent, V);
+
+    if (UParent == VParent)
+        return;
+
+    if (Size[UParent] < Size[VParent]) 
+    {
+        Parent[UParent] = VParent;
+        Size[VParent] += Size[UParent];
+    } 
+    else 
+    {
+        Parent[VParent] = UParent;
+        Size[UParent] += Size[VParent];
+    }
+}
+

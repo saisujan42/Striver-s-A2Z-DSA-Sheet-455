@@ -1,0 +1,157 @@
+1. Using Similar Approach to Word Ladder I
+   Using BFS Traversal
+   Changing Each Letter of Current Word from a-z to Check in Set
+   If Found, Add to Queue
+
+TC: O(N * L * 26)   N     -> WordList Length
+                    L     -> Length of beginWord
+SC : O(N * L + N)   N     -> Set
+                    N * L -> Queue 
+MEMORY LIMIT EXCEEDED
+
+class Solution {
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) 
+    {
+        int n = wordList.size();
+        unordered_set<string> Set(wordList.begin(), wordList.end());    
+        vector<vector<string>> Answer;
+        
+        queue<vector<string>> Queue;
+        Queue.push({beginWord});
+        vector<string> UsedOnLevel;
+        UsedOnLevel.push_back(beginWord);
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            for(auto it : UsedOnLevel)
+                Set.erase(it);
+                
+            for(int i = 0; i < Size; i++)
+            {
+                vector<string> Current = Queue.front();
+                Queue.pop();
+                
+                string s = Current.back();
+                if(s == endWord)
+                {
+                    if(Answer.size() == 0)
+                        Answer.push_back(Current);
+                    else if(Answer[0].size() == Current.size())
+                        Answer.push_back(Current);
+                }
+
+                for(int i = 0; i < s.size(); i++)
+                {
+                    char Original = s[i];
+                    for(char ch = 'a'; ch <= 'z'; ch++)
+                    {
+                        s[i] = ch;
+                        if(Set.find(s) != Set.end())
+                        {
+                            Current.push_back(s);
+                            Queue.push(Current);
+
+                            UsedOnLevel.push_back(s);
+                            Current.pop_back();
+                        }
+                    }
+                    s[i] = Original;
+                }
+            }
+        }
+        return Answer;
+    }
+};
+
+
+
+2. Using DFS Traversal & BackTracking
+   Find The Length of Shortest Path to EndWord
+   Store the Words in Map Along With Level While Finding Shortest Path
+   Then Use DFS Traversal and BackTrack from EndWord to BeginWord
+
+TC : O((N * L * 26) + (P * L * 26))    -> N*L*26 for BFS, P*L*26 for DFS
+     
+     N -> WordList Length
+     L -> Word Length
+     P -> Number of Valid Paths
+
+SC : O(N*L + L)
+     N*L -> Set, Queue, Map
+     L   -> DFS Recursive Stack
+
+class Solution {
+public:
+    vector<vector<string>> Answer;
+
+    void DFS(string &beginWord, string Word, vector<string> &Sequence, unordered_map<string, int> &Map)
+    {
+        if(Word == beginWord)
+        {
+            vector<string> Temp = Sequence;
+            reverse(Temp.begin(), Temp.end());
+            Answer.push_back(Temp);
+            return;
+        }
+
+        int Level = Map[Word];
+        for(int i = 0; i < Word.size(); i++)
+        {
+            char Original = Word[i];
+            for(char ch = 'a'; ch <= 'z'; ch++)
+            {
+                Word[i] = ch;
+                if(Map.find(Word) != Map.end() && Map[Word] + 1 == Level)
+                {
+                    Sequence.push_back(Word);
+                    DFS(beginWord, Word, Sequence, Map);
+                    Sequence.pop_back();
+                }
+            }
+            Word[i] = Original;
+        }
+    }
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) 
+    {
+        unordered_map<string, int> Map;
+        Map[beginWord] = 0;
+
+        queue<string> Queue;
+        Queue.push(beginWord);
+
+        unordered_set<string> Set(wordList.begin(), wordList.end());
+        Set.erase(beginWord);
+
+        while(!Queue.empty())
+        {
+            string Word = Queue.front();
+            int Level = Map[Word];
+            Queue.pop();
+            if(Word == endWord) break;
+            
+            for(int i = 0; i < Word.size(); i++)
+            {
+                char Original = Word[i];
+                for(char ch = 'a'; ch <= 'z'; ch++)
+                {
+                    Word[i] = ch;
+                    if(Set.find(Word) != Set.end())
+                    {
+                        Queue.push(Word);
+                        Set.erase(Word);
+                        Map[Word] = Level + 1;
+                    }
+                }
+                Word[i] = Original;
+            }
+        }
+        if(Map.find(endWord) != Map.end())
+        {
+            vector<string> Sequence = {endWord};
+            DFS(beginWord, endWord, Sequence, Map);
+        }
+        return Answer;
+    }
+};

@@ -1,0 +1,88 @@
+1. Dijkstra's Algorithm
+   Using Priority Queue
+   Shortest Distance to Every Node from Source Node
+   (Doesn't Work for Negative Weight Edges)
+
+TC : O(E*LogV)
+SC : O(V + E)
+
+class Solution 
+{
+    public:
+    vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src) 
+    {
+        int V = adj.size();
+        vector<int> Distance(V, INT_MAX);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> PQ;
+        
+        PQ.push({0, src});
+        Distance[src] = 0;
+        
+        while(!PQ.empty())
+        {
+            int Dist = PQ.top().first;
+            int Node = PQ.top().second;
+            PQ.pop();
+            
+            for(auto it : adj[Node])
+            {
+                int EdgeWeight = it.second;
+                int AdjNode = it.first;
+                
+                if(Dist + EdgeWeight < Distance[AdjNode])
+                {
+                    Distance[AdjNode] = Dist + EdgeWeight;
+                    PQ.push({Dist + EdgeWeight, AdjNode});
+                }
+            }
+        }
+        return Distance;
+    }
+};
+
+
+2. Dijkstra's Algorithm
+   Using Set
+   Shortest Distance to Every Node from Source Node
+   (Doesn't Work for Negative Weight Edges)
+
+TC : O(E*LogV)
+SC : O(V + E)
+
+class Solution 
+{
+    public:
+    vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src) 
+    {
+        int V = adj.size();
+        vector<int> Distance(V, INT_MAX);
+        set<pair<int, int>> Set;
+        
+        Set.insert({0, src});
+        Distance[src] = 0;
+        
+        while(!Set.empty())
+        {
+            auto top = *(Set.begin());
+            int Dist = top.first;
+            int Node = top.second;
+            Set.erase(top);
+            
+            for(auto it : adj[Node])
+            {
+                int EdgeWeight = it.second;
+                int AdjNode = it.first;
+                
+                if(Dist + EdgeWeight < Distance[AdjNode])
+                {
+                    if(Distance[AdjNode] != INT_MAX)                //Remove From Set if Already Visited with Larger Distance
+                        Set.erase({Distance[AdjNode], AdjNode});
+                    
+                    Distance[AdjNode] = Dist + EdgeWeight;
+                    Set.insert({Dist + EdgeWeight, AdjNode});
+                }
+            }
+        }
+        return Distance;
+    }
+};

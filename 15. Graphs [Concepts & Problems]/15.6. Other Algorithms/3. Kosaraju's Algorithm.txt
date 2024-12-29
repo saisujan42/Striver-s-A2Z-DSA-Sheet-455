@@ -1,0 +1,66 @@
+1. Kosaraju's Algorithm
+   Sort All The Edges Based on Finishing Time (Using DFS & Pushing Onto Stack)
+   Reverse The Graph
+   Do A DFS Traversal
+
+TC : O(3*(V+E))    -> 2 Times for DFS, 1 Time for Reversing Edges
+SC : O(2V + (V+E)) -> 2V for Visited, Stack
+                   -> V+E for Reverse AdjList
+
+class Solution 
+{
+    public:
+    void DFS(int Node, vector<bool> &Visited, stack<int> &Stack, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        for(auto it : adj[Node])
+        {
+            if(!Visited[it])
+                DFS(it, Visited, Stack, adj);
+        }
+        Stack.push(Node);
+    }
+    
+    void DFS2(int Node, vector<bool> &Visited, vector<vector<int>> &AdjList)
+    {
+        Visited[Node] = true;
+        for(auto it : AdjList[Node])
+        {
+            if(!Visited[it])
+                DFS2(it, Visited, AdjList);
+        }
+    }
+    
+    int kosaraju(vector<vector<int>> &adj) 
+    {
+        int V = adj.size();
+        stack<int> Stack;
+        vector<bool> Visited(V, false);
+        
+        for(int i = 0; i < V; i++)
+            if(!Visited[i])
+                DFS(i, Visited, Stack, adj);
+        
+        vector<vector<int>> RevAdjList(V);
+        for(int i = 0; i < V; i++)
+        {
+            Visited[i] = false;             // To Perform DFS Again
+            for(auto it : adj[i])
+                RevAdjList[it].push_back(i);
+        }
+        
+        int Count = 0;
+        while(!Stack.empty())
+        {
+            int Node = Stack.top();
+            Stack.pop();
+            
+            if(!Visited[Node])
+            {
+                Count++;
+                DFS2(Node, Visited, RevAdjList);
+            }
+        }
+        return Count;
+    }
+};

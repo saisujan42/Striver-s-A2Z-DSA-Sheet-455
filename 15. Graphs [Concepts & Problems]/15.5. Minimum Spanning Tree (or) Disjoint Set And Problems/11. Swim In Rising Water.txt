@@ -1,0 +1,155 @@
+1. Using Dijkstra's Algorithm
+   Using Visited Array & Starting From (0, 0)
+   Using Priority Queue to Store {MaxTime, {i, j}}
+   Return if Popped Node from PQ is (n-1, n-1)
+
+TC : O(E LogV)  =  O(N^2)
+SC : O(2 * N^2) -> Priority Queue, Visited Matrix 
+
+class Solution {
+public:
+
+    vector<int> X = {-1, 1, 0, 0};
+    vector<int> Y = {0, 0, -1, 1};
+
+    int swimInWater(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        vector<vector<bool>> Visited(n, vector<bool>(n, false));
+
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> PQ;
+
+        PQ.push({grid[0][0], {0, 0}});
+        Visited[0][0] = true;
+
+        while(!PQ.empty())
+        {
+            int Time = PQ.top().first;
+            int i = PQ.top().second.first;
+            int j = PQ.top().second.second;
+            PQ.pop();
+
+            if( i == n - 1  && j == n - 1)  
+                return Time;
+            
+            for(int x = 0; x < 4; x++)
+            {
+                int row = i + X[x];
+                int col = j + Y[x];
+
+                if(row >= 0 && row < n && col >= 0 && col < n)
+                {
+                    if(!Visited[row][col])
+                    {
+                        Visited[row][col] = true;
+                        int MaxTime = max(Time, grid[row][col]);
+                        PQ.push({MaxTime, {row, col}});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+
+
+
+2. Using Disjoint Set
+   Creating A Vector of Pair To Store Grid Value Along With Cell Coordinates
+   Sorting This Vector
+   Start Joining The Nodes Starting From Smallest Cell Value
+   If The Parent of (0,0) and (n-1, n-1) are Same, Return the answer
+
+TC : O((N^2 Log(N^2)) + (N^2 * Alpha(N^2)) -> Sorting & Disjoint Set Operations
+
+SC : O(4 * N^2)  -> Size, Parent, Visited, Cells Matrices        
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Parent;
+
+    DisjointSet(int n)
+    {
+        Size.resize(n, 1);
+        Parent.resize(n);
+        for(int i = 0; i < n; i++)
+            Parent[i] = i;
+    }
+
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+class Solution 
+{
+    public:
+
+    vector<int> X = {-1, 1, 0, 0};
+    vector<int> Y = {0, 0, -1, 1};
+
+    int swimInWater(vector<vector<int>>& grid) 
+    {
+        int n = grid.size();
+        vector<pair<int, pair<int, int>>> Cells;
+
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                Cells.push_back({grid[i][j], {i, j}});
+        sort(Cells.begin(), Cells.end());
+
+        DisjointSet DS(n * n);
+        vector<vector<bool>> Visited(n, vector<bool>(n, false));
+        
+        for(auto it : Cells)
+        {
+            int Time = it.first;
+            int i = it.second.first;
+            int j = it.second.second;
+            Visited[i][j] = true;
+
+            for(int x = 0; x < 4; x++)
+            {
+                int row = i + X[x];
+                int col = j + Y[x];
+
+                int Node = i * n + j;
+                int AdjNode = row * n + col;
+
+                if(row >= 0 && row < n && col >= 0 && col < n)
+                {
+                    if(Visited[row][col])
+                        DS.UnionBySize(Node, AdjNode);
+                }
+            }
+
+            if(DS.FindParent(0) == DS.FindParent(n*n - 1))
+                return Time;
+        }
+        return -1;
+    }
+};

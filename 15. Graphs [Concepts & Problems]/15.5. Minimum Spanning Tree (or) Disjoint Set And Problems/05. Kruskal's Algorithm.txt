@@ -1,0 +1,107 @@
+1. Kruskal's Algorithm
+   Using Disjoint Set
+   Sorting Edges by Weight
+   Traversing through Sorted Edges
+   Add Edge to MST if Both Nodes Don't Belong to Same Parent
+   This Can be Found Out Using Disjoint Set FindParent Function
+   If Different Parent, Add to MST and Union the 2 Nodes
+
+TC : O(E LogE)
+SC : O(V + E)
+
+class DisjointSet
+{
+    public:
+    vector<int> Size, Rank, Parent;
+    
+    DisjointSet(int V)
+    {
+        Rank.resize(V + 1, 0);
+        Size.resize(V + 1, 1);
+        Parent.resize(V + 1);
+        for(int i = 0; i < V + 1; i++)
+            Parent[i] = i;
+    }
+    
+    int FindParent(int Node)
+    {
+        if(Parent[Node] == Node)
+            return Node;
+        return Parent[Node] = FindParent(Parent[Node]);
+    }
+    
+    void UnionByRank(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+            
+        if(Rank[UParent] < Rank[VParent])
+            Parent[UParent] = VParent;
+        else if(Rank[VParent] < Rank[UParent])
+            Parent[VParent] = UParent;
+        else
+        {
+            Parent[UParent] = VParent;
+            Rank[VParent]++;
+        }
+    }
+    
+    void UnionBySize(int U, int V)
+    {
+        int UParent = FindParent(U);
+        int VParent = FindParent(V);
+        if(UParent == VParent)
+            return;
+        
+        if(Size[UParent] < Size[VParent])
+        {
+            Parent[UParent] = VParent;
+            Size[VParent] += Size[UParent];
+        }
+        else
+        {
+            Parent[VParent] = UParent;
+            Size[UParent] += Size[VParent];
+        }
+    }
+};
+
+
+class Solution 
+{
+    public:
+    int spanningTree(int V, vector<vector<int>> adj[]) 
+    {
+        vector<pair<int, pair<int, int>>> edges;  // {Weight, {Node, AdjNode}}
+        for(int i = 0; i < V; i++)
+        {
+            int Node = i;
+            for(auto it : adj[i])
+            {
+                int AdjNode = it[0];
+                int Weight = it[1];
+                edges.push_back({Weight, {Node, AdjNode}});
+            }
+        }
+        sort(edges.begin(), edges.end());
+        
+        int Sum = 0;
+        DisjointSet DS(V);
+        
+        for(auto it : edges)
+        {
+            int Weight = it.first;
+            int U = it.second.first;
+            int V = it.second.second;
+            
+            if(DS.FindParent(U) != DS.FindParent(V))
+            {
+                Sum += Weight;
+                DS.UnionBySize(U, V);
+            }
+        }
+        return Sum;
+    }
+};

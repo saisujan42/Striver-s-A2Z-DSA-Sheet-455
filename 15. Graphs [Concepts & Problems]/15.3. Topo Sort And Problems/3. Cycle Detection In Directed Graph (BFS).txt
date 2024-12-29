@@ -1,0 +1,47 @@
+1. Using Topological Sort
+   Using Kahn's Algorithm (BFS)
+   If Topological Sort Answer Size is Less Than N Nodes,
+   It Represents a Cycle
+
+TC : O(2*(N+E)) -> Finding InDegree, BFS
+SC : O(2N)      -> Queue, InDegree
+
+class Solution {
+  public:
+    bool IsCyclic(vector<int> &InDegree, vector<vector<int>> &adj)
+    {
+        int V = InDegree.size();
+        queue<int> Queue;
+        for(int i = 0; i < V; i++)
+            if(InDegree[i] == 0)
+                Queue.push(i);
+        
+        int Count = 0;
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+            Count++;
+            
+            for(auto it : adj[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        if(Count < V)
+            return true;
+        return false;
+    }
+    bool isCyclic(int V, vector<vector<int>> adj) 
+    {
+        vector<int> InDegree(V, 0);
+        for(int i = 0; i < V; i++)
+        {
+            for(auto it : adj[i])
+                InDegree[it]++;
+        }
+        return IsCyclic(InDegree, adj); //BFS
+    }
+};

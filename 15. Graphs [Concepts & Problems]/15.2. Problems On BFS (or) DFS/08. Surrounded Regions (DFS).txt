@@ -1,0 +1,60 @@
+1. Using DFS Traversal
+   Any 'O's Connected to 'O's on Boundary Cannot be Changed to X
+
+TC : O((N+M) + 2*N*M) -> N+M to Traverse Boundary
+                      -> 1 N*M for DFS, 1 N*M to Change 'O's
+SC : O(N*M)           -> Visited 
+
+class Solution {
+public:
+    vector<int> X = {-1, 1, 0, 0};
+    vector<int> Y = {0, 0, -1, 1};
+    void DFS(int i, int j, vector<vector<bool>> &Visited, vector<vector<char>> &board)
+    {
+        int n = board.size();
+        int m = board[0].size();
+        Visited[i][j] = true;
+        for(int x = 0; x < 4; x++)
+        {
+            int row = i + X[x];
+            int col = j + Y[x];
+            
+            if(row >= 0 && row < n && col >= 0 && col < m)
+            {
+                if(board[row][col] == 'O' && !Visited[row][col])
+                    DFS(row, col, Visited, board);
+            }
+        }
+    }
+    void solve(vector<vector<char>>& board) 
+    {
+        int n = board.size();
+        int m = board[0].size();
+        vector<vector<bool>> Visited(n, vector<bool>(m, false)); 
+
+        for(int i = 0; i < n; i++)
+        {
+            if(board[i][0] == 'O' && !Visited[i][0])
+                DFS(i, 0, Visited, board);
+            if(board[i][m - 1] == 'O' && !Visited[i][m - 1])
+                DFS(i, m - 1, Visited, board);
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            if(board[0][i] == 'O' && !Visited[0][i])
+                DFS(0, i, Visited, board);
+            if(board[n - 1][i] == 'O' && !Visited[n - 1][i])
+                DFS(n - 1, i, Visited, board); 
+        }   
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+            {
+                if(board[i][j] == 'O' && !Visited[i][j])
+                    board[i][j] = 'X';
+            }
+        }
+    }
+};

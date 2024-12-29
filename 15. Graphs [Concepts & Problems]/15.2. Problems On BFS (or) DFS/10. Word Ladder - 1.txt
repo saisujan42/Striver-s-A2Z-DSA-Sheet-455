@@ -1,0 +1,51 @@
+1. Adding All Words to a Set
+   Using BFS Traversal
+   Changing Each Letter of Current Word from a-z to Check in Set
+   If Found, Add to Queue
+   While Popping, if it is EndWord return Count(i.e. Level of Traversal)
+
+TC : O(N * M * 26) N -> Length of WordList
+		   M -> Length of StartWord
+SC : O(N + M)      N -> Set, Queue
+
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) 
+    {
+        int n = wordList.size();
+        unordered_set<string> Set(wordList.begin(), wordList.end());
+        
+        queue<string> Queue;
+        Queue.push(beginWord);
+        Set.erase(beginWord);
+        int Count = 0;
+
+        while(!Queue.empty())
+        {
+            int Size = Queue.size();
+            Count++;
+            for(int i = 0; i < Size; i++)
+            {
+                string s = Queue.front();
+                if(s == endWord) return Count;
+                Queue.pop();
+
+                for(int i = 0; i < s.size(); i++)
+                {
+                    char original = s[i];
+                    for(char ch = 'a'; ch <= 'z'; ch++)
+                    {
+                        s[i] = ch;
+                        if(Set.find(s) != Set.end())
+                        {
+                            Set.erase(s);
+                            Queue.push(s);
+                        }
+                    }
+                    s[i] = original;
+                }
+            }
+        }
+        return 0;
+    }
+};

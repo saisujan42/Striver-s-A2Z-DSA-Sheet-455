@@ -1,0 +1,136 @@
+1. Converting Adj Matrix to Adj List
+   Using BFS or DFS to Count Provinces
+   (Using DFS in this Code)
+
+TC : O(V*V + (V + 2E)) -> V*V to Convert Adj Matrix, V + 2E for DFS Traversal
+SC : O(2N)             -> 1N for Visited, 1N for Recursive Stack Space
+
+class Solution {
+public:
+    void DFS(int Node, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        for(auto it : adj[Node])
+        {
+            if(!Visited[it])
+                DFS(it, Visited, adj);
+        }
+    }
+    int findCircleNum(vector<vector<int>> &adjMat) 
+    {
+        int n = adjMat.size();
+        int Count = 0;
+        vector<bool> Visited(n);
+
+        vector<vector<int>> adjList(n);
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(adjMat[i][j] == 1 && i != j)
+                {
+                    adjList[i].push_back(j);
+                    adjList[j].push_back(i);
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Count++;
+                DFS(i, Visited, adjList);
+            }
+        }
+        return Count;
+    }
+};
+
+
+
+2. Using DFS
+   Given Adj Matrix 
+
+TC : O(V + 2E) -> V + 2E for DFS Traversal
+SC : O(2N)     -> 1N for Visited, 1N for Recursive Stack Space
+
+class Solution {
+public:
+    void DFS(int Node, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        Visited[Node] = true;
+        int n = adj.size();
+        for(int i = 0; i < n; i++)
+        {
+            if(adj[Node][i] == 1 && !Visited[i])
+                DFS(i, Visited, adj);
+        }
+    }
+    int findCircleNum(vector<vector<int>> &adjMat) 
+    {
+        int n = adjMat.size();
+        int Count = 0;
+        vector<bool> Visited(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Count++;
+                DFS(i, Visited, adjMat);
+            }
+        }
+        return Count;
+    }
+};
+
+
+
+3. Using BFS
+   Given Adj Matrix
+
+TC : O(N + 2E) -> 2E is Degree of a Node, as We Traverse all Neighbours of a Node 
+SC : O(2N)     -> 1N for Queue, 1N for Visited
+
+class Solution {
+public:
+    void BFS(int CurrNode, vector<bool> &Visited, vector<vector<int>> &adj)
+    {
+        int n = adj.size();
+        queue<int> Queue;
+        Queue.push(CurrNode);
+        Visited[CurrNode] = true;
+
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Queue.pop();
+
+            for(int i = 0; i < n; i++)
+            {
+                if(adj[Node][i] == 1 && !Visited[i])
+                {
+                    Queue.push(i);
+                    Visited[i] = true;
+                }
+            }
+        }
+    }
+    int findCircleNum(vector<vector<int>> &adjMat) 
+    {
+        int n = adjMat.size();
+        int Count = 0;
+        vector<bool> Visited(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            if(!Visited[i])
+            {
+                Count++;
+                BFS(i, Visited, adjMat);
+            }
+        }
+        return Count;
+    }
+};

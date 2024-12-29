@@ -1,0 +1,14 @@
+1. Using Formula
+   pow(2, n*(n-1) / 2)
+
+TC : O(1) SC : O(1)
+
+
+class Solution {
+  public:
+    long long count(int n) 
+    {
+        n = (n * (n - 1)) / 2;
+        return pow(2, n);
+    }
+};

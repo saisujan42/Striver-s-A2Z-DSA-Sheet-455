@@ -1,0 +1,91 @@
+1. Floyd Warshall Algorithm
+   Counting Number of Nodes with Path Less Than Threshold Distance
+
+TC : O(N^3)
+SC : O(N^2) -> AdjMat   
+
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) 
+    {
+        int m = edges.size();
+        vector<vector<int>> AdjMat(n, vector<int>(n, 1e9));
+
+        for(int i = 0; i < n; i++)
+            AdjMat[i][i] = 0;
+        for(int i = 0; i < m; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            AdjMat[u][v] = AdjMat[v][u] = w;
+        }
+
+        for(int k = 0; k < n; k++)
+        {
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < n; j++)
+                    AdjMat[i][j] = min(AdjMat[i][j], AdjMat[i][k] + AdjMat[k][j]);
+        }
+
+        int Count = INT_MAX, Node = -1;
+        for(int i = 0; i < n; i++)
+        {
+            int TempCount = 0;
+            for(int j = 0; j < n; j++)
+            {
+                if(AdjMat[i][j] <= distanceThreshold)
+                    TempCount++;
+            }
+            if(TempCount <= Count)
+                Count = TempCount, Node = i;
+        }
+        return Node;
+    }
+};
+
+
+
+2. Floyd Warshall Algorithm
+   Small Change in Above Approach
+   Placing Last For Loop inside N^3 For Loop
+
+TC : O(N^3)
+SC : O(N^2)
+
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) 
+    {
+        int m = edges.size();
+        vector<vector<int>> AdjMat(n, vector<int>(n, 1e9));
+
+        for(int i = 0; i < n; i++)
+            AdjMat[i][i] = 0;
+        for(int i = 0; i < m; i++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            AdjMat[u][v] = AdjMat[v][u] = w;
+        }
+
+        int Count = INT_MAX, Node = -1;
+        for(int k = 0; k < n; k++)
+        {
+            for(int i = 0; i < n; i++)
+            {
+                int TempCount = 0;
+                for(int j = 0; j < n; j++)
+                {
+                    AdjMat[i][j] = min(AdjMat[i][j], AdjMat[i][k] + AdjMat[k][j]);
+                    if(k == n - 1 && AdjMat[i][j] <= distanceThreshold)
+                        TempCount++;
+                }
+                if(k == n - 1 && TempCount <= Count)
+                    Count = TempCount, Node = i;
+            }
+        }
+        return Node;
+    }
+};

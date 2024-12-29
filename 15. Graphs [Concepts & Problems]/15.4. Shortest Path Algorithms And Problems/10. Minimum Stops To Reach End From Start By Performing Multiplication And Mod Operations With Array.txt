@@ -1,0 +1,41 @@
+1. Using Dijkstra's Algorithm
+   Using Queue 
+
+TC : O(E LogV)
+SC : O(V + E + 100000) -> V+E for Queue, 100000 for Visited Array
+
+class Solution {
+  public:
+    int MOD = 100000;
+    int minimumMultiplications(vector<int>& arr, int start, int end) 
+    {
+        if(start == end) return 0;
+        int n = arr.size();
+        
+        vector<bool> Visited(100000, false);
+        Visited[start] = true;
+        
+        queue<pair<int, int>> Queue;
+        Queue.push({0, start});
+        
+        while(!Queue.empty())
+        {
+            int Count = Queue.front().first;
+            int Node = Queue.front().second;
+            Queue.pop();
+            
+            for(int i = 0; i < n; i++)
+            {
+                int NewValue = (Node *arr[i]) % MOD;
+                if(NewValue == end)
+                    return Count + 1;
+                if(!Visited[NewValue])
+                {
+                    Visited[NewValue] = true;
+                    Queue.push({Count + 1, NewValue});
+                }
+            }
+        }
+        return -1;
+    }
+};

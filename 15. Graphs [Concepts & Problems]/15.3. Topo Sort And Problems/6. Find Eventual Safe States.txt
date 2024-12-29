@@ -1,0 +1,109 @@
+1. Using DFS Traversal
+   Nodes in a Cycle and Nodes that Lead to a Cycle Cannot Be Safe Nodes
+   Return False during DFS Calls if Cycle is Detected
+
+TC : O(N + E) -> DFS Traversal
+SC : O(3N)    -> Visited, PathVisited, SafeNodes
+
+class Solution 
+{
+    public:
+    bool DFS(int Node, vector<bool> &Visited, vector<bool> &PathVisited, vector<bool> &SafeNodes, vector<vector<int>> &graph)
+    {
+        Visited[Node] = true;
+        PathVisited[Node] = true;
+        for(auto it : graph[Node])
+        {
+            if(!Visited[it])
+            {
+                if(DFS(it, Visited, PathVisited, SafeNodes, graph) == false)
+                    return false;
+            }
+            else if(PathVisited[it] == true)
+                return false;
+        }
+        SafeNodes[Node] = true;
+        PathVisited[Node] = false;
+        return true;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) 
+    {
+        int V = graph.size();
+        vector<bool> Visited(V, false);
+        vector<bool> PathVisited(V, false);
+        vector<bool> SafeNodes(V, false);
+
+        for(int i = 0; i < V; i++)
+        {
+            if(!Visited[i])
+                DFS(i, Visited, PathVisited, SafeNodes, graph);
+        }
+
+        vector<int> Answer;
+        for(int i = 0; i < V; i++)
+        {
+            if(SafeNodes[i])
+                Answer.push_back(i);
+        }
+        return Answer;
+    }
+};
+
+
+
+2. Using Kahn's Algorithm (BFS)
+   Reverse All The Edges
+   Using Topological Sort
+   The Topological Sort Doesn't Contain Nodes Connected to a Cycle
+   This is the Result 
+
+TC : O(N + E)  -> BFS Traversal
+SC : O(2N + E) -> InDegree, Visited, ReverseAdjList
+ 
+class Solution {
+public:
+    vector<int> BFS(vector<int> &InDegree, vector<vector<int>> &adjList)
+    {
+        int V = adjList.size();
+        vector<int> SafeNodes;
+        queue<int> Queue;
+        for(int i = 0; i < V; i++)
+        {
+            if(InDegree[i] == 0)
+                Queue.push(i);
+        }
+
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            SafeNodes.push_back(Node);
+            Queue.pop();
+
+            for(auto it : adjList[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        return SafeNodes;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) 
+    {
+        int V = graph.size();
+        vector<vector<int>> adjList(V);  //Reversed Edges Graph
+        vector<int> InDegree(V, 0);
+        for(int i = 0; i < V; i++)
+        {
+            for(auto it : graph[i])
+            {
+                adjList[it].push_back(i);
+                InDegree[i]++;
+            }
+        }    
+
+        vector<int> SafeNodes = BFS(InDegree, adjList);
+        sort(SafeNodes.begin(), SafeNodes.end());
+        return SafeNodes;
+    }
+};

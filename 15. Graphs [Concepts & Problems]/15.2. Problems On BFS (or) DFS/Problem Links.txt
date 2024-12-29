@@ -1,0 +1,42 @@
+1. Number Of Provinces (LeetCode) - Number Of Provinces
+https://leetcode.com/problems/number-of-provinces/
+
+2. Connected Components Problem In Matrix - Number Of Provinces
+https://www.geeksforgeeks.org/problems/number-of-provinces/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=number-of-provinces
+
+3. Rotten Oranges - Rotting Oranges
+https://leetcode.com/problems/rotting-oranges/
+
+4. Flood Fill - Flood Fill
+https://leetcode.com/problems/flood-fill/
+
+5. Cycle Detection In Undirected Graph (BFS) - Undirected Graph Cycle
+https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=detect-cycle-in-an-undirected-graph
+
+6. Cycle Detection In Undirected Graph (DFS) - Undirected Graph Cycle
+https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=detect-cycle-in-an-undirected-graph
+
+7. 0/1 Matrix (BFS Problem) - 01 Matrix
+https://leetcode.com/problems/01-matrix/description/
+
+8. Surrounded Regions (DFS) - Surrounded Regions
+https://leetcode.com/problems/surrounded-regions/description/
+
+9. Number Of Enclaves [Flood Fill Implementation - Multisource] - Number Of Enclaves
+https://leetcode.com/problems/number-of-enclaves/
+
+10. Word Ladder - 1 -> Word Ladder
+https://leetcode.com/problems/word-ladder/
+
+11. Word Ladder - 2 -> Word Ladder II
+https://leetcode.com/problems/word-ladder-ii/
+
+12. Number Of Distinct Islands [DFS Multisource] - Number Of Islands
+https://leetcode.com/problems/number-of-islands/description/
+
+13. Bipartite Graph (DFS) - Is Graph Bipartite?
+https://leetcode.com/problems/is-graph-bipartite/
+
+14. Cycle Detection In Directed Graph (DFS)  - Course Schedule
+https://leetcode.com/problems/course-schedule/
+

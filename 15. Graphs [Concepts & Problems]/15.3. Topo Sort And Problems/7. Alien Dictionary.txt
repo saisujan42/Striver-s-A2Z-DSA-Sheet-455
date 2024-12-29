@@ -1,0 +1,71 @@
+1. Using Topo Sort 
+   Construct Directed Acyclic Graph (DAG) with Chars as Nodes
+   If baa Appears Before abc, b -> a Add to AdjList
+   Then Perform Topo Sort on This Graph
+
+TC : O(N*L + (V+E)) -> N*L To Build DAG                N -> Dict Size
+                    -> V+E For Topo Sort               L -> Word Length
+
+SC : O(2V + (V+E))  -> 2V For Queue, InDegree
+                    -> V+E for Graph AdjList
+
+
+class Solution {
+  public:
+    string TopoSort(vector<vector<int>> &AdjList)
+    {
+        int V = AdjList.size();
+        string Answer;
+        vector<int> InDegree(V, 0);
+        queue<int> Queue;
+        
+        for(int i = 0; i < V; i++)
+        {
+            for(auto it : AdjList[i])
+                InDegree[it]++;
+        }
+        
+        for(int i = 0; i < V; i++)
+        {
+            if(InDegree[i] == 0)
+                Queue.push(i);
+        }
+        
+        while(!Queue.empty())
+        {
+            int Node = Queue.front();
+            Answer += ('a' + Node);
+            Queue.pop();
+            
+            for(auto it : AdjList[Node])
+            {
+                InDegree[it]--;
+                if(InDegree[it] == 0)
+                    Queue.push(it);
+            }
+        }
+        return Answer;
+    }
+    string findOrder(vector<string> dict, int k) 
+    {
+        int n = dict.size();
+        vector<vector<int>> AdjList(k);
+        
+        for(int i = 0; i < n - 1; i++)
+        {
+            string S1 = dict[i];
+            string S2 = dict[i + 1];
+            int MinLen = min(S1.size(), S2.size());
+            
+            for(int j = 0; j < MinLen; j++)
+            {
+                if(S1[j] != S2[j])
+                {
+                    AdjList[S1[j] - 'a'].push_back(S2[j] - 'a');
+                    break;
+                }
+            }
+        }
+        return TopoSort(AdjList);
+    }
+};
