@@ -1,0 +1,60 @@
+1. Using Recursion
+   Generate All The Subsets
+   By Pick & Not-Pick
+
+TC : O(2^N)
+SC : O(N)   -> Recursive Stack Space
+
+class Solution {
+public:
+    void GenerateSubsets(int Index, vector<int> Temp, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        if(Index == nums.size())
+        {
+            Answer.push_back(Temp);
+            return;
+        }
+
+        Temp.push_back(nums[Index]);
+        GenerateSubsets(Index + 1, Temp, nums, Answer);
+
+        Temp.pop_back();
+        GenerateSubsets(Index + 1, Temp, nums, Answer);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        vector<vector<int>> Answer;
+        GenerateSubsets(0, {}, nums, Answer);  
+        return Answer;  
+    }
+};
+
+
+
+
+2. Using Binary Representation From 0 To 2^N
+   Where, Set Bit value is Added to List, Else Not Added
+
+TC : O(N * 2^N) 
+SC : ~O(N * 2^N)  -> Answer
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) 
+    {
+        int n = nums.size();
+        int SubSets = 1 << n;
+        vector<vector<int>> Answer;
+        for(int Val = 0; Val < SubSets; Val++)
+        {
+            vector<int> Temp;
+            for(int i = 0; i < n; i++)
+            {
+                if(Val & (1 << i))
+                    Temp.push_back(nums[i]);
+            }
+            Answer.push_back(Temp);
+        }
+        return Answer;
+    }
+};

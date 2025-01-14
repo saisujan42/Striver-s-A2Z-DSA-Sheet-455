@@ -1,0 +1,40 @@
+1. Sort the Given Array
+   Using Recursion, Pick or Not-Pick Method
+   Take Only One Unique Element At Each Step (Eliminating Duplicates at That Step)
+
+TC : O(NLogN + (2^N * M))   M   -> Average Length of Each Combination
+SC : O(N + K*M)             N   -> Recursion Stack Space
+			    K*M -> Answer Storage
+                            K   -> Number of Combinations
+
+class Solution {
+public:
+    void CombinationSum(int Index, vector<int> &Temp, int target, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        if(target == 0)
+        {
+            Answer.push_back(Temp);
+            return;
+        }
+
+        for(int i = Index; i < nums.size(); i++)
+        {
+            if(i > Index && nums[i] == nums[i - 1])
+                continue;
+            if(nums[i] > target)
+                break;
+            
+            Temp.push_back(nums[i]);
+            CombinationSum(i + 1, Temp, target - nums[i], nums, Answer);
+            Temp.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) 
+    {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> Answer;
+        vector<int> Temp;
+        CombinationSum(0, Temp, target, candidates, Answer);
+        return Answer;    
+    }
+};

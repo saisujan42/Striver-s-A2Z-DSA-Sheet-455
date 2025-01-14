@@ -1,0 +1,68 @@
+1. Using Iterative Exponentiation
+   Using Permutations & Combinations
+   Even Places Have 5 Options (0, 2, 4, 6, 8), Odd Places Have 4 Options (2, 3, 5, 7)
+   Pow(5, Even) * Pow(4, Odd) is the Answer
+
+TC : O(LogN)
+SC : O(1)
+
+class Solution {
+public:
+    long long MOD = 1e9 + 7;
+    long long Power(long long x, long long n) 
+    {
+        long long Answer = 1;
+        while(n)
+        {
+            if(n % 2 == 1)
+            {
+                Answer = (Answer * x) % MOD;
+                n--;
+            }
+            else
+            {
+                n /= 2;
+                x = (x * x) % MOD;
+            }
+        }
+        return Answer;
+    }
+    int countGoodNumbers(long long n) 
+    {
+        long long Odd = n / 2;
+        long long Even = (n / 2) + (n % 2); 
+        long long Answer = (Power(4, Odd) * Power(5, Even)) % MOD;
+        return Answer;   
+    }
+};
+
+
+
+
+2. Using Recursive Exponentiation
+   Using Permutations & Combinations
+   Even Places Have 5 Options (0, 2, 4, 6, 8), Odd Places Have 4 Options (2, 3, 5, 7)
+   Pow(5, Even) * Pow(4, Odd) is the Answer 
+
+TC : O(LogN) 
+SC : O(LogN) -> Recursive Stack Space
+
+class Solution {
+public:
+    long long MOD = 1e9 + 7;
+    long long Power(long long Answer, long long x, long long n)
+    {
+        if(n == 0)
+            return Answer;
+        if(n % 2 == 1)
+            return Power((Answer * x) % MOD, x, n - 1);
+        return Power(Answer, (x * x) % MOD, n / 2);
+    }
+    int countGoodNumbers(long long n) 
+    {
+        long long Odd = n / 2;
+        long long Even = (n / 2) + (n % 2); 
+        long long Answer = (Power(1, 4, Odd) * Power(1, 5, Even)) % MOD;
+        return Answer;   
+    }
+};

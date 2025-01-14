@@ -1,0 +1,33 @@
+1. Using Recursion
+   Take or Not-Take Method
+
+TC : O(2^N)
+SC : O(N)   ->  Recursive Stack Space
+
+class Solution{
+    public:
+    bool CheckSubsequence(int Index, int Sum, int k, vector<int> &arr)
+    {
+        if(Sum == k)
+            return true;
+        if(Index == arr.size() || Sum > k)
+            return false;
+            
+        Sum += arr[Index];
+        if(CheckSubsequence(Index + 1, Sum, k, arr) == true)
+            return true;
+        
+        Sum -= arr[Index];
+        if(CheckSubsequence(Index + 1, Sum, k, arr) == true)
+            return true;
+        
+        return false;
+    }
+    bool checkSubsequenceSum(int n, vector<int>& arr, int k) 
+    {
+        return CheckSubsequence(0, 0, k, arr);
+    }
+};
+
+
+2. Use DP to Optimize

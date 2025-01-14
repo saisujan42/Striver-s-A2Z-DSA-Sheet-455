@@ -1,0 +1,33 @@
+1. Same as Combination Sum
+   Using Recursion, Pick or Not-Pick Method
+   Add Vector to Answer If Size == k && Target == 0
+
+TC : O(2^N)
+SC : O(N)    -> Recursion Stack Space
+ 
+class Solution {
+public:
+    void CombinationSum(int Index, int k, int target, vector<int> &Temp, vector<int> &arr, vector<vector<int>> &Answer)
+    {
+        if(Index == arr.size())
+        {
+            if(Temp.size() == k && target == 0)
+                Answer.push_back(Temp);
+            return;
+        }
+
+        Temp.push_back(arr[Index]);
+        CombinationSum(Index + 1, k, target - arr[Index], Temp, arr, Answer);
+
+        Temp.pop_back();
+        CombinationSum(Index + 1, k, target, Temp, arr, Answer);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) 
+    {
+        vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        vector<vector<int>> Answer;
+        vector<int> Temp;
+        CombinationSum(0, k, n, Temp, arr, Answer); 
+        return Answer;   
+    }
+};

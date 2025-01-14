@@ -1,0 +1,75 @@
+1. Generate All The Unique Subsets
+   Using Recursion, Pick or Not-Pick Method
+   Sorting the Given Array
+   Then Using Set to Insert Only Unique Subsets
+
+TC : O(NLogN + 2^N + (2^N)Log(2^N))    NLogN         -> To Sort The Array
+				       2^N           -> To Generate All The Subsets
+				       (2^N)Log(2^N) -> To Convert Set to Vector
+
+SC : O(N + (2^N)*N)                    N             -> Recursive Stack Space
+				       (2^N)*N       -> Set Storage
+
+class Solution {
+public:
+    void GenerateSubsets(int Index, vector<int> &Temp, vector<int> &nums, set<vector<int>> &Answer)
+    {
+        if(Index == nums.size())
+        {
+            Answer.insert(Temp);
+            return;
+        }
+
+        Temp.push_back(nums[Index]);
+        GenerateSubsets(Index + 1, Temp, nums, Answer);
+
+        Temp.pop_back();
+        GenerateSubsets(Index + 1, Temp, nums, Answer);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        sort(nums.begin(), nums.end());
+        set<vector<int>> Set;
+        vector<int> Temp;
+        GenerateSubsets(0, Temp, nums, Set);
+        vector<vector<int>> Answer(Set.begin(), Set.end());
+        return Answer;    
+    }
+};
+
+
+
+2. Using Recursion, Pick or Not-Pick Method
+   Sorting the Given Array
+   Without Using Set
+   Skip Duplicates At Each Step
+
+TC : O(2^N)
+SC : O(N)    -> Recursive Stack Spacew 
+
+
+class Solution {
+public:
+    void GenerateSubsets(int Index, vector<int> &Temp, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        Answer.push_back(Temp);
+
+        for(int i = Index; i < nums.size(); i++)
+        {
+            if(i > Index && nums[i] == nums[i - 1])
+                continue;
+            
+            Temp.push_back(nums[i]);
+            GenerateSubsets(i + 1, Temp, nums, Answer);
+            Temp.pop_back();
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> Answer;
+        vector<int> Temp;
+        GenerateSubsets(0, Temp, nums, Answer);
+        return Answer;    
+    }
+};

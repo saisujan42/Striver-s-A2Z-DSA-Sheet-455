@@ -1,0 +1,36 @@
+1. Generate All Binary Strings - Generate Binary Strings Without Adjacent Zeros
+https://leetcode.com/problems/generate-binary-strings-without-adjacent-zeros/description/
+
+2. Generate Paranthesis - Generate Parentheses
+https://leetcode.com/problems/generate-parentheses/description/
+
+3. Print All Subsequences/Power Set - Subsets
+https://leetcode.com/problems/subsets/description/
+
+4. Learn All Patterns Of Subsequences (Theory) - Better String
+https://www.geeksforgeeks.org/problems/better-string/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=better-string
+
+5. Count All Subsequences With Sum K - Perfect Sum Problem
+https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=perfect-sum-problem
+
+6. Check If There Exists A Subsequence With Sum K - Check If There Exists A Subsequence With Sum K
+https://www.geeksforgeeks.org/problems/check-if-there-exists-a-subsequence-with-sum-k/0
+
+7. Combination Sum - Combination Sum
+https://leetcode.com/problems/combination-sum/
+
+8. Combination Sum-II - Combination Sum II
+https://leetcode.com/problems/combination-sum-ii/description/
+
+9. Subset Sum-I - Subset Sums
+https://www.geeksforgeeks.org/problems/subset-sums2234/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=subset-sums
+
+10. Subset Sum-II - Subsets II
+https://leetcode.com/problems/subsets-ii/
+
+11. Combination Sum-III - Combination Sum III
+https://leetcode.com/problems/combination-sum-iii/description/
+
+12. Letter Combinations Of A Phone Number - Letter Combinations Of A Phone Number
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
+

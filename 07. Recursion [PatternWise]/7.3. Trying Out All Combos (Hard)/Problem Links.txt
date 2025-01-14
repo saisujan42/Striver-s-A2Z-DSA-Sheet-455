@@ -1,0 +1,29 @@
+0. Print All Permutations Of A String/Array - Permutations
+https://leetcode.com/problems/permutations/
+
+1. Palindrome Partitioning - Palindrome Partitioning
+https://leetcode.com/problems/palindrome-partitioning/description/
+
+2. Word Search - Word Search
+https://leetcode.com/problems/word-search/
+
+3. N Queen - N-Queens
+https://leetcode.com/problems/n-queens/
+
+4. Rat In A Maze - Rat In a Maze Problem-I
+https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+
+5. Word Break - Word Break
+https://leetcode.com/problems/word-break/
+
+6. M Coloring Problem - M-Coloring Problem
+https://www.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1
+
+7. Sudoku Solver - Sudoku Solver
+https://leetcode.com/problems/sudoku-solver/
+
+8. Expression Add Operators - Expression Add Operators
+https://leetcode.com/problems/expression-add-operators/description/
+
+
+

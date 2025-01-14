@@ -1,0 +1,36 @@
+1. Using Recursion
+   Pick & Not-Pick Method
+   Using a Sum Variable to Keep Track
+
+TC : O(2^N)   ->  TLE
+SC : O(N)     ->  Recursive Stack Space
+
+class Solution {
+    public:
+    int CountSubsets(int Index, int Sum, int target, vector<int> &arr)
+    {
+        if(Index == arr.size())
+        {
+            if(Sum == target)
+                return 1;
+            return 0;
+        }
+        
+        Sum += arr[Index];
+        int Left = CountSubsets(Index + 1, Sum, target, arr);
+        
+        Sum -= arr[Index];
+        int Right = CountSubsets(Index + 1, Sum, target, arr);
+        
+        return Left + Right;
+    }
+    int perfectSum(vector<int>& arr, int target) 
+    {
+        return CountSubsets(0, 0, target, arr);
+    }
+};
+
+
+(Only Solved Using Recursion Without DP in this)
+2. Using DP
+   

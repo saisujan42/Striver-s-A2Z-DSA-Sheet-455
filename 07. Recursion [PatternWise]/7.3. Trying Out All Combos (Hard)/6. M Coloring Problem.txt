@@ -1,0 +1,58 @@
+1. M-Coloring Problem
+   Using Adjacency List
+   Trying All Colors for a Node
+   Using isSafe to Check if Any Adjacent Nodes Have Same Color
+
+TC : O(N * (M^N))       M   -> No.of Colors
+                        N   -> No.of Nodes
+SC : O(2V + (V+E))      V+E -> Adjacency List
+                        2V  -> Colors Arrays, Recursive Stack 
+
+class Solution 
+{
+    public:
+    bool isSafe(int CurrentColor, int Node, int V, vector<int> &Color, vector<vector<int>> &adjList)
+    {
+        for(auto it : adjList[Node])
+        {
+            if(Color[it] == CurrentColor)
+                return false;
+        }
+        return true;
+    }
+    
+    bool Solve(int Node, int V, int M, vector<int> &Color, vector<vector<int>> &adjList)
+    {
+        if(Node == V)
+            return true;
+        for(int i = 1; i <= M; i++)
+        {
+            if(isSafe(i, Node, V, Color, adjList))
+            {
+                Color[Node] = i;
+                
+                if(Solve(Node + 1, V, M, Color, adjList))
+                    return true;
+                
+                Color[Node] = 0;
+            }
+        }
+        return false;
+    }
+    
+    bool graphColoring(int v, vector<pair<int, int>>& edges, int m) 
+    {
+        vector<int> Color(v, 0);
+        
+        vector<vector<int>> adjList(v);
+        for(int i = 0; i < edges.size(); i++)
+        {
+            int u = edges[i].first;
+            int v = edges[i].second;
+            adjList[u].push_back(v);
+            adjList[v].push_back(u);
+        }
+        
+        return Solve(0, v, m, Color, adjList);
+    }
+};

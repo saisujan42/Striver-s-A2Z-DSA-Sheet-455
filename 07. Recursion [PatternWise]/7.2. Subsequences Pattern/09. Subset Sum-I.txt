@@ -1,0 +1,27 @@
+1. Using Recursion
+   Pick or Not-Pick Method
+
+TC : O(2^N)  ->  Generate All The Subsets
+SC : O(N)    ->  Recursion Stack Space
+
+class Solution 
+{
+    public:
+    void GenerateSubsetSums(int Index, int Sum, vector<int> &arr, vector<int> &Answer)
+    {
+        if(Index == arr.size())
+        {
+            Answer.push_back(Sum);
+            return;
+        }
+        
+        GenerateSubsetSums(Index + 1, Sum + arr[Index], arr, Answer); //Pick
+        GenerateSubsetSums(Index + 1, Sum, arr, Answer);              //Not-Pick
+    }
+    vector<int> subsetSums(vector<int>& arr) 
+    {
+        vector<int> Answer;
+        GenerateSubsetSums(0, 0, arr, Answer);
+        return Answer;
+    }
+};

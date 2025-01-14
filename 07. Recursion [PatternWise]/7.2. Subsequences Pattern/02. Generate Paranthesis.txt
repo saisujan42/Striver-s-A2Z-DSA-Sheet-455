@@ -1,0 +1,29 @@
+1. Using Recursion
+   Using Open & Close Variables to Count Open & Closing Brackets
+   ")" is Only Pushed When Close < Open
+
+TC : O(2^N)
+SC : O(N)    -> Recursive Stack Space
+
+class Solution {
+public:
+    void GenerateStrings(string s, int Open, int Close, int n, vector<string> &Answer)
+    {
+        if(Open == n && Close == n)
+        {
+            Answer.push_back(s);
+            return;
+        }
+
+        if(Open < n)
+            GenerateStrings(s + "(", Open + 1, Close, n, Answer);
+        if(Close < Open)
+            GenerateStrings(s + ")", Open, Close + 1, n, Answer);
+    }
+    vector<string> generateParenthesis(int n) 
+    {
+        vector<string> Answer;
+        GenerateStrings("", 0, 0, n, Answer);  
+        return Answer;  
+    }
+};

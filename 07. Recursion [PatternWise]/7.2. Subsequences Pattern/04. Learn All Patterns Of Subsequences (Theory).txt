@@ -1,0 +1,34 @@
+1. Using Recursion
+   Pick (or) Not-Pick Method
+
+TC : O(2 * 2^N)    -> 2 Times for 2 Strings  (TLE)
+SC : O(N + 2N)     -> Recursion Stack Space & 2 Sets
+
+class Solution 
+{
+    public:
+    void CountSubsequences(int Index, string s, set<string> &Set, string str)
+    {
+        if(Index == str.size())
+        {
+            Set.insert(s);
+            return;
+        }
+        
+        s.push_back(str[Index]);
+        CountSubsequences(Index + 1, s, Set, str);
+        
+        s.pop_back();
+        CountSubsequences(Index + 1, s, Set, str);
+    }
+    string betterString(string str1, string str2) 
+    {
+        set<string> Set1, Set2;
+        CountSubsequences(0, "", Set1, str1);
+        CountSubsequences(0, "", Set2, str2);
+        
+        if(Set1.size() >= Set2.size())
+            return str1;
+        return str2;
+    }
+};

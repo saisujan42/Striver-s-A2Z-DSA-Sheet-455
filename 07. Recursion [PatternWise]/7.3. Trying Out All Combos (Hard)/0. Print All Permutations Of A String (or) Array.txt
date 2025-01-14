@@ -1,0 +1,81 @@
+1. Using Recursion
+   Using A Temp Array & Visited Bool Array to Mark Taken Indices into Temp
+   More Space Complexity Approach
+
+TC : O(N! * N)
+SC : O(N + 2N)  -> Recursive Stack Space, Visited & Temp (Not Considering Answer as Extra Space)
+
+class Solution {
+public:
+    void Permutations(vector<int> &Temp, vector<bool> &Visited, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        if(Temp.size() == nums.size())
+        {
+            Answer.push_back(Temp);
+            return;
+        }
+
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(!Visited[i])
+            {
+                Visited[i] = true;
+                Temp.push_back(nums[i]);
+
+                Permutations(Temp, Visited, nums, Answer);
+
+                Visited[i] = false;
+                Temp.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<bool> Visited(n, false);
+        vector<int> Temp;
+        vector<vector<int>> Answer;
+            
+        Permutations(Temp, Visited, nums, Answer);
+        return Answer;
+    }
+};
+
+
+
+2. Using Recursion
+   Optimal Space Complexity Approach
+   By Swapping Indices in The Same Given Array 
+   To Generate All Permutations
+
+TC : O(N! * N)
+SC : O(N)         -> Recursive Stack Space
+
+class Solution {
+public:
+    void Permutations(int Index, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        if(Index == nums.size())
+        {
+            Answer.push_back(nums);
+            return;
+        }
+
+        for(int i = Index; i < nums.size(); i++)
+        {
+            swap(nums[i], nums[Index]);
+            Permutations(Index + 1, nums, Answer);
+            swap(nums[i], nums[Index]);
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) 
+    {
+        int n = nums.size();
+        vector<vector<int>> Answer;
+
+        Permutations(0, nums, Answer);
+        return Answer;
+    }
+};

@@ -1,0 +1,38 @@
+1. Generate All Binary Strings of Size N 
+   Without Adjacent Zeroes
+   Using Recursion & Backtracking
+   Start The String With '0' or '1'
+   Then Pick or Not Pick
+
+TC : O(2 ^ N)  -> Generate All Combinations
+SC : O(N)      -> Recursive Stack Space
+
+class Solution {
+public:
+    void GenerateStrings(string s, int n, vector<string> &Answer)
+    {
+        if(s.size() == n)
+        {
+            Answer.push_back(s);
+            return;
+        }
+
+        if(s.back() != '0')
+        {
+            s.push_back('0');
+            GenerateStrings(s, n, Answer);
+            s.pop_back();
+        }
+
+        s.push_back('1');
+        GenerateStrings(s, n, Answer);
+        s.pop_back();
+    }
+    vector<string> validStrings(int n) 
+    {
+        vector<string> Answer;
+        GenerateStrings("0", n, Answer);
+        GenerateStrings("1", n, Answer);
+        return Answer;    
+    }
+};

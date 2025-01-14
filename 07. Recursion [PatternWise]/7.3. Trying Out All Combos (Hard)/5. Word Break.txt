@@ -1,0 +1,104 @@
+1. Using Recursion
+   Using Palindrome Partitioning Approach
+   Using Map to Store Dictionary Words
+   Partitioning String to Check if Present in Map
+
+TC : O(2^N)   ->  (TLE)  N   -> Length of String
+SC : O(N + M) 	         N   -> Recursive Stack Space
+			 M   -> No.of Words in Dict (i.e. Map)
+
+class Solution 
+{
+    public:
+    bool InDict(int Start, int End, string s, unordered_map<string, bool> &Map)
+    {
+        string Temp = s.substr(Start, End - Start + 1);
+        if(Map.find(Temp) != Map.end())
+            return true;
+        return false;
+    }
+    bool FindBreak(int Index, string s, unordered_map<string, bool> &Map)
+    {
+        if(Index == s.size())
+            return true;
+
+        for(int i = Index; i < s.size(); i++)
+        {
+            if(InDict(Index, i, s, Map))
+            {
+                if(FindBreak(i + 1, s, Map))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    bool wordBreak(string s, vector<string>& wordDict) 
+    {
+        int n = wordDict.size();
+        unordered_map<string, bool> Map;
+        
+        for(int i = 0; i < n; i++)
+            Map[wordDict[i]] = true;
+
+        return FindBreak(0, s, Map);
+    }
+};
+
+
+
+
+2. Using Recursion & Memoization
+   Using Palindrome Partitioning Approach
+   Using Map to Store Dictionary Words
+   Partitioning String to Check if Present in Map
+
+TC : O(N^2)  		 N   -> Length of String
+SC : O(N + M) 	         N   -> Recursive Stack Space, Memo Array
+			 M   -> No.of Words in Dict (i.e. Map)
+
+class Solution 
+{
+    public:
+    bool InDict(int Start, int End, string s, unordered_map<string, bool> &Map)
+    {
+        string Temp = s.substr(Start, End - Start + 1);
+        if(Map.find(Temp) != Map.end())
+            return true;
+        return false;
+    }
+    bool FindBreak(int Index, string s, vector<int> &Memo, unordered_map<string, bool> &Map)
+    {
+        if(Index == s.size())
+            return true;
+
+        if(Memo[Index] != -1)
+            return Memo[Index];
+
+        for(int i = Index; i < s.size(); i++)
+        {
+            if(InDict(Index, i, s, Map))
+            {
+                if(FindBreak(i + 1, s, Memo, Map))
+                {
+                    Memo[Index] = 1;
+                    return true;
+                }
+            }
+        }
+        Memo[Index] = 0;
+        return false;
+    }
+
+    bool wordBreak(string s, vector<string>& wordDict) 
+    {
+        int n = wordDict.size();
+        unordered_map<string, bool> Map;
+        
+        for(int i = 0; i < n; i++)
+            Map[wordDict[i]] = true;
+
+        vector<int> Memo(s.size(), -1);
+        return FindBreak(0, s, Memo, Map);
+    }
+};

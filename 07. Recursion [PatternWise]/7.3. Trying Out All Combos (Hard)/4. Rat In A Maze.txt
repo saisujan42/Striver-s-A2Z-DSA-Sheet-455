@@ -1,0 +1,52 @@
+1. Using Recursion & BackTracking
+   Travel in 4 Directions (DLRU) i.e. Alphabetical Order
+   This Ensures Lexicographically Sorted Order Answer
+   Using Visited Matrix
+
+TC : O(4 ^ (N * M))  -> Traverse Matrix, Each Cell has 4 Directions
+SC : O(N*M + N)      -> N for String s
+                     -> N*M for Visited  (Not Considering Answer)
+
+class Solution 
+{
+    public:
+    vector<int> X = {1, 0, 0, -1};
+    vector<int> Y = {0, -1, 1, 0};
+    string Ways = "DLRU";
+    
+    void FindPath(int i, int j, string s, vector<vector<bool>> &Visited, vector<vector<int>> &mat, vector<string> &Answer)
+    {
+        int n = mat.size();
+        if(i == n - 1 && j == n - 1)
+        {
+            Answer.push_back(s);
+            return;
+        }
+            
+        for(int x = 0; x < 4; x++)
+        {
+            int row = i + X[x];
+            int col = j + Y[x];
+            
+            if(row >= 0 && row < n && col >= 0 && col < n
+            && !Visited[row][col] && mat[row][col] == 1)
+            {
+                Visited[row][col] = true;
+                FindPath(row, col, s + Ways[x], Visited, mat, Answer);
+                Visited[row][col] = false;
+            }
+        }
+    }
+    vector<string> findPath(vector<vector<int>> &mat) 
+    {
+        int n = mat.size();
+        if(mat[0][0] == 0 || mat[n - 1][n - 1] == 0)
+            return {};
+        vector<vector<bool>> Visited(n, vector<bool>(n, false));
+        vector<string> Answer;
+        
+        Visited[0][0] = true;
+        FindPath(0, 0, "", Visited, mat, Answer);
+        return Answer;
+    }
+};

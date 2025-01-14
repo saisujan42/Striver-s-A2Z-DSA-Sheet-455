@@ -1,0 +1,46 @@
+1. Using Map to Store Corresponding Letters to Digits
+   Using Recursion
+   For Each Index We Add Corresponding Letter to String
+
+TC : O(M^N)      M -> Size of Letters 
+                 N -> Length of String of Digits
+
+SC : O(N + M^N)  N   -> Recursive Stack Space
+                 M^N -> Answer Vector
+
+class Solution {
+public:
+    unordered_map<char, string> Map;
+    Solution()
+    {
+        Map['2'] = "abc";
+        Map['3'] = "def";
+        Map['4'] = "ghi";
+        Map['5'] = "jkl";
+        Map['6'] = "mno";
+        Map['7'] = "pqrs";
+        Map['8'] = "tuv";
+        Map['9'] = "wxyz";
+    }
+
+    void Recursion(int Index, string s, string &digits, vector<string> &Answer)
+    {
+        if(Index == digits.size())
+        {
+            Answer.push_back(s);
+            return;
+        }
+        
+        for(char it : Map[digits[Index]])
+            Recursion(Index + 1, s + it, digits, Answer);
+    }
+    vector<string> letterCombinations(string digits) 
+    {
+        if(digits.size() == 0)
+            return {};
+            
+        vector<string> Answer;
+        Recursion(0, "", digits, Answer);
+        return Answer;    
+    }
+};

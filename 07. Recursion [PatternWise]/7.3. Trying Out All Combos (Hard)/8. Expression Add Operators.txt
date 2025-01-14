@@ -1,0 +1,50 @@
+1. Using Recursion & BackTracking
+   '+' & '-' Precedence Doesn't Change Answer
+   But if '*' is Added to Answer, Prev Value should to be used to Multiply First
+   Keep Track of The Previous Value for Multiplication
+
+TC : O(3^N)        N -> Length of String
+SC : O(N)            -> Recursive Stack Space
+
+
+class Solution {
+public:
+    vector<string> Answer;
+    
+    void helper(int i, string Path, long long Sum, long long Prev, string s, int target) 
+    {
+        if(i == s.size())
+        {
+            if(Sum == target)
+                Answer.push_back(Path);
+            return;
+        } 
+
+        string CurrStr;
+        long long num = 0;
+
+        for(int j = i; j < s.size(); j++)
+        {
+            if(j > i && s[i] == '0') 
+                return;
+            
+            CurrStr += s[j]; 
+            num = (num * 10) + (s[j] - '0');
+            
+            if(i == 0)
+                helper(j + 1, Path + CurrStr, num, num, s, target);
+            else
+            {
+                helper(j + 1, Path + "+" + CurrStr, Sum + num, num, s, target);
+                helper(j + 1, Path + "-" + CurrStr, Sum - num, -num, s, target);
+                helper(j + 1, Path + "*" + CurrStr, Sum - Prev + Prev * num , Prev * num, s, target);
+            }
+        }    
+    }
+
+    vector<string> addOperators(string s, int target) 
+    {
+        helper(0, "", 0, 0, s, target);
+        return Answer;
+    }
+};

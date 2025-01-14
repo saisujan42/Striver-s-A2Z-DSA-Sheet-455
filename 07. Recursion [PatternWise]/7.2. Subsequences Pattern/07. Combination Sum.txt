@@ -1,0 +1,35 @@
+1. An Element Can Be Used UnLimited Times
+   Using Recursion
+   Pick or Not-Pick Method
+
+TC : O(K * 2^N)   K -> Valid Combinations
+SC : O(K * 2^N)
+
+class Solution {
+public:
+    void CombinationSum(int Index, vector<int> &Temp, int target, vector<int> &nums, vector<vector<int>> &Answer)
+    {
+        if(Index == nums.size())
+        {
+            if(target == 0)
+                Answer.push_back(Temp);
+            return;
+        }
+
+        if(nums[Index] <= target)
+        {
+            Temp.push_back(nums[Index]);
+            CombinationSum(Index, Temp, target - nums[Index], nums, Answer);
+            Temp.pop_back();
+        }
+
+        CombinationSum(Index + 1, Temp, target, nums, Answer);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
+    {
+        vector<vector<int>> Answer;
+        vector<int> Temp;
+        CombinationSum(0, Temp, target, candidates, Answer);
+        return Answer;    
+    }
+};

@@ -1,0 +1,34 @@
+1. Reverse A Stack
+   Using Recursion
+
+TC : O(N^2)
+SC : O(N)   -> Recursive Stack Space
+
+
+class Solution{
+public:
+    void Insert(stack<int> &Stack, int Value)
+    {
+        if(Stack.empty())
+        {
+            Stack.push(Value);
+            return;
+        }
+        
+        int Temp = Stack.top();
+        Stack.pop();
+        Insert(Stack, Value);
+        Stack.push(Temp);
+    }
+    
+    void Reverse(stack<int> &Stack)
+    {
+        if(Stack.empty())
+            return;
+        
+        int Value = Stack.top();
+        Stack.pop();
+        Reverse(Stack);
+        Insert(Stack, Value);
+    }
+};

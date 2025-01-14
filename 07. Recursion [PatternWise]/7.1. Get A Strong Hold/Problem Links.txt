@@ -1,0 +1,16 @@
+1. Recursive Implementation Of atoi() - String To Integer (atoi)
+https://leetcode.com/problems/string-to-integer-atoi/description/
+
+2. Pow(x, n) - Pow(x, n)
+https://leetcode.com/problems/powx-n/
+
+3. Count Good Numbers - Count Good Numbers
+https://leetcode.com/problems/count-good-numbers/description/
+
+4. Sort A Stack Using Recursion - Sort A Stack
+https://www.geeksforgeeks.org/problems/sort-a-stack/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=sort-a-stack
+
+5. Reverse A Stack Using Recursion - Reverse A Stack
+https://www.geeksforgeeks.org/problems/reverse-a-stack/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=reverse-a-stack
+
+
